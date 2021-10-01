@@ -2,8 +2,12 @@
 <div class="reglist">
     <form novalidate [formGroup]="editEmployeeForm" style="margin-left: 550px;width: 420px;" (ngSubmit)="viewBranchByIFSC()">
   <fieldset>
+  
+    <div class="form-group">
+        <label>*Employee Id:</label>
+        <input type="text" class="form-control" formControlName="id" readonly>
+    </div><br>
 
-<br><br><br><br>
     <div class="form-group">
         <label>*Employee Name:</label>
         <input type="text" class="form-control" formControlName="name">
@@ -84,33 +88,30 @@
   <a  (click)="editBranchDetails()" class="btn btn-success">Update Branch</a><br><br>
 
   <div *ngIf="editBranch">
-         
-<div class="search-hero">
-    <div class="form-group">
-      <div class="col-md-13">
-          <label for="branch">*Branch IFSC</label>
-          <div >
-          <select class="form-control form-control-lg" name="branch" formControlName="branch"  [(ngModel)]="branch"  autocomplete="off">
-              <option> </option>
-              <option *ngFor="let b of branches">{{b.ifscCode}}</option>
-          </select>
-          </div>
+   <div class="form-group">
+    <div class="col-md-13">
+        <label for="branch">*Branch IFSC</label>
+        <div >
+             
+        <select class="form-control form-control-lg" name="branch" formControlName="branch" >
+            <option> </option>
+            <option *ngFor="let b of branches">{{b.ifscCode}}</option>
+        </select>
+        </div>
   </div>
-    </div>
-    </div><br>
-  
-  
-     <div class="form-group" *ngIf="this.editEmployeeForm.get('branch')?.value">
-      <div class="col-md-13">
-          <label for="branch" *ngIf="this.editEmployeeForm.get('branch').valid">Branch Name</label>
-          <div *ngFor="let b of branches |filter:this.editEmployeeForm.get('branch')?.value">
-              <input class="form-control" value={{b.name}} type="text">
-          </div>
+  </div><br>
+
+    <div class="form-group" *ngIf="this.editEmployeeForm.get('branch')?.value">
+        <div class="col-md-13">
+            <label for="branch">Branch Name</label>
+            <div (click)="viewBranchName()">
+                <input class="form-control" type="text" value={{ifsc}} readonly>
+            </div>
     </div>
     </div>
 </div>
 <br>
-    <button type="submit" class="btn btn-primary" [disabled] ="editEmployeeForm.invalid" style="margin-left: 170px">Update</button>
+    <button type="submit" class="btn btn-primary" [disabled] ="editEmployeeForm.invalid" style="margin-left: 120px">Update</button>
     &nbsp;
     <button type="button" (click)=back() class="btn btn-info"  >Back</button>
     

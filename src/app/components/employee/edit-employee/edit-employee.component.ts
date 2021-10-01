@@ -25,13 +25,12 @@ export class EditEmployeeComponent implements OnInit {
   branchName?:string;
   editBranch?:boolean;
   createdDate?:Date;
-  searches?:any
 
   constructor(public activatedRoute :ActivatedRoute,public formBuilder:FormBuilder,public router:Router,public employeeService:EmployeeService,public branchService:BranchService) { }
 
   ngOnInit(): void {
 
-    this.viewAllBranches();
+  
     this.employeeId = this.activatedRoute.snapshot.params['employeeId'];
     console.log("####employeeId: ",this.employeeId)
    

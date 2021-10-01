@@ -1,0 +1,51 @@
+
+<br>
+<h5 style="margin-left: 540px"><font color="red"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font></h5>
+<br> 
+
+<div class="reglist">
+    <form novalidate [formGroup]="editBranchForm" *ngIf="editBranchForm" style="margin-left: 550px;width: 420px;" (ngSubmit)="updateBranch()">
+  <fieldset>
+  
+    <div class="form-group">
+        <label>*Branch Id:</label>
+        <input type="text" class="form-control" formControlName="id" readonly>
+    </div><br>
+
+      <div class="form-group">
+        <label>*Branch Name:</label>
+        <input type="text" class="form-control" formControlName="name">
+        <div class="alert alert-danger"
+            *ngIf="editBranchForm.get('name').hasError('required') && editBranchForm.get('name').dirty">
+            Branch Name is required
+        </div>
+    </div><br>
+
+    <div class="form-group">
+        <label>*Branch City:</label>
+        <input type="text" class="form-control" formControlName="city">
+        <div class="alert alert-danger"
+            *ngIf="editBranchForm.get('city').hasError('required') && editBranchForm.get('city').dirty">
+            Branch city is required
+        </div>
+    </div><br>
+
+    <div class="form-group">
+        <label>*IFSC Code:</label>
+        <input type="text" class="form-control" formControlName="ifscCode" readonly>
+        <div class="alert alert-danger"
+            *ngIf="editBranchForm.get('ifscCode').hasError('required') && editBranchForm.get('ifscCode').dirty">
+            IFSC Code is required
+        </div>
+    </div><br>
+
+    <td>
+        <button type="submit" class="btn btn-primary" [disabled] ="editBranchForm.invalid" style="margin-left: 100px">Update Branch</button>&nbsp;
+      <button type="submit" class="btn btn-primary" (click)=back() >Back</button>&nbsp;&nbsp;
+        
+    </td>
+    <br><br>
+    </fieldset>
+    </form>
+   
+</div>

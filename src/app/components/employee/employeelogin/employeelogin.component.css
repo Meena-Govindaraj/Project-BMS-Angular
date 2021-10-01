@@ -1,0 +1,13 @@
+.pointer {cursor: pointer;
+color:maroon;}
+
+h3{
+    width: 420px;
+    padding: 50px;
+}
+label{
+    color:black;
+}
+body form{
+    background-color:honeydew;
+}

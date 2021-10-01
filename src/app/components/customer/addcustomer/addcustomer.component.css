@@ -1,0 +1,19 @@
+
+
+.pointer 
+{cursor: pointer;
+    color:maroon;}
+ 
+        h3{
+            margin-left: 20px;
+            width: 420px;
+            padding: 50px;
+            color:darkslategrey
+        }
+
+        label{
+            color:black;
+        }
+        body form{
+            background-color:honeydew;
+        }

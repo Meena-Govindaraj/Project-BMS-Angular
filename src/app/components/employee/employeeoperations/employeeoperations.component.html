@@ -1,0 +1,143 @@
+
+          <ul >
+            <li >
+              <a (click)="viewrequests()" >View Requests</a>
+            </li>
+            <li >
+              <a (click)="updateemployee()">View Profile</a>
+            </li>
+            <li>
+                <a (click)="pass()">Change Password</a>
+            </li>
+            <li>
+                <a (click)="logout()" >Logout</a>
+            </li>
+          </ul>    
+    
+
+
+<!---Change password-->
+<div class="reglist" *ngIf=changePassword>
+    <form novalidate [formGroup]="signupForm" style="margin-top: 100px;margin-left: 550px;width: 420px;" (ngSubmit)="updatePassword()">
+  <fieldset>
+    <div class="form-group">
+        <label>*Mobile Number :</label>
+        <input type="tel" class="form-control" formControlName="mobileNo" readonly>
+    </div><br>
+
+    
+    <div class="form-group">
+        <label>*Old Password:</label>
+        <input type="text" class="form-control" formControlName="password">
+        <div class="alert alert-danger"
+            *ngIf="signupForm.get('password').hasError('required') && signupForm.get('password').dirty">
+           Old Password is required
+        </div>
+
+        <div class="alert alert-danger"
+            *ngIf="signupForm.get('password').hasError('minlength') && signupForm.get('password').dirty">
+            Old Password  should be minimum of 6 characters.
+        </div>
+
+    </div><br>
+
+    <div class="form-group">
+        <label>*New Password:</label>
+        <input type="text" class="form-control" formControlName="newPassword">
+        <div class="alert alert-danger"
+            *ngIf="signupForm.get('newPassword').hasError('required') && signupForm.get('newPassword').dirty">
+           New Password is required
+        </div>
+
+        <div class="alert alert-danger"
+            *ngIf="signupForm.get('newPassword').hasError('minlength') && signupForm.get('newPassword').dirty">
+             Password  should be minimum of 6 characters.
+        </div>
+    </div><br>
+
+    <button type="submit" class="btn btn-primary" [disabled] ="signupForm.invalid" style="margin-left: 80px">Change Password</button> &nbsp;
+    <button type="button" (click)=back() class="btn btn-info"  >Back</button>
+    
+  </fieldset>
+    </form>
+</div>
+
+<!--View Transacations-->
+    
+<div *ngIf=viewTrans>
+    <h3><font color="red"  style="margin-left: 550px;width: 800px;"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font></h3>
+
+ <div class="reglist">
+         <table class="table table-striped" style="margin-left: 300px;width: 800px;border-style: ridge;">
+              <thead>
+              <tr>
+              <th>Deposit</th>
+              <th>Withdraw</th>
+              <th>Balance</th>
+              <th>Transaction Date</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let e of transaction">
+              <td>{{e.deposit | currency:'INR'}}</td>
+              <td>{{e.withdraw |  currency:'INR'}}</td>
+              <td>{{e.balance | currency:'INR'}}</td>
+              <td>{{e.transactionDate  |  date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+              </tr>
+            </tbody>
+              </table> 
+               <button type="button" style="margin-left: 650px;border-style: ridge;" (click)=back() class="btn btn-info">Back</button>
+  
+ </div>
+ 
+ 
+ </div>
+
+
+ <!--View all customers-->
+<div *ngIf=viewCust>
+  <!--Search-->
+ <br><br>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+ 
+  <div class="search-hero">
+    <input style="margin-left: 600px;width: 300px;" [ngClass]="['form-control','fa fa-search']" type="text" name="search" [(ngModel)]="searchCus" 
+        autocomplete="off" placeholder="&#xF002;Search Customer Name,MobileNo">
+  </div>
+ 
+    <h3><font color="red"  style="margin-left: 550px;width: 800px;"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font></h3>
+    <div class="reglist">
+         <table class="table table-striped"> 
+              <thead>
+              <tr>
+              <th>Name</th>
+              <th>Account Number</th>
+              <th>Mobile No</th>
+              <th>Branch Name</th>
+              <th>IFSC code</th>
+              <th>Balance</th>
+              <th>Transactions</th>
+              <th>Delete</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let c of account | filter:searchCus">
+              <td>{{c.accountType.customer.name}}</td>
+              <td>{{c.accountType.accountNo}}</td>
+              <td>{{c.accountType.customer.mobileNo}}</td>
+              <td>{{c.accountType.customer.branch.name}}</td>
+              <td>{{c.accountType.customer.branch.ifscCode}}</td>
+              <td>{{c.balance | currency:'INR'}}</td>
+            
+              <td>
+                  <button type="button" class="btn btn-info" (click)="viewTransacations(c.id)"> Transacations</button></td>
+              <td>
+                 <button type="button" class="btn btn-danger" (click)="alertConfirmation(c.accountType.id,c.accountType.customer.id)"> {{c.accountType.type}} Account</button>
+              </td>
+              </tr>
+              </tbody>
+              </table>
+     </div>
+ 
+ <div>
+         

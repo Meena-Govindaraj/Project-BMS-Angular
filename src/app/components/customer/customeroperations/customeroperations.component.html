@@ -1,4 +1,5 @@
 <br><br>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <div *ngIf=noAccount> 
     <h3>Sorry!! You Didn't have account right now! </h3>
@@ -13,19 +14,19 @@
     <ul>
         <li>
             <i>
-            <a  style="color: tomato" *ngIf=otherOp >{{accountDetails[0].accountType.customer.name}}</a></i>
+            <a  style="color:orange" *ngIf=otherOp  class="fa fa-user-circle">&nbsp;{{accountDetails[0].accountType.customer.name}}</a></i>
           </li>
           <li>
-            <a *ngIf=otherOp (click)=pass()>Change Password</a>
+            <a *ngIf=otherOp (click)=pass() class="fa fa-key">&nbsp;Change Password</a>
           </li>
       <li>
-        <a *ngIf=savingsAccount (click)=viewSavingsAccount()>View Saving Account</a>
+        <a *ngIf=savingsAccount (click)=viewSavingsAccount() class="fa fa-eye">&nbsp;View Saving Account</a>
       </li>
       <li>
         <a *ngIf=currentAccount  (click)=viewCurrentAccount()>View Current Account</a>
       </li>
       <li>
-        <a *ngIf=otherOp (click)=logout()>logout</a>
+        <a *ngIf=otherOp (click)="logout()" style="margin-left: 650px;"  class="fa fa-sign-out" >&nbsp;Logout</a>
       </li>
     </ul>   
      

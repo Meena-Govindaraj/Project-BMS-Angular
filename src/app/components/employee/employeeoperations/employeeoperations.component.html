@@ -1,16 +1,15 @@
-
-          <ul >
+      <ul >
             <li >
-              <a (click)="viewrequests()" >View Requests</a>
+              <a (click)="viewrequests()" class="fa fa-users">&nbsp;View Requests</a>
             </li>
             <li >
-              <a (click)="updateemployee()">View Profile</a>
+              <a (click)="updateemployee()" class="fa fa-user-circle">&nbsp;View Profile</a>
             </li>
             <li>
-                <a (click)="pass()">Change Password</a>
+                <a (click)="pass()" class="fa fa-key">&nbsp;Change Password</a>
             </li>
             <li>
-                <a (click)="logout()" >Logout</a>
+                <a (click)="logout()" style="margin-left: 650px;"  class="fa fa-sign-out" >&nbsp;Logout</a>
             </li>
           </ul>    
     
@@ -18,6 +17,7 @@
 
 <!---Change password-->
 <div class="reglist" *ngIf=changePassword>
+  
     <form novalidate [formGroup]="signupForm" style="margin-top: 100px;margin-left: 550px;width: 420px;" (ngSubmit)="updatePassword()">
   <fieldset>
     <div class="form-group">
@@ -102,7 +102,7 @@
  
   <div class="search-hero">
     <input style="margin-left: 600px;width: 300px;" [ngClass]="['form-control','fa fa-search']" type="text" name="search" [(ngModel)]="searchCus" 
-        autocomplete="off" placeholder="&#xF002;Search Customer Name,MobileNo">
+        autocomplete="off" placeholder="&#xF002;&nbsp;Search Customer Name,MobileNo">
   </div>
  
     <h3><font color="red"  style="margin-left: 550px;width: 800px;"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font></h3>

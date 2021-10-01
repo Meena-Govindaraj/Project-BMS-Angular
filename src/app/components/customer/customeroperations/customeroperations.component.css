@@ -10,6 +10,9 @@ h4,h3{
     color: gray;
     text-align: center;
 }
+.fa fa-user-circle{
+  color: silver;
+}
 ul {
     list-style-type: none;
     margin: 0;

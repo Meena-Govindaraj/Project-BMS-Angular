@@ -7,9 +7,8 @@ import { AccountService } from 'src/app/services/account.service';
 import { BranchService } from 'src/app/services/branch.service';
 import { CustomerService } from 'src/app/services/customer.service';
 import { Accountype } from 'src/app/models/accountype';
+import { ToasterserviceService } from 'src/app/toasterservice.service';
 
-import Swal from 'sweetalert2';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-addcustomer',
@@ -30,7 +29,7 @@ export class AddcustomerComponent implements OnInit {
   typeForm:FormGroup
   accountType:Accountype;
 
-  constructor(public activatedRoute :ActivatedRoute,public customerService:CustomerService,public branchService:BranchService,public accountService:AccountService, public formBuilder:FormBuilder, public router: Router) { }
+  constructor(public activatedRoute :ActivatedRoute,private toasterService:ToasterserviceService,public customerService:CustomerService,public branchService:BranchService,public accountService:AccountService, public formBuilder:FormBuilder, public router: Router) { }
 
   ngOnInit(): void {
     
@@ -103,7 +102,7 @@ export class AddcustomerComponent implements OnInit {
                console.log(response)
              },error => {
                console.log("Customer account with type created successfully!")
-               this.successNotification();
+               this.success();
                this.router.navigate(['customerlogin'])
              })
       })
@@ -141,10 +140,11 @@ export class AddcustomerComponent implements OnInit {
     
   }
 
-
-successNotification(){
-  Swal.fire('Wait For Mail!!', 'Account Details will be sent to your mail once accepted by bank!!', 'info')
+ success()
+{
+  this.toasterService.success("Account Details will be sent to your mail once accepted by bank!!")
 }
+
 customerLogin()
 {
   this.router.navigate(['customerlogin'])

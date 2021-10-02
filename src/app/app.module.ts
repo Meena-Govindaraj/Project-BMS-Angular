@@ -26,6 +26,7 @@ import { ViewtransactionsComponent } from './components/transactions/viewtransac
 import { ChangepinComponent } from './components/customer/changepin/changepin.component';
 import { AdminloginComponent } from './components/admin/adminlogin/adminlogin.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter'
+import { ToasterserviceService } from './toasterservice.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +60,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter'
     ReactiveFormsModule,
     FormsModule,Ng2SearchPipeModule
   ],
-  providers: [],
+  providers: [ToasterserviceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

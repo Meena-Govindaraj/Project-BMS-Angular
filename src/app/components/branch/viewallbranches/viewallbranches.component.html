@@ -1,50 +1,51 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  
+
 <body>
   <ul>
-    <li >
-      <a (click)="addBranch()"  class="fa fa-bank">&nbsp;Add Branch</a>
+    <li>
+      <a (click)="addBranch()" class="fa fa-bank">&nbsp;Add Branch</a>
     </li>
     <li>
-      <a (click)="showAdminop()"  class="fa fa-sign-in">&nbsp;Back</a>
+      <a (click)="showAdminop()" class="fa fa-sign-in">&nbsp;Back</a>
     </li>
-  </ul>     
+  </ul>
 </body>
 
 <br><br>
 <div class="search-hero">
 
-    <input style="margin-left: 550px;width: 300px;" [ngClass]="['form-control','fa fa-search']" type="text" name="search" [(ngModel)]="searches" 
-        autocomplete="off" placeholder="&#xF002;Search Branch by IFSC/Name/City">
-     
-  </div>
-<h3><font color="red"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font></h3>
+  <input style="margin-left: 550px;width: 300px;" [ngClass]="['form-control','fa fa-search']" type="text" name="search"
+    [(ngModel)]="searches" autocomplete="off" placeholder="&#xF002;Search Branch by IFSC/Name/City">
+
+</div>
+<h3>
+  <font color="red"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font>
+</h3>
 <div *ngIf="tt">
-   <div class="reglist">
-       
-        <table class="table table-striped">
-             <thead>
-             <tr>
-             <th>Branch Name</th>
-             <th>Branch City</th>
-             <th>IFSC Code</th>
-             <th>Opened Date</th>
-             <th>Edit</th>
-             <th>Delete</th>
-             </tr>
-             </thead>
-             <tbody>
-             <tr *ngFor="let b of branch |filter:searches">
-             <td>{{b.name}}</td>
-             <td>{{b.city}}</td>
-             <td>{{b.ifscCode}}</td>
-             <td>{{b.createdDate | date}}</td>
-             <td *ngIf="branch!=null"><button type="button" class="btn btn-info" (click)="editBranch(b.id)">Edit</button></td>
-             <td *ngIf="branch!=null"><button type="button" class="btn btn-danger" (click)="alertConfirmation(b.id)">Delete</button></td>
-             </tr>
-             </tbody>
-             </table>
-    </div>
+  <div class="reglist">
 
-
- 
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Branch Name</th>
+          <th>Branch City</th>
+          <th>IFSC Code</th>
+          <th>Opened Date</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let b of branch |filter:searches">
+          <td>{{b.name}}</td>
+          <td>{{b.city}}</td>
+          <td>{{b.ifscCode}}</td>
+          <td>{{b.createdDate | date}}</td>
+          <td *ngIf="branch!=null"><button type="button" class="btn btn-info" (click)="editBranch(b.id)">Edit</button>
+          </td>
+          <td *ngIf="branch!=null"><button type="button" class="btn btn-danger"
+              (click)="alertConfirmation(b.id)">Delete</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

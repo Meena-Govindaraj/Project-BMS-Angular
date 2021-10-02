@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Branch } from 'src/app/models/branch';
 import { BranchService } from 'src/app/services/branch.service';
+import { ToasterserviceService } from 'src/app/toasterservice.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,7 +18,7 @@ export class AddbranchComponent implements OnInit {
   errorMessage?:string
   ifscCodeExists?:string;
   date=new Date();
-  constructor(public activatedRoute :ActivatedRoute,public formBuilder:FormBuilder,public branchService:BranchService,public router:Router) { }
+  constructor(public activatedRoute :ActivatedRoute,private toasterService:ToasterserviceService,public formBuilder:FormBuilder,public branchService:BranchService,public router:Router) { }
 
   ngOnInit(): void {
      this.addBranchForm=this.formBuilder.group({
@@ -51,26 +52,26 @@ export class AddbranchComponent implements OnInit {
       },
       error=>
      {
-       this.successNotification();
-       console.log("Error in save: "+error)
-        this.back();
+       this.back();
+       this.success();
+       console.log("Error in save: "+error)  
      }
     )
     
   else{
-    
     this.errorMessage="IFSC code: "+this.branch.ifscCode+" already exists!!"
     console.log(this.errorMessage)
   }
 }
 )}
 
-successNotification(){
-  Swal.fire('Success', 'Branch Added Successfully!', 'success')
-}
 back()
 {
   this.router.navigate(['viewall'])
+}
+success()
+{
+  this.toasterService.success("Branch Added Successfully!")
 }
 
 }

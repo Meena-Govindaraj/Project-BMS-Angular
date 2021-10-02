@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'; 
 import { Router } from '@angular/router';
+import { ToasterserviceService } from './toasterservice.service';
 
 @Component({
   selector: 'app-root',
@@ -9,14 +10,16 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'BankingManagementSystem';
 
-  constructor(public router:Router){}
-  
+  constructor(public router:Router)
+  {
+
+  }
   ngOnInit(): void {
      //this.router.navigate(['employeeop',2])
      //this.router.navigate(['account',25,"Savings"])
-    this.router.navigate(['home'])
+       this.router.navigate(['customerlogin'])
     //this.router.navigate(['customeroperations',32])
     
   }
-  
+
 }

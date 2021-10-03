@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Branch } from 'src/app/models/branch';
 import { BranchService } from 'src/app/services/branch.service';
-import Swal from 'sweetalert2';
+import { ToasterserviceService } from 'src/app/toasterservice.service';
 
 @Component({
   selector: 'app-editbranch',
@@ -11,54 +12,53 @@ import Swal from 'sweetalert2';
   styleUrls: ['./editbranch.component.css']
 })
 export class EditbranchComponent implements OnInit {
-  
-  editBranchForm?:FormGroup
-  branch?:Branch;
-  errorMessage?:string
-  ifscCodeExists?:string;
-  branchId?:number;
-  date=new Date();
 
-  constructor(public activatedRoute :ActivatedRoute,public formBuilder:FormBuilder,public branchService:BranchService,public router:Router) { }
+  editBranchForm?: FormGroup
+  errorMessage?: string
+  branchId?: number;
+
+  constructor(public activatedRoute: ActivatedRoute, public toasterService: ToasterserviceService, public formBuilder: FormBuilder, public branchService: BranchService, public router: Router) { }
 
   ngOnInit(): void {
+
+    var branch: Observable<Branch> | any;
     this.branchId = this.activatedRoute.snapshot.params['branchId'];
-    console.log("####branchId: ",this.branchId)
-  
+    console.log("####branchId: ", this.branchId)
+
+ 
     this.branchService.getBranchById(this.branchId)
-      .subscribe(data=>{
-       console.log(data)
-      this.editBranchForm=this.formBuilder.group({
-      id:[data.id,[Validators.required]],
-      name: [data.name, [Validators.required]],
-      city: [data.city, [Validators.required]],
-      ifscCode: [data.ifscCode, [Validators.required]],
-      createdDate: [data.createdDate, [Validators.required]]
-     })
-    })
+      .subscribe(res => {
+        console.log(res)
+        branch=res;
+        branch=branch.data;
+        this.editBranchForm = this.formBuilder.group({
+          id: [branch.id, [Validators.required]],
+          name: [branch.name, [Validators.required]],
+          city: [branch.city, [Validators.required]],
+          ifscCode: [branch.ifscCode, [Validators.required]],
+          createdDate:[branch.createdDate]
+        })
+      })
   }
 
-  updateBranch()
-  {
+  updateBranch() {
     this.branchService.updateBranch(this.editBranchForm?.value)
-    .subscribe(
-      response => {
-        console.log(response);
-        console.log("#######updated successfully ");
-      },
-      error => {
-        this.successNotification();
-        this.back();
-        console.log("ERROR in save : " + error);
-      });
+      .subscribe(
+        response => {
+          console.log(response);
+          this.back();
+          this.success();
+        },
+        error => {
+          console.log("ERROR in update : " + error);
+        });
   }
 
-  back()
-    {
-      this.router.navigate(['viewall'])
-    }
+  back() {
+    this.router.navigate(['viewall'])
+  }
 
-  successNotification(){
-    Swal.fire('Success', 'Branch Updated Successfully!', 'success')
+  success() {
+    this.toasterService.success("Branch Updated Successfully!")
   }
 }

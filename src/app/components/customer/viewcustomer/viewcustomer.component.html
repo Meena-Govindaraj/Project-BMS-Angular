@@ -33,7 +33,6 @@
              <table class="table table-striped"> 
                   <thead>
                   <tr>
-                  <th>Customer id</th>
                   <th>Name</th>
                   <th>Account Number</th>
                   <th>Mobile No</th>
@@ -42,11 +41,11 @@
                   <th>Balance</th>
                   <th>Transactions</th>
                   <th>Delete</th>
+                  <th>alerrt</th>
                   </tr>
                   </thead>
                   <tbody>
                   <tr *ngFor="let c of account">
-                  <td>{{c.accountType.customer.id}}</td>
                   <td>{{c.accountType.customer.name}}</td>
                   <td>{{c.accountType.accountNo}}</td>
                   <td>{{c.accountType.customer.mobileNo}}</td>
@@ -59,6 +58,9 @@
                   <td>
                      <button type="button" class="btn btn-danger" (click)="alertConfirmation(c.accountType.id,c.accountType.customer.id)"> {{c.accountType.type}} Account</button>
                   </td>
+                  <td *ngIf="c.balance<=5000">
+                   <button>kkk</button>
+                 </td>
                   </tr>
                   </tbody>
                   </table>

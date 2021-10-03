@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Branch } from 'src/app/models/branch';
 import { Employee } from 'src/app/models/employee';
 import { BranchService } from 'src/app/services/branch.service';
@@ -15,91 +16,111 @@ import Swal from 'sweetalert2';
 })
 export class AddemployeeComponent implements OnInit {
 
-  signupForm:FormGroup
-  branch:Branch[]=[];
-  errorMessage?:string
-  employee?:Employee;
-  branches:Branch[]=[];
-  ifsc?:string;
-  searches?:any
- 
-  constructor(public activatedRoute :ActivatedRoute,private toasterService:ToasterserviceService,public employeeService:EmployeeService,public branchService:BranchService, public formBuilder:FormBuilder, 
+  signupForm: FormGroup
+  branch: Observable<Branch[]> | any;
+  errorMessage?: string
+  employee: Employee;
+  branches: Observable<Branch[]> | any;
+  searches?: any
+
+  constructor(public activatedRoute: ActivatedRoute, private toasterService: ToasterserviceService, public employeeService: EmployeeService, public branchService: BranchService, public formBuilder: FormBuilder,
     public router: Router) { }
-   
+
   ngOnInit(): void {
 
     this.viewAllBranches();
     this.signupForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
-      mobileNo: ['', [Validators.required ,Validators.minLength(10),Validators.maxLength(10)]],
-      email: ['', [Validators.required,Validators.email ]],
-      address: ['', [Validators.required ]],
-      salary: ['', [Validators.required ,Validators.min(0)]],
-      branch:['',Validators.required]
+      mobileNo: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      email: ['', [Validators.required, Validators.email]],
+      address: ['', [Validators.required]],
+      salary: ['', [Validators.required, Validators.min(0)]],
+      branch: ['', Validators.required]
     }
     )
   }
 
-  viewBranchByIFSC()
-  {
+  viewBranchByIFSC() {
+    console.log(this.signupForm.get('branch')?.value)
     this.branchService.getBranchByIfscCode(this.signupForm.get('branch')?.value).subscribe(
-      (data:any)=>{
-        console.log("branch Name: "+this.signupForm.get('branch')?.value)
-        this.branch=data;
-        this.employee=this.signupForm.value;
-        this.employee.branch=this.branch;
+      (data) => {
+        console.log("branch Name: " + this.signupForm.get('branch')?.value)
+        this.branch = data;
+        this.branch = this.branch.data;
+        this.employee = this.signupForm.value;
+        this.employee.branch = this.branch;
         this.getEmployeeByPhone(this.signupForm.get('mobileNo')?.value);
       })
   }
 
 
   //to get all branches
-  viewAllBranches()
-  {
+  viewAllBranches() {
     this.branchService.getAllBranches().subscribe(
-      (data:any[])=>{
-     this.branches=data;
-      console.log(data)
+      (data) => {
+        this.branches = data;
+        this.branches = this.branches.data;
+        console.log(data)
       }
-      )
+    )
   }
 
-  employeeSignup(employee:any)
-  {
-    this.successNotification();
-    this.viewemployee();
+  employeeSignup(employee: Employee) {
     console.log(this.signupForm?.value)
     this.employeeService.addEmployee(employee)
-    .subscribe(
-      response => {
-        this.employee=response
-      },error => {
-        console.log("Employee account created successfully!")
-      })
-   
+      .subscribe(
+        response => {
+          this.employee = response;
+          this.successNotification()
+          this.viewEmployees();
+          console.log("Employee account created successfully!")
+        })
   }
-  
-successNotification(){
-  this.toasterService.success("Employee account created successfully!")
-}
 
-  getEmployeeByPhone(mobileNo:string)
-  {
-    this.employeeService.getEmployeeByMobileNo(mobileNo).subscribe(data=>{
-      console.log("By mobile: "+data);
+
+  getEmployeeByPhone(mobileNo: string) {
+    var emp: Observable<Employee[]> | any;
+    this.employeeService.getEmployeeByMobileNo(mobileNo).subscribe(res => {
+      console.log(res);
       //can add
-      if(data==null){
-        this.errorMessage="";
-        this.employeeSignup(this.employee);
+      emp = res
+      emp = emp.data
+      if (emp == null) {
+        this.errorMessage = "";
+        this.getEmployeeByEmail(this.signupForm.get('email')?.value);
       }
-      else{
-        this.errorMessage=" Account already exists"
+      else {
+        this.errorMessage = " Account already exists with this mobileno"
       }
     })
   }
 
-  viewemployee()
-  {
-  this.router.navigate(['viewemployees'])
+  getEmployeeByEmail(email: string) {
+    var emp: Observable<Employee[]> | any;
+    this.employeeService.getEmployeeByEmail(email).subscribe(res => {
+      console.log(res);
+      //can add
+      emp = res
+      emp = emp.data
+      if (emp == null) {
+        this.errorMessage = "";
+        this.employeeSignup(this.employee);
+      }
+      else {
+        this.errorMessage = " Account already exists with this email"
+      }
+    })
   }
+
+  successNotification() {
+    this.toasterService.success("Employee account created successfully!")
+  }
+  viewEmployees() {
+
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.errorMessage = ""
+    this.router.navigate(['viewemployees'])
+  }
+
 }

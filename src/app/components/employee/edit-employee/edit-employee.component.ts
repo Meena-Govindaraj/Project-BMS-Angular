@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Branch } from 'src/app/models/branch';
 import { Employee } from 'src/app/models/employee';
 import { BranchService } from 'src/app/services/branch.service';
 import { EmployeeService } from 'src/app/services/employee.service';
+import { ToasterserviceService } from 'src/app/toasterservice.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,41 +17,42 @@ import Swal from 'sweetalert2';
 export class EditEmployeeComponent implements OnInit {
 
   editEmployeeForm?:FormGroup
-  employeeId:number;
-  branch:Branch[]=[];
+  branch: Observable<Branch> | any; 
   employee?:Employee;
-  branches:Branch[]=[];
-  errorMessage?:string
+  branches: Observable<Branch[]> | any; 
   ifsc?:string;
   branchIfsc?:string
   branchName?:string;
   editBranch?:boolean;
   createdDate?:Date;
 
-  constructor(public activatedRoute :ActivatedRoute,public formBuilder:FormBuilder,public router:Router,public employeeService:EmployeeService,public branchService:BranchService) { }
+  constructor(public activatedRoute :ActivatedRoute,public toasterService:ToasterserviceService,public formBuilder:FormBuilder,public router:Router,public employeeService:EmployeeService,public branchService:BranchService) { }
 
   ngOnInit(): void {
 
-  
-    this.employeeId = this.activatedRoute.snapshot.params['employeeId'];
-    console.log("####employeeId: ",this.employeeId)
+    var employeeId:number;
+    var emp: Observable<Employee[]> | any;
+    employeeId = this.activatedRoute.snapshot.params['employeeId'];
+    console.log("####employeeId: ",employeeId)
    
-    this.employeeService.getEmployeeById(this.employeeId)
-      .subscribe(data=>{
-       console.log(data)
+    this.employeeService.getEmployeeById(employeeId)
+      .subscribe(res=>{
+        emp=res;
+        emp=emp.data;
+       console.log(emp)
        this.editEmployeeForm=this.formBuilder.group({
-        id:[this.employeeId,[Validators.required]],
-        name: [data.name, [Validators.required, Validators.minLength(3)]],
-        password: [data.password],
-        mobileNo: [data.mobileNo, [Validators.required ,Validators.minLength(10),Validators.maxLength(10)]],
-        email: [data.email, [Validators.required,Validators.email ]],
-        address: [data.address, [Validators.required ]],
-        salary: [data.salary, [Validators.required ,Validators.min(0)]],
-        branch:[data.branch.ifscCode,Validators.required], 
+        id:[employeeId,[Validators.required]],
+        name: [emp.name, [Validators.required, Validators.minLength(3)]],
+        password: [emp.password],
+        mobileNo: [emp.mobileNo, [Validators.required ,Validators.minLength(10),Validators.maxLength(10)]],
+        email: [emp.email, [Validators.required,Validators.email ]],
+        address: [emp.address, [Validators.required ]],
+        salary: [emp.salary, [Validators.required ,Validators.min(0)]],
+        branch:[emp.branch.ifscCode,Validators.required], 
        })
-       this.branchIfsc=data.branch.ifscCode;
-       this.branchName=data.branch.name;
-       this.createdDate=data.createdDate;
+       this.branchIfsc=emp.branch.ifscCode;
+       this.branchName=emp.branch.name;
+       this.createdDate=emp.createdDate;
     })
     
   }
@@ -61,6 +64,7 @@ export class EditEmployeeComponent implements OnInit {
       (data:any)=>{
         console.log("branch Name: "+this.editEmployeeForm.get('branch')?.value)
         this.branch=data;
+        this.branch=this.branch.data;
         this.employee=this.editEmployeeForm.value;
         this.employee.createdDate=this.createdDate;
         this.employee.branch=this.branch;
@@ -71,11 +75,15 @@ export class EditEmployeeComponent implements OnInit {
   //Getting branch details to view branch name..
   viewBranchName()
   {
+    
     this.branchService.getBranchByIfscCode(this.editEmployeeForm.get('branch')?.value).subscribe(
-      (data:any)=>{
+      (res)=>{
         console.log("branch Name: "+this.editEmployeeForm.get('branch')?.value)
-        console.log(data);
-        this.ifsc=data.name;
+
+        console.log(res);
+        this.branch=res;
+        this.branch=this.branch.data;
+        this.ifsc=this.branch.name;
         console.log("BRANCH: "+this.ifsc)
       })
   }
@@ -83,26 +91,27 @@ export class EditEmployeeComponent implements OnInit {
   //to get all branches
   viewAllBranches()
   {
+   
     this.branchService.getAllBranches().subscribe(
-      (data:any[])=>{
-     this.branches=data;
+      (data)=>{
+      this.branches=data;
+      this.branches=this.branches.data;
       console.log(data)
       }
       )
   }
 
-  updateEmployee(employee:any)
+  updateEmployee(employee:Employee)
   {
     console.log(this.editEmployeeForm?.value)
     this.employeeService.updateEmployee(employee)
     .subscribe(
       response => {
         this.employee=response
-      },error => {
         this.successNotification();
         console.log("Employee account Updated successfully!")
         this.back();
-            })
+      })
    
   }
 
@@ -113,7 +122,7 @@ export class EditEmployeeComponent implements OnInit {
   }
   
 successNotification(){
-  Swal.fire('Success', 'Employee Datails Updated Successfully!', 'success')
+  this.toasterService.success("Employee account Updated successfully!")
 }
 
 back()

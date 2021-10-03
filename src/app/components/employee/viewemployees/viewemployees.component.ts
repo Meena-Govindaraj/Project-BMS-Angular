@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Employee } from 'src/app/models/employee';
 import { EmployeeService } from 'src/app/services/employee.service';
 import Swal from 'sweetalert2';
@@ -12,7 +13,8 @@ import Swal from 'sweetalert2';
 })
 export class ViewemployeesComponent implements OnInit {
 
-  employee:Employee[]=[];
+
+  employee:Observable<Employee[]> | any;
   errorMessage?:string
   searchemployee?:any
 
@@ -26,7 +28,7 @@ export class ViewemployeesComponent implements OnInit {
   viewAllEmployees()
   {
     this.employeeService.getAllEmployees().subscribe(
-      (data:any[])=>{
+      (data)=>{
       console.log("####Getting all Employees");
       if(data==null)
       {
@@ -36,6 +38,7 @@ export class ViewemployeesComponent implements OnInit {
       else{
       console.log(data);
       this.employee=data;
+      this.employee=this.employee.data;
       }
       
     },err=>this.errorMessage=err)
@@ -56,13 +59,9 @@ export class ViewemployeesComponent implements OnInit {
          .subscribe(
            response => {
              console.log("Response"+response) 
-           },
-           error => {
              console.log("employeeId: "+employeeId+" deleted successfully ");
              this.viewAllEmployees();
-             console.log(error)
-           }
-        );   
+           });  
    }
 
   //for pop up for deletion of Employee

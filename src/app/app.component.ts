@@ -8,8 +8,7 @@ import { ToasterserviceService } from './toasterservice.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'BankingManagementSystem';
-
+ 
   constructor(public router:Router)
   {
 
@@ -17,7 +16,7 @@ export class AppComponent {
   ngOnInit(): void {
      //this.router.navigate(['employeeop',2])
      //this.router.navigate(['account',25,"Savings"])
-       this.router.navigate(['customerlogin'])
+       this.router.navigate(['adminop'])
     //this.router.navigate(['customeroperations',32])
     
   }

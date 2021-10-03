@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Branch } from 'src/app/models/branch';
 import { BranchService } from 'src/app/services/branch.service';
 import { ToasterserviceService } from 'src/app/toasterservice.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-addbranch',
@@ -13,65 +13,63 @@ import Swal from 'sweetalert2';
 })
 export class AddbranchComponent implements OnInit {
 
-  addBranchForm?:FormGroup
-  branch?:Branch;
-  errorMessage?:string
-  ifscCodeExists?:string;
-  date=new Date();
-  constructor(public activatedRoute :ActivatedRoute,private toasterService:ToasterserviceService,public formBuilder:FormBuilder,public branchService:BranchService,public router:Router) { }
+  addBranchForm?: FormGroup
+  errorMessage?: string;
+
+  constructor(public activatedRoute: ActivatedRoute, private toasterService: ToasterserviceService, public formBuilder: FormBuilder, public branchService: BranchService, public router: Router) { }
 
   ngOnInit(): void {
-     this.addBranchForm=this.formBuilder.group({
+    this.addBranchForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       city: ['', [Validators.required]],
-      ifscCode: ['', [Validators.required,Validators.minLength(6)]]
-     })
+      ifscCode: ['', [Validators.required, Validators.minLength(6)]]
+    })
   }
 
-//TO ADD BRANCH
- addBranch()
-  {
-    console.log(this.branch=this.addBranchForm?.value);
-    
-    this.branch=this.addBranchForm.value;
-    this.ifscCodeExists=this.branch.ifscCode
-  
-    console.log("Ifsc code: "+this.ifscCodeExists)
+  //TO ADD BRANCH
+  addBranch() {
+
+    var branch: Observable<Branch> | any;
+    var ifscCodeExists: string;
+
+    console.log(this.addBranchForm?.value);
+
+    branch = this.addBranchForm.value;
+    ifscCodeExists = branch.ifscCode
 
     //TO CHECK IFSC CODE ALREADY EXISTS OR NOT
-    this.branchService.getBranchByIfscCode(this.ifscCodeExists)
-    .subscribe(res=>{
-      console.log("Branch By Ifsc code: "+res)
-      //IF NOT 
-      if(res==null)
-      this.branchService.addBranch(this.addBranchForm?.value)
-    .subscribe(
-      res=>{
-        console.log(res);
-        console.log("#####Branch Added Successfully!");
-      },
-      error=>
-     {
-       this.back();
-       this.success();
-       console.log("Error in save: "+error)  
-     }
-    )
-    
-  else{
-    this.errorMessage="IFSC code: "+this.branch.ifscCode+" already exists!!"
-    console.log(this.errorMessage)
-  }
-}
-)}
+    this.branchService.getBranchByIfscCode(ifscCodeExists)
+      .subscribe(res => {
+        console.log(res)
+        //IF NOT 
+        branch = res
+        branch=branch.data;
+        console.log(branch)
+        if (branch == null){
+          this.branchService.addBranch(this.addBranchForm?.value)
+            .subscribe(
+              res => {
+                console.log(res);
+                this.back();
+                this.success();
+              }
+            )
+        }
 
-back()
-{
-  this.router.navigate(['viewall'])
-}
-success()
-{
-  this.toasterService.success("Branch Added Successfully!")
-}
+        else {
+         
+          this.errorMessage = "IFSC code: " + branch.ifscCode + " already exists!!"
+          console.log(this.errorMessage)
+        }
+      },err=>{console.log(err)}
+      )
+  }
+
+  back() {
+    this.router.navigate(['viewall'])
+  }
+  success() {
+    this.toasterService.success("Branch Added Successfully!")
+  }
 
 }

@@ -30,7 +30,7 @@ export class ViewcustomerComponent implements OnInit {
   viewTrans?:boolean;
   viewCust?:boolean;
   searchCus:any
-
+  bal=5000;
   constructor(public activatedRoute:ActivatedRoute,public router:Router,public formBuilder:FormBuilder,public customerService:CustomerService,public accountService:AccountService,public employeeService:EmployeeService,public transacationService:TransactionService) { }
 
   ngOnInit(): void {

@@ -83,9 +83,7 @@
   </div>
     </div>
     </div><br>
-  
-  
-     <div class="form-group" *ngIf="this.signupForm.get('branch')?.value">
+     <div class="form-group" *ngIf="this.signupForm.get('branch').valid">
       <div class="col-md-13">
           <label for="branch" *ngIf="this.signupForm.get('branch').valid">Branch Name</label>
           <div *ngFor="let b of branches |filter:this.signupForm.get('branch')?.value">
@@ -97,7 +95,7 @@
 <h6><font color="red"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font></h6>
 <button type="submit" class="btn btn-primary" [disabled] ="signupForm.invalid" style="margin-left: 50px">Add Employee</button>&nbsp;&nbsp;
 <button class="btn btn-success" type="reset">Reset</button>&nbsp;&nbsp;
-<button  class="btn btn-info" (click)="viewemployee()">Back</button>&nbsp;&nbsp;<br><br>
+<button  class="btn btn-info" (click)="viewEmployees()">Back</button>&nbsp;&nbsp;<br><br>
 
     <br><br>
 </fieldset>

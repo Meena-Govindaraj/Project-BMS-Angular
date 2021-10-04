@@ -51,7 +51,7 @@ export class ViewcustomerComponent implements OnInit {
         this.employee=response;
         console.log(this.employee)
           this.accountService.getCustomersByIFSC(this.employee.branch.ifscCode).subscribe(
-          (data:any[])=>{
+          (data)=>{
           console.log("####Getting all Customers");
           if(data==null)
           {
@@ -75,13 +75,9 @@ export class ViewcustomerComponent implements OnInit {
         .subscribe(
           response => {
             console.log("Response"+response) 
-          },
-          error => {
             console.log("customer Id: "+customerId+" deleted successfully ");
             this.viewAllCustomer();
-            console.log(error)
           }
-          
        );   
   }
 
@@ -93,8 +89,6 @@ export class ViewcustomerComponent implements OnInit {
         .subscribe(
           response => {
             console.log("Response"+response) 
-          },
-          error => {
             this.accountService.getCountOfCustomerAccount(customerId)
             .subscribe(
               cust=> {
@@ -103,7 +97,6 @@ export class ViewcustomerComponent implements OnInit {
                   this.deleteCustomer(customerId)
               })
             this.viewAllCustomer();
-            console.log(error)
           }
           
        );   
@@ -141,7 +134,6 @@ export class ViewcustomerComponent implements OnInit {
   this.viewCust=false;
   this.transacationService.getTransactionByAccount(accountId).subscribe(data=>
     {
-
       if(data==null)
         this.errorMessage="NO DATA FOUND!"
       else{console.log(data)

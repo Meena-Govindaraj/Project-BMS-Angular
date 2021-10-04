@@ -1,8 +1,8 @@
 
-<body>
+
 <div class="reglist" *ngIf=resetPassword>
     
-    <form novalidate [formGroup]="getEmailForm" style="margin-top: 100px;margin-left: 520px;width: 400px" (ngSubmit)="forgetPassword()">
+   <br><br> <form novalidate [formGroup]="getEmailForm" style="margin-top: 100px;margin-left: 520px;width: 400px" (ngSubmit)="forgetPassword()">
       <fieldset>
         <h3>Forget Password</h3><br>
   <div class="form-group">
@@ -22,16 +22,17 @@
 <button class="btn btn-info" type="reset">Reset</button>&nbsp;&nbsp;
 <button class="btn btn-primary" (click)=forget() type="reset">Login</button><br>
 </fieldset>
-</form>
+</form> <br><br>  
+<br><br> 
 </div>
 
-
+<body>
 <div class="reglist" *ngIf=login>
-    <form novalidate [formGroup]="employeeLoginForm" style="margin-top: 50px;margin-left: 550px;width: 420px;padding: 50px;" (ngSubmit)="employeeLogin()">
+  <br>  <form novalidate [formGroup]="employeeLoginForm" style="margin-top: 50px;margin-left: 550px;width: 420px;padding: 50px;" (ngSubmit)="employeeLogin()">
   <fieldset>
 
     <div class="form-group">
-        <label>*Mobile Number </label>
+        Mobile Number<label>* </label>
         <input type="tel" class="form-control" formControlName="mobileNo">
         <div class="alert alert-danger"
             *ngIf="employeeLoginForm.get('mobileNo').hasError('required') && employeeLoginForm.get('mobileNo').dirty">
@@ -49,7 +50,7 @@
     <br>
 
     <div class="form-group">
-        <label>*Password:</label>
+        Password<label>*</label>
         <input type="password" class="form-control" formControlName="password">
         <div class="alert alert-danger"
             *ngIf="employeeLoginForm.get('password').hasError('required') && employeeLoginForm.get('password').dirty">
@@ -66,6 +67,6 @@
  <u style="margin-left: 90px;width: 420px;"><a class="pointer" (click)=forget()>Forget Password</a></u>
  
 </fieldset>
-  </form>
+  </form> <br><br> 
 </div>
 </body>

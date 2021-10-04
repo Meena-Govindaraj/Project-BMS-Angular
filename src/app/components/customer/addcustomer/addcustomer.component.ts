@@ -8,6 +8,7 @@ import { BranchService } from 'src/app/services/branch.service';
 import { CustomerService } from 'src/app/services/customer.service';
 import { Accountype } from 'src/app/models/accountype';
 import { ToasterserviceService } from 'src/app/toasterservice.service';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -19,15 +20,13 @@ export class AddcustomerComponent implements OnInit {
 
 
   signupForm:FormGroup
-  branches:Branch[]=[];
-  branch?:Branch;
+  branches: Observable<Branch[]> | any;
   customer?:Customer;
   errorMessage?:string;
-  ifsc?:string;
   getType?:boolean;
   getCustomer?:boolean=true;
   typeForm:FormGroup
-  accountType:Accountype;
+
 
   constructor(public activatedRoute :ActivatedRoute,private toasterService:ToasterserviceService,public customerService:CustomerService,public branchService:BranchService,public accountService:AccountService, public formBuilder:FormBuilder, public router: Router) { }
 
@@ -53,26 +52,30 @@ export class AddcustomerComponent implements OnInit {
   viewAllBranches()
   {
     this.branchService.getAllBranches().subscribe(
-      (data:any[])=>{
-     this.branches=data;
-      console.log(data)
+      (response)=>{
+      this.branches=response;
+      this.branches=this.branches.data;
+      console.log(this.branches)
       }
       )
   }
 
   viewBranchByIFSC()
   {
+
+    var branch: Observable<Branch[]> | any;
     this.branchService.getBranchByName(this.signupForm.get('branch')?.value).subscribe(
-      (data:any)=>{
+      (response)=>{
         console.log("branch Name: "+this.signupForm.get('branch')?.value)
-        this.branch=data;
+        branch=response;
+        branch=branch.data;
         this.customer=this.signupForm.value;
-        this.customer.branch=this.branch;
+        this.customer.branch=branch;
         this.getCustomerByMobileNo(this.signupForm.get('mobileNo')?.value);
       })
   }
 
-  customerSignup(customer:any)
+  customerSignup(customer:Customer)
   {
     console.log(this.signupForm?.value)
     this.getType=true
@@ -80,27 +83,28 @@ export class AddcustomerComponent implements OnInit {
     .subscribe(
       response => {
         this.customer=response
-      },error => {
         this.getCustomer=false
         console.log("Customer saved successfully!")
-      })
-   
+      }) 
   }
 
   addAccountType()
   {
-    console.log(this.typeForm?.value);
-    this.accountType=this.typeForm.value;
+    var  accountType:Accountype;
+    var cust: Observable<Customer[]> | any;
+    accountType=this.typeForm.value;
     this.customerService.getCustomerByMobileNo(this.signupForm.get('mobileNo').value)
     .subscribe(
       response => {
-           this.customer=response
-           this.accountType.customer=this.customer
-           this.accountService.addAccountType(this.accountType)
+        console.log(response);
+           cust=response
+           cust=cust.data;
+           console.log(cust);
+           accountType.customer=cust
+           this.accountService.addAccountType(accountType)
            .subscribe(
              response => {
                console.log(response)
-             },error => {
                console.log("Customer account with type created successfully!")
                this.success();
                this.router.navigate(['customerlogin'])
@@ -110,9 +114,12 @@ export class AddcustomerComponent implements OnInit {
 
   getCustomerByMobileNo(mobileNo:string)
   {
+    var cust: Observable<Customer[]> | any;
     this.customerService.getCustomerByMobileNo(mobileNo).subscribe(data=>{
       //can add
-      if(data==null){
+      cust=data;
+      cust=cust.data
+      if(cust==null){
         this.errorMessage="";
         this.getCustomerByEmail(this.customer.email);
       }
@@ -125,12 +132,16 @@ export class AddcustomerComponent implements OnInit {
 
   getCustomerByEmail(email:string)
   {
+    var cust: Observable<Customer[]> | any;
     this.customerService.getCustomerByEmail(email).subscribe(data=>{
       //can add
-      if(data==null){
+      cust=data;
+      cust=cust.data
+      if(cust==null){
         this.errorMessage="";
         this.getType=true
         this.getCustomer=false
+        console.log(this.customer)
         this.customerSignup(this.customer);
       }
       else{

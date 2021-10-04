@@ -1,4 +1,4 @@
-<body>
+
 <div class="reglist" *ngIf=resetPassword>
     
     <form novalidate [formGroup]="getEmailForm" style="margin-top: 50px;margin-left: 520px;width: 400px" (ngSubmit)="forgetPassword()">
@@ -24,9 +24,9 @@
 </form>
 </div>
 
-
+<body>
 <div class="reglist" *ngIf=login>
-    <form novalidate [formGroup]="customerLoginForm" style="margin-top: 50px;margin-left: 550px;width: 420px;padding: 50px;" (ngSubmit)="customerLogin()">
+    <br><br> <form novalidate [formGroup]="customerLoginForm" style="margin-top: 50px;margin-left: 550px;width: 420px;padding: 50px;" (ngSubmit)="customerLogin()">
   <fieldset>
 
     <div class="form-group">
@@ -69,5 +69,5 @@
 New User? <u><a class="pointer" (click)="addcustomers()" >Signup</a></u>&nbsp;&nbsp;
 </fieldset>
   </form>
-</div>
+</div><br><br><br>
 </body>

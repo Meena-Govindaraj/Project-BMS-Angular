@@ -27,15 +27,15 @@
                   <tbody>
                   <tr *ngFor="let c of accountTypes |filter:searchReq" >
 
-                  <td *ngIf="c.accountStatus==no">{{c.customer.id}}</td>
-                  <td *ngIf="c.accountStatus==no">{{c.customer.name}}</td>
-                  <td *ngIf="c.accountStatus==no">{{c.customer.email}}</td>
-                  <td *ngIf="c.accountStatus==no">{{c.customer.mobileNo}}</td>
-                  <td *ngIf="c.accountStatus==no">{{c.type}}</td>
-                  <td *ngIf="c.accountStatus==no">{{c.customer.branch.name}}</td>
-                  <td *ngIf="c.accountStatus==no">{{c.customer.branch.ifscCode}}</td>
+                  <td *ngIf="c.accountStatus=='No'">{{c.customer.id}}</td>
+                  <td *ngIf="c.accountStatus=='No'">{{c.customer.name}}</td>
+                  <td *ngIf="c.accountStatus=='No'">{{c.customer.email}}</td>
+                  <td *ngIf="c.accountStatus=='No'">{{c.customer.mobileNo}}</td>
+                  <td *ngIf="c.accountStatus=='No'">{{c.type}}</td>
+                  <td *ngIf="c.accountStatus=='No'">{{c.customer.branch.name}}</td>
+                  <td *ngIf="c.accountStatus=='No'">{{c.customer.branch.ifscCode}}</td>
                   
-                  <td *ngIf="c.accountStatus==no">
+                  <td *ngIf="c.accountStatus=='No'">
                      <button type="button" class="btn btn-success" (click)="updateAccountStatus(c.accountNo)">Accept</button>&nbsp;&nbsp;
                      <button type="button" class="btn btn-danger" (click)="deleteAccount(c.id,c.customer.id)">Reject</button>
                   </td>

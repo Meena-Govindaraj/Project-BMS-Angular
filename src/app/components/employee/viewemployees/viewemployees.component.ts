@@ -13,7 +13,6 @@ import Swal from 'sweetalert2';
 })
 export class ViewemployeesComponent implements OnInit {
 
-
   employee:Observable<Employee[]> | any;
   errorMessage?:string
   searchemployee?:any

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Transaction } from 'src/app/models/transaction';
 import { TransactionService } from 'src/app/services/transaction.service';
 
@@ -12,7 +13,7 @@ import { TransactionService } from 'src/app/services/transaction.service';
 export class ViewtransactionsComponent implements OnInit {
 
   accountId?:number;
-  transaction:Transaction[];
+  transaction:Observable<Transaction[]> | any;
   errorMessage:string
   customerId:number
   type:number
@@ -33,10 +34,10 @@ export class ViewtransactionsComponent implements OnInit {
 
     this.transactionService.getTransactionByAccount(this.accountId).subscribe(data=>
       {
-        if(data==null)
-          this.errorMessage="NO DATA FOUND!"
-        else
         this.transaction=data;
+        this.transaction=this.transaction.data
+        if(this.transaction==null)
+          this.errorMessage="NO DATA FOUND!"
       })
     }
 

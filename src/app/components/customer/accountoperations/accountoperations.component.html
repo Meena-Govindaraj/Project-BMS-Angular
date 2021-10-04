@@ -32,8 +32,8 @@
             {{errorMessage}}
             <thead class="thead text-dark" style="background-color:white;opacity: .6;right: 12px;">
               <tr>
-                <th style=" margin-right: 400px; color: black;"><b>Customer Name: {{senderDetails.accountType.customer.name}}</b></th>
-                <th style=" color: black;margin-right: 600px;"><b>Balance: {{senderDetails.balance | currency:'INR'}}</b></th>
+                <th style=" margin-right: 400px; color: black;"><b>Customer Name: {{senderDetails?.accountType?.customer.name}}</b></th>
+                <th style=" color: black;margin-right: 600px;"><b>Balance: {{senderDetails?.balance | currency:'INR'}}</b></th>
               </tr>
             </thead>
             <tr>

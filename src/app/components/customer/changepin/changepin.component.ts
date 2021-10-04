@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Account } from 'src/app/models/account';
 import { AccountService } from 'src/app/services/account.service';
 import Swal from 'sweetalert2';
@@ -15,7 +16,7 @@ export class ChangepinComponent implements OnInit {
   customerId:number;
   type:string;
   signupForm?:FormGroup
-  senderDetails:Account;
+  senderDetails:Observable<Account[]> | any;;
 
   constructor(public activatedRoute :ActivatedRoute,public formBuilder:FormBuilder,public router:Router,public accountService:AccountService) { }
 
@@ -35,6 +36,7 @@ export class ChangepinComponent implements OnInit {
     this.accountService.getAccountByType(this.customerId,this.type)
     .subscribe(data=>{
      this.senderDetails=data;
+     this.senderDetails=this.senderDetails.data;
      console.log(this.senderDetails);
       })
   }
@@ -49,15 +51,11 @@ export class ChangepinComponent implements OnInit {
        this.accountService.updatePassword(this.senderDetails.accountType.id,this.signupForm.get('newPassword').value)
           .subscribe(data=>{
            console.log(data)
-          },err=>{
-            console.log(err)
-            this.successNotification();
-          })
-        
+           this.successNotification();
+          })     
     }
     else{
       this.wrongInfo("Wrong Transacation PIN!");
-
     }
   }
 

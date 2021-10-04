@@ -61,13 +61,14 @@ export class EditEmployeeComponent implements OnInit {
   viewBranchByIFSC()
   {
     this.branchService.getBranchByIfscCode(this.editEmployeeForm.get('branch')?.value).subscribe(
-      (data:any)=>{
+      (data)=>{
         console.log("branch Name: "+this.editEmployeeForm.get('branch')?.value)
         this.branch=data;
         this.branch=this.branch.data;
         this.employee=this.editEmployeeForm.value;
         this.employee.createdDate=this.createdDate;
         this.employee.branch=this.branch;
+        console.log(this.employee)
         this.updateEmployee(this.employee);
       })
   }
@@ -79,7 +80,6 @@ export class EditEmployeeComponent implements OnInit {
     this.branchService.getBranchByIfscCode(this.editEmployeeForm.get('branch')?.value).subscribe(
       (res)=>{
         console.log("branch Name: "+this.editEmployeeForm.get('branch')?.value)
-
         console.log(res);
         this.branch=res;
         this.branch=this.branch.data;
@@ -96,7 +96,7 @@ export class EditEmployeeComponent implements OnInit {
       (data)=>{
       this.branches=data;
       this.branches=this.branches.data;
-      console.log(data)
+      console.log(this.branches)
       }
       )
   }
@@ -104,6 +104,7 @@ export class EditEmployeeComponent implements OnInit {
   updateEmployee(employee:Employee)
   {
     console.log(this.editEmployeeForm?.value)
+    console.log(this.employee)
     this.employeeService.updateEmployee(employee)
     .subscribe(
       response => {

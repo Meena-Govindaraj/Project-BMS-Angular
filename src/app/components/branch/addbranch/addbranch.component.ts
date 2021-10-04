@@ -55,13 +55,16 @@ export class AddbranchComponent implements OnInit {
               }
             )
         }
-
         else {
-         
           this.errorMessage = "IFSC code: " + branch.ifscCode + " already exists!!"
           console.log(this.errorMessage)
+         
         }
-      },err=>{console.log(err)}
+      },err=>{
+        console.log(err.error.message)
+        this.errorMessage = "IFSC code: " + branch.ifscCode + " already exists!!"
+        console.log(this.errorMessage)
+      }
       )
   }
 

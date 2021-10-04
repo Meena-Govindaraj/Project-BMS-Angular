@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Account } from 'src/app/models/account';
 import { Accountype } from 'src/app/models/accountype';
 import { Customer } from 'src/app/models/customer';
@@ -18,7 +19,7 @@ export class CustomeroperationsComponent implements OnInit {
   signupForm?:FormGroup;
   customerId:number
   customer:Customer;
-  accountDetails:Account[]=[];
+  accountDetails:Observable<Account[]> | any;
   savingsAccount?:boolean;
   currentAccount?:boolean;
   noAccount?:boolean;
@@ -38,27 +39,30 @@ export class CustomeroperationsComponent implements OnInit {
   
     this.accountService.getCustomerOnAccount(this.customerId)
     .subscribe(data=>{
-     console.log(data)
+      console.log(data)
+      this.accountDetails=data;
+      this.accountDetails=this.accountDetails.data;
+      console.log(this.accountDetails)
      
-      if(data==null){
+      if(this.accountDetails==null){
         this.noAccount=true;
         this.otherOp=false;
       } 
 
       else
       {
-        this.accountDetails=data;
         this.signupForm = this.formBuilder.group({
           mobileNo: [this.accountDetails[0].accountType.customer.mobileNo],
           password: ['', [Validators.required ,Validators.minLength(6)]],
           newPassword: ['', [Validators.required ,Validators.minLength(6)]]
          
         })
-      
+       var cust:Observable<Customer[]> | any
         this.accountService.getCountOfCustomerAccount(this.customerId)
         .subscribe(
-          cust=> {
-  
+          res=> {
+            cust=res;
+            cust=cust.data;
             console.log(cust) 
             console.log(cust.length)
             
@@ -118,7 +122,6 @@ export class CustomeroperationsComponent implements OnInit {
            .subscribe(
              response => {
                console.log(response)
-             },error => {
                console.log("Customer account with type created successfully!")
                this.successNotification("Savings");
                this.router.navigate(['customeroperations',this.customerId])
@@ -135,7 +138,6 @@ export class CustomeroperationsComponent implements OnInit {
            .subscribe(
              response => {
                console.log(response)
-             },error => {
                console.log("Customer account with type created successfully!")
                this.successNotification("Current");
                this.router.navigate(['customeroperations',this.customerId])
@@ -145,6 +147,7 @@ export class CustomeroperationsComponent implements OnInit {
     
   successNotification(msg:string){
     Swal.fire('Wait For Mail!!', 'Your'+msg+"Created!! wait for account details", 'info')
+    
   }
 
   pass()
@@ -160,16 +163,12 @@ export class CustomeroperationsComponent implements OnInit {
       this.customerService.updatePassword(this.signupForm.get('mobileNo').value,this.signupForm.get('newPassword').value)
       .subscribe(data=>{
        console.log(data)
-      },err=>{
-        console.log(err)
-        this.success();
-        
+       this.success(); 
       })
   }
 
   else
     this.wrongPassword();
-
   }
   success(){
     Swal.fire('Success', 'Password Updated!', 'success')

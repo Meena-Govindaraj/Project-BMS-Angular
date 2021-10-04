@@ -1,6 +1,10 @@
  
-body form
-{
-    background-color:honeydew;
 
+body{
+    background-color:gainsboro;
+
+    }
+label
+{
+    color: red;
 }

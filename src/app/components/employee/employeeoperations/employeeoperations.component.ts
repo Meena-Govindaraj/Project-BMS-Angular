@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Account } from 'src/app/models/account';
+import { Accountype } from 'src/app/models/accountype';
+import { Branch } from 'src/app/models/branch';
 import { Customer } from 'src/app/models/customer';
 import { Employee } from 'src/app/models/employee';
 import { Transaction } from 'src/app/models/transaction';
@@ -21,18 +24,18 @@ export class EmployeeoperationsComponent implements OnInit {
   employeeId:number;
   changePassword?:boolean;
   signupForm?:FormGroup
-  employee:Employee;
-
+  employee: Observable<Employee[]> | any;
   customers:Customer[]=[];
   errorMessage?:string
-  account:Account[]=[];
+  account:Observable<Account[]> | any;
   ifscCode?:string;
-  transaction:Transaction[];
+  transaction:Observable<Transaction[]> | any;
   viewTrans?:boolean;
   viewCust?:boolean;
   showAll?:boolean;
   searchCus?:any;
-
+  
+ 
   constructor(public activatedRoute :ActivatedRoute,public formBuilder:FormBuilder,public router:Router,public employeeService:EmployeeService,public accountService:AccountService,public customerService:CustomerService,public transactionService:TransactionService) { }
 
   ngOnInit(): void {
@@ -46,11 +49,12 @@ export class EmployeeoperationsComponent implements OnInit {
     this.viewAllCustomer();
 
     this.employeeService.getEmployeeById(this.employeeId)
-      .subscribe(data=>{
-       console.log(data)
-        this.employee=data;
+      .subscribe(response=>{
+       console.log(response)
+        this.employee=response;
+        this.employee=this.employee.data;
       this.signupForm = this.formBuilder.group({
-        mobileNo: [data.mobileNo],
+        mobileNo: [this.employee.mobileNo],
         password: ['', [Validators.required ,Validators.minLength(6)]],
         newPassword: ['', [Validators.required ,Validators.minLength(6)]]
        
@@ -58,51 +62,19 @@ export class EmployeeoperationsComponent implements OnInit {
     })
   }
 
-  back()
-  {
-    this.viewTrans=false;
-    this.viewCust=true; 
-    this.changePassword=false;
-    this.showAll=true;
-    this.router.navigate(['employeeop',this.employeeId])
-  }
-
-  viewcustomers()
-  {
-    this.router.navigate(['viewcustomers',this.employeeId])
-  }
-
-  viewrequests()
-  {
-    this.router.navigate(['viewrequests',this.employeeId])
-  }
-
-  updateemployee()
-  {
-    this.router.navigate(['updateemployee',this.employeeId])
-  }
-
-  pass()
-  {
-    this.changePassword=true;
-    this.viewCust=false;
-    this.showAll=false;
-  }
-  updatePassword(){
+   updatePassword(){
 
     console.log("updating password!!")
     
     if(this.employee.password==this.signupForm.get('password').value){
     this.employeeService.updatePassword(this.signupForm.get('mobileNo').value,this.signupForm.get('password').value,this.signupForm.get('newPassword').value)
-      .subscribe(data=>{
-       console.log(data)
+      .subscribe(response=>{
+       console.log(response)
+       this.successNotification();
       },err=>{
-        console.log(err)
-        this.successNotification();
-        
+        console.log(err) 
       })
   }
-
   else
     this.wrongPassword();
 
@@ -116,46 +88,44 @@ export class EmployeeoperationsComponent implements OnInit {
     this.pass();
   }
   
-  //getting all customers..on employee branch(ifsc)
-  viewAllCustomer()
-  {
-    this.employeeService.getEmployeeById(this.employeeId)
-    .subscribe(
-      response => {
-        this.employee=response;
-        console.log(this.employee)
-          this.accountService.getCustomersByIFSC(this.employee.branch.ifscCode).subscribe(
-          (data:any[])=>{
-          console.log("####Getting all Customers");
-          if(data==null)
-          {
-            this.errorMessage="NO DATA FOUND!!"
-            console.log(this.errorMessage)
-          }
-          else{
-            console.log(data);
-            this.account=data;
-          }})
-        });   
-  }
-  
+   //getting all customers..on employee branch(ifsc)
+   viewAllCustomer()
+   {
+
+     this.employeeService.getEmployeeById(this.employeeId)
+     .subscribe(
+       response => {
+         this.employee=response;
+         this.employee=this.employee.data;
+         console.log(this.employee)
+           this.accountService.getCustomersByIFSC(this.employee.branch.ifscCode).subscribe(
+           (data)=>{
+           console.log("####Getting all Customers");
+           if(data==null)
+           {
+             this.errorMessage="NO DATA FOUND!!"
+             console.log(this.errorMessage)
+           }
+           else{
+             console.log(data);
+             this.account=data;
+             this.account=this.account.data;
+            
+           }})
+         });   
+   }
 
   //to delete customer
   deleteCustomer(customerId:any)
   {
-
-    console.log("customer Id Going to delete:"+customerId)
+   console.log("customer Id Going to delete:"+customerId)
     this.customerService.deleteCustomer(customerId)
         .subscribe(
           response => {
             console.log("Response"+response) 
-          },
-          error => {
             console.log("customer Id: "+customerId+" deleted successfully ");
             this.viewAllCustomer();
-            console.log(error)
           }
-          
        );   
   }
 
@@ -166,9 +136,7 @@ export class EmployeeoperationsComponent implements OnInit {
     this.accountService.deleteAccount(typeId)
         .subscribe(
           response => {
-            console.log("Response"+response) 
-          },
-          error => {
+            console.log(response) 
             this.accountService.getCountOfCustomerAccount(customerId)
             .subscribe(
               cust=> {
@@ -177,7 +145,6 @@ export class EmployeeoperationsComponent implements OnInit {
                   this.deleteCustomer(customerId)
               })
             this.viewAllCustomer();
-            console.log(error)
           }
           
        );   
@@ -217,23 +184,53 @@ export class EmployeeoperationsComponent implements OnInit {
  
   this.transactionService.getTransactionByAccount(accountId).subscribe(data=>
     {
-
-      if(data==null)
-        this.errorMessage="NO DATA FOUND!"
-      else{console.log(data)
-      this.transaction=data;
-      }
-    })
-    this.reloadComponent()
+     this.transaction=data;
+        this.transaction=this.transaction.data
+        console.log(this.transaction)
+        if(this.transaction==null)
+          this.errorMessage="NO DATA FOUND!"
+      })
  }
 
+ back()
+  {
+    this.viewTrans=false;
+    this.viewCust=true; 
+    this.changePassword=false;
+    this.showAll=true;
+    this.errorMessage=""
+    this.router.navigate(['employeeop',this.employeeId])
+  }
+
+  viewcustomers()
+  {
+    
+    this.router.navigate(['viewcustomers',this.employeeId])
+  }
+
+  viewrequests()
+  {
+    this.router.navigate(['viewrequests',this.employeeId])
+  }
+
+  updateemployee()
+  {
+    this.router.navigate(['updateemployee',this.employeeId])
+  }
+
+  pass()
+  {
+    this.changePassword=true;
+    this.viewCust=false;
+    this.showAll=false;
+  }
 
 reloadComponent() {
 
   this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   this.router.onSameUrlNavigation = 'reload';
   this.errorMessage=""
-  this.router.navigate(['employeeoperations',this.employeeId])
+  this.router.navigate(['employeeop',this.employeeId])
 }
 logout()
 {

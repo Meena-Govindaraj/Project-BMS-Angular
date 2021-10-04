@@ -9,7 +9,7 @@ import { TransactionService } from 'src/app/services/transaction.service';
 import Swal from 'sweetalert2';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-accountoperations',
   templateUrl: './accountoperations.component.html',
@@ -32,15 +32,17 @@ export class AccountOperationsComponent implements OnInit {
   senderBalance?:number;
   senderId:number;
   senderPIN:number;
-  senderDetails:Account;
+
+  senderDetails:Observable<Account[]> | any;
   
   receiverId:number;
   sendAmount:number;
-  receiverDetails:Account;
-  transaction=new Transaction();
+  receiverDetails:Observable<Account[]> | any;
+  transaction:Observable<Transaction[]> | any;
   showDetails?:boolean;
   date=new Date();
   invoice?:boolean;
+  
 
   constructor(public activatedRoute :ActivatedRoute,public formBuilder:FormBuilder,public transactionService:TransactionService,public router:Router,public customerService:CustomerService,public accountService:AccountService) { }
 
@@ -105,10 +107,12 @@ export class AccountOperationsComponent implements OnInit {
 
   getAccountDetails()
   {
+  
      //to get account details on account type of customer
      this.accountService.getAccountByType(this.customerId,this.type)
      .subscribe(data=>{
       this.senderDetails=data;
+      this.senderDetails=this.senderDetails.data;
       console.log(this.senderDetails)
       this.senderBalance=this.senderDetails.balance
       this.senderPIN=this.senderDetails.transactionPIN;
@@ -142,11 +146,12 @@ export class AccountOperationsComponent implements OnInit {
     //to get account id of reciever account 
     this.accountService.getAccountByaccountNo(this.bankTransferForm.get('recieverAccount').value)
     .subscribe(data=>{
-      if(data!=null){
-        console.log(data)
-        this.receiverDetails=data;
+      this.receiverDetails=data;
+      this.receiverDetails=this.receiverDetails.data;
+      console.log(this.receiverDetails)
+      if(this.receiverDetails!=null){
+        
         this.receiverId=this.receiverDetails.id;
-
         if(this.sendAmount>this.senderBalance)
           this.availInfo("Available Balance: "+this.senderBalance);
         //if savings account--->per transaction limit 20000 
@@ -157,14 +162,13 @@ export class AccountOperationsComponent implements OnInit {
           if(this.senderPIN==this.bankTransferForm.get('pin').value){
            this.accountService.bankTransfer(this.senderId,this.receiverId,this.sendAmount)
           .subscribe(data=>{
-            },error=>{
-                this.transferAmt=false;
-                this.invoice=true;
-                this.success();
-              //  this.back();
-               this.addTransaction(this.sendAmount,this.senderDetails,this.receiverDetails)
-                this.getAccountDetails();
-          })
+            this.transferAmt=false;
+            this.invoice=true;
+            this.success();
+          //  this.back();
+           this.addTransaction(this.sendAmount,this.senderDetails,this.receiverDetails)
+            this.getAccountDetails();
+            })
         }
         else
           this.wrongInfo("Wrong Transacation PIN!");
@@ -180,11 +184,13 @@ export class AccountOperationsComponent implements OnInit {
   addTransaction(amount:number,sender:Account,reciever:Account)
   {
   
+    this.transaction=new Transaction();
     this.accountService.getAccountByaccountNo(sender.accountType.accountNo)
     .subscribe(sBalance=>{
   
       this.transaction.account=sender;
-      this.transaction.balance=sBalance.balance;
+      this.transaction.balance=sBalance;
+      this.transaction.balance=this.transaction.balance.data.balance;
       this.transaction.withdraw=amount;
       
       this.transactionService.addTransaction(this.transaction).subscribe(data=>{

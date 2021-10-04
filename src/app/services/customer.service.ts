@@ -62,6 +62,7 @@ export class CustomerService {
   }
 
   //get customer by mobileno
+  //http://localhost:9001/customer/getCustomerByMobileNo/4545445444
   getCustomerByMobileNo(mobileNo:string):Observable<Customer>
   {
     return this.http.get<Customer>(`${customerURL}/getCustomerByMobileNo/${mobileNo}`)

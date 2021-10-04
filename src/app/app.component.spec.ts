@@ -23,7 +23,6 @@ describe('AppComponent', () => {
   it(`should have as title 'BankingManagementSystem'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('BankingManagementSystem');
   });
 
   it('should render title', () => {

@@ -6,8 +6,13 @@ h3{
     padding: 50px;
 }
 label{
-    color:black;
+    color:red;
 }
+
 body form{
-    background-color:honeydew;
+    background-color:ghostwhite;
 }
+body{
+    background-color:gainsboro;
+
+    }

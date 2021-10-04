@@ -1,11 +1,11 @@
 <body>
 <div class="reglist">
-  <h4 style="margin-left: 550px;width: 300px;margin-top: 100px;">Change Transaction PIN</h4><br><br>
-    <form novalidate [formGroup]="signupForm" style="margin-left: 550px;width: 300px;" (ngSubmit)="updatePassword()">
-      <fieldset>
-    <div class="form-group"  >
+  <br><br><h4 style="margin-left: 550px;width: 300px;margin-top: 100px;">Change Transaction PIN</h4><br><br>
+  <fieldset> 
+  <form novalidate [formGroup]="signupForm" style="margin-left: 550px;width: 300px;" (ngSubmit)="updatePassword()">
 
-        <label>*Old Password:</label>
+    <div class="form-group"  >
+      Old Password<label>*</label>
         <input type="text" class="form-control" formControlName="password">
         <div class="alert alert-danger"
             *ngIf="signupForm.get('password').hasError('required') && signupForm.get('password').dirty">
@@ -20,7 +20,7 @@
     </div><br>
 
     <div class="form-group">
-        <label>*New Password:</label>
+      New Password<label>*</label>
         <input type="text" class="form-control" formControlName="newPassword">
         <div class="alert alert-danger"
             *ngIf="signupForm.get('newPassword').hasError('required') && signupForm.get('newPassword').dirty">
@@ -36,7 +36,8 @@
     <button type="submit" class="btn btn-primary" [disabled] ="signupForm.invalid" style="margin-left: 30px">Change Password</button> &nbsp;
     <button type="button" (click)=back() class="btn btn-info">Back</button>
     
-  </fieldset>
+  
     </form>
-</div>
+  </fieldset>
+</div> <br><br> <br><br> <br><br>
 </body>

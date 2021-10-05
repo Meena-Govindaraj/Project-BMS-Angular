@@ -5,6 +5,7 @@ import { catchError, retry } from 'rxjs/operators';
 import { Customer } from '../models/customer';
 
 const customerURL="http://localhost:9001/customer"
+const login="http://localhost:9001/login"
 @Injectable({
   providedIn: 'root'
 })
@@ -92,9 +93,10 @@ export class CustomerService {
   }
 
   //localhost:9001/customer/customerLogin/5688877666/123456
+  //http://localhost:9001/login/customerLogin/8987654321/309831
   customerLogin(mobileNo:string,password:String):Observable<Customer>
   {
-    return this.http.get<Customer>(`${customerURL}/customerLogin/${mobileNo}/${password}`)
+    return this.http.get<Customer>(`${login}/customerLogin/${mobileNo}/${password}`)
     .pipe(
       retry(0),
       catchError(this.errorHandler)

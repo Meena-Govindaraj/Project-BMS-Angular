@@ -136,6 +136,8 @@ export class AccountOperationsComponent implements OnInit {
     this.transferAmt = true;
     this.shownav = false;
     this.showDetails = false;
+    this.viewBal=false;
+    this.showBalance=false;
     console.log("Sender Id:" + this.senderDetails.id)
     this.senderId = this.senderDetails.id;
   }
@@ -211,6 +213,7 @@ export class AccountOperationsComponent implements OnInit {
     this.viewBal = true;
     this.shownav = false;
     this.showDetails = false;
+    this.transferAmt=false;
   }
 
   back() {
@@ -223,6 +226,7 @@ export class AccountOperationsComponent implements OnInit {
 
   recepit() {
     this.transferAmt = false;
+    this.viewBal = false;
   }
   changePIN() {
     this.router.navigate(['changetransacationPIN', this.customerId, this.type])

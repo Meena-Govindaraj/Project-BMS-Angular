@@ -5,7 +5,7 @@ import { catchError, retry } from 'rxjs/operators';
 import { Employee } from '../models/employee';
 
 const employeeURL="http://localhost:9001/employee"
-
+const login="http://localhost:9001/login"
 @Injectable({
   providedIn: 'root'
 })
@@ -70,7 +70,7 @@ export class EmployeeService {
   //localhost:9001/employee/employeeLogin/8765433237/123456
   employeeeLogin(mobileNo:string,password:String):Observable<Employee>
   {
-    return this.http.get<Employee>(`${employeeURL}/employeeLogin/${mobileNo}/${password}`)
+    return this.http.get<Employee>(`${login}/employeeLogin/${mobileNo}/${password}`)
    
   }
 

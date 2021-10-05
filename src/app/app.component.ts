@@ -14,11 +14,13 @@ export class AppComponent {
 
   }
   ngOnInit(): void {
-     //this.router.navigate(['employeeop',2])
+    // this.router.navigate(['employeeop',2])
      //this.router.navigate(['account',25,"Savings"])
     //this.router.navigate(['employeelogin'])
        this.router.navigate(['home'])
    // this.router.navigate(['customeroperations',57])
+  //  /transactions/26/25/Current
+ // this.router.navigate(['transactions',26,25,'Current'])
     
   }
 

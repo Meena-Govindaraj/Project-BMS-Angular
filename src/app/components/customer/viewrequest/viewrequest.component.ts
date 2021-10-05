@@ -25,7 +25,8 @@ export class ViewrequestComponent implements OnInit {
   employeeId?:number;
   employee:Observable<Employee[]> | any;
   searchReq?:any
-  
+  requestAccounts:Observable<Accountype[]> | any;
+
   constructor(public activatedRoute:ActivatedRoute,public router:Router,public formBuilder:FormBuilder,public customerService:CustomerService,public accountService:AccountService,public employeeService:EmployeeService,public toasterService:ToasterserviceService) { }
 
   ngOnInit(): void {
@@ -50,12 +51,16 @@ export class ViewrequestComponent implements OnInit {
             this.accountTypes=data;
             this.accountTypes=this.accountTypes.data
             console.log(this.accountTypes)
-          console.log("####Getting all Customers");
-          if(this.accountTypes==null)
-          {
+           console.log("####Getting all Customers");
+            for(var i=0;i<this.accountTypes.length;i++)
+            {
+              if(this.accountTypes[i].accountStatus=="No")
+               this.requestAccounts=this.accountTypes[i];
+            }
+            console.log(this.requestAccounts)
+          },err=>{
             this.errorMessage="NO DATA FOUND!!"
             console.log(this.errorMessage)
-          }
           })
         });   
   }

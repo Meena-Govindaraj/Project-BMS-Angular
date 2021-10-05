@@ -113,7 +113,7 @@
               <th>Name</th>
               <th>Account Number</th>
               <th>Mobile No</th>
-              <th>Branch Name</th>
+              <th>Email</th>
               <th>IFSC code</th>
               <th>Balance</th>
               <th>Transactions</th>
@@ -121,11 +121,11 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let c of account | filter:searchCus">
+              <tr *ngFor="let c of account |paginate:config|filter:searchCus">
               <td>{{c.accountType.customer.name}}</td>
               <td>{{c.accountType.accountNo}}</td>
               <td>{{c.accountType.customer.mobileNo}}</td>
-              <td>{{c.accountType.customer.branch.name}}</td>
+              <td>{{c.accountType.customer.email}}</td>
               <td>{{c.accountType.customer.branch.ifscCode}}</td>
               <td>{{c.balance | currency:'INR'}}</td>
             
@@ -139,7 +139,9 @@
               </td> -->
             </tr>
               </tbody>
-              </table>
+              </table><br><br>
+              <pagination-controls style="text-align: center;color:brown;" (pageChange)="pageChanged($event)"></pagination-controls>
+ 
      </div>
  
  <div>

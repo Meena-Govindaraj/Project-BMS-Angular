@@ -49,7 +49,7 @@ export class AddemployeeComponent implements OnInit {
         this.branch = this.branch.data;
         this.employee = this.signupForm.value;
         this.employee.branch = this.branch;
-        this.getEmployeeByPhone(this.signupForm.get('mobileNo')?.value);
+        this.employeeSignup(this.employee)
       })
   }
 
@@ -66,60 +66,24 @@ export class AddemployeeComponent implements OnInit {
   }
 
   employeeSignup(employee: Employee) {
+
     console.log(this.signupForm?.value)
     this.employeeService.addEmployee(employee)
       .subscribe(
         response => {
-          this.employee = response;
-          this.successNotification()
           this.viewEmployees();
+          this.successNotification();
           console.log("Employee account created successfully!")
-        })
-  }
-
-
-  getEmployeeByPhone(mobileNo: string) {
-    var emp: Observable<Employee[]> | any;
-    this.employeeService.getEmployeeByMobileNo(mobileNo).subscribe(res => {
-      console.log(res);
-      //can add
-      emp = res
-      emp = emp.data
-      if (emp == null) {
-        this.errorMessage = "";
-        this.getEmployeeByEmail(this.signupForm.get('email')?.value);
-      }
-      else {
-        this.errorMessage = " Account already exists with this mobileno"
-      }
-    })
-  }
-
-  getEmployeeByEmail(email: string) {
-    var emp: Observable<Employee[]> | any;
-    this.employeeService.getEmployeeByEmail(email).subscribe(res => {
-      console.log(res);
-      //can add
-      emp = res
-      emp = emp.data
-      if (emp == null) {
-        this.errorMessage = "";
-        this.employeeSignup(this.employee);
-      }
-      else {
-        this.errorMessage = " Account already exists with this email"
-      }
-    })
+        }, err => {
+          this.toasterService.warning("Employee Mobile No already exists")
+        }
+      )
   }
 
   successNotification() {
     this.toasterService.success("Employee account created successfully!")
   }
   viewEmployees() {
-
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
-    this.errorMessage = ""
     this.router.navigate(['viewemployees'])
   }
 

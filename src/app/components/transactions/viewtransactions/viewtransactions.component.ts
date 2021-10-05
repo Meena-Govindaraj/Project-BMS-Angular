@@ -18,6 +18,7 @@ export class ViewtransactionsComponent implements OnInit {
   customerId:number
   type:number
   searchDate:any
+  config :any;
 
   constructor(public activatedRoute :ActivatedRoute,public formBuilder:FormBuilder,public transactionService:TransactionService,public router:Router) { }
 
@@ -36,8 +37,11 @@ export class ViewtransactionsComponent implements OnInit {
       {
         this.transaction=data;
         this.transaction=this.transaction.data
-        if(this.transaction==null)
-          this.errorMessage="NO DATA FOUND!"
+        this.config = {​​​​​​itemsPerPage:3,currentPage:1,totalItems:this.transaction.count}   
+        
+      },error=>{
+        console.log(error.error)
+        this.errorMessage="NO DATA FOUND!"
       })
     }
 
@@ -45,5 +49,7 @@ export class ViewtransactionsComponent implements OnInit {
     {
       this.router.navigate(['account',this.customerId,this.type])
     }
-
+    pageChanged(event: any) {​​​​​​
+      this.config.currentPage = event; 
+     }​​​​​​
 }

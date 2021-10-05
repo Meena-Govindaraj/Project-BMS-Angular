@@ -1,6 +1,6 @@
 .pointer 
 {cursor: pointer;
-    color:maroon;}
+    color:red;}
  
         h3{
             margin-left: 20px;
@@ -10,10 +10,9 @@
         label{
             color:black;
         }
-        body form{
+        .bform{
             background-color:ghostwhite;
         }
         body{
             background-color:gainsboro;
-
             }

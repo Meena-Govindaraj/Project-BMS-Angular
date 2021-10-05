@@ -44,13 +44,6 @@ export class CustomeroperationsComponent implements OnInit {
       this.accountDetails=this.accountDetails.data;
       console.log(this.accountDetails)
      
-      if(this.accountDetails==null){
-        this.noAccount=true;
-        this.otherOp=false;
-      } 
-
-      else
-      {
         this.signupForm = this.formBuilder.group({
           mobileNo: [this.accountDetails[0].accountType.customer.mobileNo],
           password: ['', [Validators.required ,Validators.minLength(6)]],
@@ -97,7 +90,11 @@ export class CustomeroperationsComponent implements OnInit {
               }
               })
             
-        }
+        
+      },err=>
+      {
+        this.noAccount=true;
+        this.otherOp=false;
       })
   }
   viewSavingsAccount()

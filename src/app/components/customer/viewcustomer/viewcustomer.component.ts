@@ -52,16 +52,12 @@ export class ViewcustomerComponent implements OnInit {
         console.log(this.employee)
           this.accountService.getCustomersByIFSC(this.employee.branch.ifscCode).subscribe(
           (data)=>{
-          console.log("####Getting all Customers");
-          if(data==null)
-          {
-            this.errorMessage="NO DATA FOUND!!"
-            console.log(this.errorMessage)
-          }
-          else{
             console.log(data);
             this.account=data;
-          }})
+          },err=>{
+            console.log(err.error.message)
+            this.errorMessage="NO DATA FOUND!!"
+          })
         });   
   }
   
@@ -134,11 +130,11 @@ export class ViewcustomerComponent implements OnInit {
   this.viewCust=false;
   this.transacationService.getTransactionByAccount(accountId).subscribe(data=>
     {
-      if(data==null)
-        this.errorMessage="NO DATA FOUND!"
-      else{console.log(data)
       this.transaction=data;
-      }
+
+    },cus=>
+    {
+      this.errorMessage="NO DATA FOUND!"
     })
  }
 

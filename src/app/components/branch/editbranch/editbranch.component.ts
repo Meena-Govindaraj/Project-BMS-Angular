@@ -38,7 +38,11 @@ export class EditbranchComponent implements OnInit {
           ifscCode: [branch.ifscCode, [Validators.required]],
           createdDate:[branch.createdDate]
         })
-      })
+      },err=>
+      {
+        console.log(err.error.message);
+      }
+      )
   }
 
   updateBranch() {
@@ -50,7 +54,7 @@ export class EditbranchComponent implements OnInit {
           this.success();
         },
         error => {
-          console.log("ERROR in update : " + error);
+          console.log("ERROR in update : " + error.error.message);
         });
   }
 

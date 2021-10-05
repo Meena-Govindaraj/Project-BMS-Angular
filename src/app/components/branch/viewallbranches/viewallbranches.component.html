@@ -36,7 +36,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let b of branch |filter:searches">
+        <tr *ngFor="let b of branch |paginate:config|filter:searches">
           <td>{{b.name}}</td>
           <td>{{b.city}}</td>
           <td>{{b.ifscCode}}</td>
@@ -47,5 +47,6 @@
               (click)="alertConfirmation(b.id)">Delete</button></td>
         </tr>
       </tbody>
-    </table>
+    </table><br><br>
+    <pagination-controls style="text-align: center;color:brown;" (pageChange)="pageChanged($event)"></pagination-controls>
   </div>

@@ -21,219 +21,216 @@ import Swal from 'sweetalert2';
 })
 export class EmployeeoperationsComponent implements OnInit {
 
-  employeeId:number;
-  changePassword?:boolean;
-  signupForm?:FormGroup
+  employeeId: number;
+  changePassword?: boolean;
+  signupForm?: FormGroup
   employee: Observable<Employee[]> | any;
-  customers:Customer[]=[];
-  errorMessage?:string
-  account:Observable<Account[]> | any;
-  ifscCode?:string;
-  transaction:Observable<Transaction[]> | any;
-  viewTrans?:boolean;
-  viewCust?:boolean;
-  showAll?:boolean;
-  searchCus?:any;
-  
- 
-  constructor(public activatedRoute :ActivatedRoute,public formBuilder:FormBuilder,public router:Router,public employeeService:EmployeeService,public accountService:AccountService,public customerService:CustomerService,public transactionService:TransactionService) { }
+  customers: Customer[] = [];
+  errorMessage?: string
+  account: Observable<Account[]> | any;
+  ifscCode?: string;
+  transaction: Observable<Transaction[]> | any;
+  viewTrans?: boolean;
+  viewCust?: boolean;
+  showAll?: boolean;
+  searchCus?: any;
+  config: any;
+
+  constructor(public activatedRoute: ActivatedRoute, public formBuilder: FormBuilder, public router: Router, public employeeService: EmployeeService, public accountService: AccountService, public customerService: CustomerService, public transactionService: TransactionService) { }
 
   ngOnInit(): void {
-   
+
     this.employeeId = this.activatedRoute.snapshot.params['employeeId'];
     console.log(this.employeeId)
 
-    this.viewCust=true;
-    this.showAll=true;
-    
+    this.viewCust = true;
+    this.showAll = true;
+
     this.viewAllCustomer();
 
     this.employeeService.getEmployeeById(this.employeeId)
-      .subscribe(response=>{
-       console.log(response)
-        this.employee=response;
-        this.employee=this.employee.data;
-      this.signupForm = this.formBuilder.group({
-        mobileNo: [this.employee.mobileNo],
-        password: ['', [Validators.required ,Validators.minLength(6)]],
-        newPassword: ['', [Validators.required ,Validators.minLength(6)]]
-       
+      .subscribe(response => {
+        console.log(response)
+        this.employee = response;
+        this.employee = this.employee.data;
+        this.signupForm = this.formBuilder.group({
+          mobileNo: [this.employee.mobileNo],
+          password: ['', [Validators.required, Validators.minLength(6)]],
+          newPassword: ['', [Validators.required, Validators.minLength(6)]]
+
+        })
       })
-    })
   }
 
-   updatePassword(){
+  updatePassword() {
 
     console.log("updating password!!")
-    
-    if(this.employee.password==this.signupForm.get('password').value){
-    this.employeeService.updatePassword(this.signupForm.get('mobileNo').value,this.signupForm.get('password').value,this.signupForm.get('newPassword').value)
-      .subscribe(response=>{
-       console.log(response)
-       this.successNotification();
-      },err=>{
-        console.log(err) 
-      })
-  }
-  else
-    this.wrongPassword();
+
+    if (this.employee.password == this.signupForm.get('password').value) {
+      this.employeeService.updatePassword(this.signupForm.get('mobileNo').value, this.signupForm.get('password').value, this.signupForm.get('newPassword').value)
+        .subscribe(response => {
+          console.log(response)
+          this.successNotification();
+        }, err => {
+          console.log(err)
+        })
+    }
+    else
+      this.wrongPassword();
 
   }
-  successNotification(){
+  successNotification() {
     Swal.fire('Success', 'Password Updated!', 'success')
     this.router.navigate(['employeelogin'])
   }
-  wrongPassword(){
+  wrongPassword() {
     Swal.fire('Wrong', 'Enter correct OLD PASSWORD', 'warning')
     this.pass();
   }
-  
-   //getting all customers..on employee branch(ifsc)
-   viewAllCustomer()
-   {
 
-     this.employeeService.getEmployeeById(this.employeeId)
-     .subscribe(
-       response => {
-         this.employee=response;
-         this.employee=this.employee.data;
-         console.log(this.employee)
-           this.accountService.getCustomersByIFSC(this.employee.branch.ifscCode).subscribe(
-           (data)=>{
-           console.log("####Getting all Customers");
-           if(data==null)
-           {
-             this.errorMessage="NO DATA FOUND!!"
-             console.log(this.errorMessage)
-           }
-           else{
-             console.log(data);
-             this.account=data;
-             this.account=this.account.data;
-            
-           }})
-         });   
-   }
+  //getting all customers..on employee branch(ifsc)
+  viewAllCustomer() {
+
+    this.employeeService.getEmployeeById(this.employeeId)
+      .subscribe(
+        response => {
+          this.employee = response;
+          this.employee = this.employee.data;
+          console.log(this.employee)
+          this.accountService.getCustomersByIFSC(this.employee.branch.ifscCode).subscribe(
+            (data) => {
+              console.log("####Getting all Customers");
+
+              console.log(data);
+              this.account = data;
+              this.account = this.account.data;
+              this.config = { itemsPerPage: 5, currentPage: 1, totalItems: this.account.count }
+
+            }, err => {
+              this.errorMessage = "NO DATA FOUND!!"
+              console.log(this.errorMessage)
+            })
+        });
+  }
 
   //to delete customer
-  deleteCustomer(customerId:any)
-  {
-   console.log("customer Id Going to delete:"+customerId)
+  deleteCustomer(customerId: any) {
+    console.log("customer Id Going to delete:" + customerId)
     this.customerService.deleteCustomer(customerId)
-        .subscribe(
-          response => {
-            console.log("Response"+response) 
-            console.log("customer Id: "+customerId+" deleted successfully ");
-            this.viewAllCustomer();
-          }
-       );   
+      .subscribe(
+        response => {
+          console.log("Response" + response)
+          console.log("customer Id: " + customerId + " deleted successfully ");
+          this.viewAllCustomer();
+        }
+      );
   }
 
-  deleteAccount(typeId:any,customerId:any)
-  {
+  deleteAccount(typeId: any, customerId: any) {
 
-    console.log("Account type Id Going to delete:"+typeId)
+    console.log("Account type Id Going to delete:" + typeId)
     this.accountService.deleteAccount(typeId)
-        .subscribe(
-          response => {
-            console.log(response) 
-            this.accountService.getCountOfCustomerAccount(customerId)
+      .subscribe(
+        response => {
+          console.log(response)
+          this.accountService.getCountOfCustomerAccount(customerId)
             .subscribe(
-              cust=> {
-                console.log("Count of customer in type"+cust) 
-                if(cust==null)
+              cust => {
+                console.log("Count of customer in type" + cust)
+                if (cust == null)
                   this.deleteCustomer(customerId)
               })
-            this.viewAllCustomer();
-          }
-          
-       );   
+          this.viewAllCustomer();
+        }
+
+      );
   }
 
- //for pop up for deletion of customer
- alertConfirmation(typeId:any,customerId:any){
-   Swal.fire({
-     title: 'Are you sure?',
-     text: 'This process is irreversible.',
-     icon: 'warning',
-     showCancelButton: true,
-     confirmButtonText: 'Yes, go ahead.',
-     cancelButtonText: 'No, let me think'
-   }).then((result) => {
-     if (result.value) {
-       this.deleteAccount(typeId,customerId)
-       Swal.fire(
-         'Removed!',
-         'Account removed successfully!',
-         'success'
-       )
-     } else if (result.dismiss === Swal.DismissReason.cancel) {
-       Swal.fire(
-         'Cancelled',
-         'Account Not Deleted!!',
-         'error'
-       )
-     }
-   })
- }  
- viewTransacations(accountId:number)
- {
-  this.viewTrans=true;
-  this.viewCust=false;
-  this. showAll=false;
- 
-  this.transactionService.getTransactionByAccount(accountId).subscribe(data=>
-    {
-     this.transaction=data;
-        this.transaction=this.transaction.data
-        console.log(this.transaction)
-        if(this.transaction==null)
-          this.errorMessage="NO DATA FOUND!"
-      })
- }
+  //for pop up for deletion of customer
+  alertConfirmation(typeId: any, customerId: any) {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'This process is irreversible.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, go ahead.',
+      cancelButtonText: 'No, let me think'
+    }).then((result) => {
+      if (result.value) {
+        this.deleteAccount(typeId, customerId)
+        Swal.fire(
+          'Removed!',
+          'Account removed successfully!',
+          'success'
+        )
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Account Not Deleted!!',
+          'error'
+        )
+      }
+    })
+  }
+  viewTransacations(accountId: number) {
+    this.viewTrans = true;
+    this.viewCust = false;
+    this.showAll = false;
 
- back()
-  {
-    this.viewTrans=false;
-    this.viewCust=true; 
-    this.changePassword=false;
-    this.showAll=true;
-    this.errorMessage=""
-    this.router.navigate(['employeeop',this.employeeId])
+    this.transactionService.getTransactionByAccount(accountId).subscribe(data => {
+      this.transaction = data;
+      this.transaction = this.transaction.data
+      console.log(this.transaction)
+
+      this.config = { itemsPerPage: 3, currentPage: 1, totalItems: this.transaction.count }
+
+    }, err => {
+      this.errorMessage = "NO DATA FOUND!"
+      console.log(err.error)
+    })
+
   }
 
-  viewcustomers()
-  {
-    
-    this.router.navigate(['viewcustomers',this.employeeId])
+  back() {
+    this.viewTrans = false;
+    this.viewCust = true;
+    this.changePassword = false;
+    this.showAll = true;
+    this.errorMessage = ""
+    this.router.navigate(['employeeop', this.employeeId])
   }
 
-  viewrequests()
-  {
-    this.router.navigate(['viewrequests',this.employeeId])
+  viewcustomers() {
+
+    this.router.navigate(['viewcustomers', this.employeeId])
   }
 
-  updateemployee()
-  {
-    this.router.navigate(['updateemployee',this.employeeId])
+  viewrequests() {
+    this.router.navigate(['viewrequests', this.employeeId])
   }
 
-  pass()
-  {
-    this.changePassword=true;
-    this.viewCust=false;
-    this.showAll=false;
+  updateemployee() {
+    this.router.navigate(['updateemployee', this.employeeId])
   }
 
-reloadComponent() {
+  pass() {
+    this.changePassword = true;
+    this.viewCust = false;
+    this.showAll = false;
+  }
 
-  this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-  this.router.onSameUrlNavigation = 'reload';
-  this.errorMessage=""
-  this.router.navigate(['employeeop',this.employeeId])
-}
-logout()
-{
-  this.router.navigate(['employeelogin'])
-}
+  reloadComponent() {
+
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.errorMessage = ""
+    this.router.navigate(['employeeop', this.employeeId])
+  }
+  logout() {
+    this.router.navigate(['employeelogin'])
+  }
+  pageChanged(event: any) {
+    this.config.currentPage = event;
+  }
+
 }

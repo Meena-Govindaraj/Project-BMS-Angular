@@ -18,6 +18,7 @@ export class ViewallbranchesComponent implements OnInit {
   searchBranchForm?: FormGroup
   searches?: any;
   showBranches?:boolean
+  config:any;
 
   constructor(public branchService: BranchService, public router: Router, public formBuilder: FormBuilder) { }
 
@@ -33,20 +34,19 @@ export class ViewallbranchesComponent implements OnInit {
 
   //to get all branches
   viewAllBranches() {
+
     this.branchService.getAllBranches().subscribe(
       (res) => {
-        console.log("####Getting all branches");
-        if (res == null) {
-          this.errorMessage = "NO DATA FOUND!!"
-          console.log(this.errorMessage)
-        }
-        else {
+      
           console.log(res);
           this.branch = res;
           this.branch=this.branch.data;
-        }
-
-      }, err => this.errorMessage = err)
+          this.config = {​​​​​​itemsPerPage:5,currentPage:1,totalItems:this.branch.count}   
+          
+      }, err => {
+           this.errorMessage = "NO DATA FOUND!!"
+          console.log(this.errorMessage)
+      })
   }
 
 
@@ -62,7 +62,7 @@ export class ViewallbranchesComponent implements OnInit {
           this.viewAllBranches();
         },
         error => {
-          console.log(error)
+          console.log(error.error.message)
         }
       );
   }
@@ -107,4 +107,7 @@ export class ViewallbranchesComponent implements OnInit {
     this.router.navigate(['adminop'])
   }
 
+  pageChanged(event: any) {​​​​​​
+    this.config.currentPage = event; 
+   }​​​​​​
 }

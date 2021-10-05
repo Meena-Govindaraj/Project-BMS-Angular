@@ -52,7 +52,7 @@ export class ChangepinComponent implements OnInit {
           .subscribe(data=>{
            console.log(data)
            this.successNotification();
-          })     
+          },err=>{console.log(err.error.message)})     
     }
     else{
       this.wrongInfo("Wrong Transacation PIN!");

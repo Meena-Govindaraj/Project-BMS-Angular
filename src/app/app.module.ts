@@ -27,6 +27,7 @@ import { ChangepinComponent } from './components/customer/changepin/changepin.co
 import { AdminloginComponent } from './components/admin/adminlogin/adminlogin.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter'
 import { ToasterserviceService } from './toasterservice.service';
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,14 +52,15 @@ import { ToasterserviceService } from './toasterservice.service';
     ViewtransactionsComponent,
     AdminloginComponent,
 
-
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule,Ng2SearchPipeModule
+    FormsModule,
+    Ng2SearchPipeModule,
+    NgxPaginationModule
   ],
   providers: [ToasterserviceService],
   bootstrap: [AppComponent]

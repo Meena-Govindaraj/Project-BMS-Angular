@@ -32,7 +32,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr *ngFor="let e of employee |filter:searchemployee">
+              <tr *ngFor="let e of employee |filter:searchemployee|paginate:config">
               <td>{{e.name}}</td>
               <td>{{e.email}}</td>
               <td>{{e.mobileNo}}</td>
@@ -47,6 +47,10 @@
             </tr>
               </tbody>
               </table>
+              <br>
+    <pagination-controls style="text-align: center;color:brown;" (pageChange)="pageChanged($event)"></pagination-controls>
+    <br><br>
+
      </div>
  
  

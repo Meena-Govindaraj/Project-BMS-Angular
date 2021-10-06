@@ -8,22 +8,19 @@ import { Router } from '@angular/router';
 })
 export class AdminoperationsComponent implements OnInit {
 
-  constructor(public router:Router) { }
+  constructor(public router: Router) { }
 
   ngOnInit(): void {
   }
 
-  view()
-  {
+  view() {
     this.router.navigate(['viewall'])
   }
-  
-  employee()
-  {
+
+  employee() {
     this.router.navigate(['viewemployees'])
   }
-  admin()
-  {
+  admin() {
     this.router.navigate(['employeelogin'])
   }
 }

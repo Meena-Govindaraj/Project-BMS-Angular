@@ -1,35 +1,36 @@
 <br><br>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<div *ngIf=noAccount> 
-    <h3>Sorry!! You Didn't have account right now! </h3>
-    <h4>Please wait for Mail to accept your request on account and to get account details</h4>
-    <h5>Thank You for creating account in Our Bank</h5>
-    <h5>CHECK OUT MAIL!!</h5>
+<div *ngIf=noAccount>
+  <h3>Sorry!! You Didn't have account right now! </h3>
+  <h4>Please wait for Mail to accept your request on account and to get account details</h4>
+  <h5>Thank You for creating account in Our Bank</h5>
+  <h5>CHECK OUT MAIL!!</h5>
 </div>
 
 
 
 <body>
-    <ul>
-        <li>
-            <i>
-            <a  style="color:orange" *ngIf=otherOp  class="fa fa-user-circle">&nbsp;{{accountDetails[0].accountType.customer.name}}</a></i>
-          </li>
-          <li>
-            <a *ngIf=otherOp (click)=pass() class="fa fa-key">&nbsp;Change Password</a>
-          </li>
-      <li>
-        <a *ngIf=savingsAccount (click)=viewSavingsAccount() class="fa fa-eye">&nbsp;View Saving Account</a>
-      </li>
-      <li>
-        <a *ngIf=currentAccount  (click)=viewCurrentAccount() class="fa fa-eye">&nbsp;View Current Account</a>
-      </li>
-      <li>
-        <a *ngIf=otherOp (click)="logout()" style="margin-left: 1200px;"  class="fa fa-sign-out" >&nbsp;Logout</a>
-      </li>
-    </ul>   
-     
+  <ul>
+    <li>
+      <i>
+        <a style="color:orange" *ngIf=otherOp
+          class="fa fa-user-circle">&nbsp;{{accountDetails[0].accountType.customer.name}}</a></i>
+    </li>
+    <li>
+      <a *ngIf=otherOp (click)=pass() class="fa fa-key">&nbsp;Change Password</a>
+    </li>
+    <li>
+      <a *ngIf=savingsAccount (click)=viewSavingsAccount() class="fa fa-eye">&nbsp;View Saving Account</a>
+    </li>
+    <li>
+      <a *ngIf=currentAccount (click)=viewCurrentAccount() class="fa fa-eye">&nbsp;View Current Account</a>
+    </li>
+    <li>
+      <a *ngIf=otherOp (click)="logout()" style="margin-left: 1200px;" class="fa fa-sign-out">&nbsp;Logout</a>
+    </li>
+  </ul>
+
 </body>
 <!-- 
 <button *ngIf=savingsAccount (click)=viewSavingsAccount() class="bt btn-primary">View Saving Account</button>&nbsp;&nbsp;
@@ -39,54 +40,57 @@
 <button *ngIf=otherOp style="margin-left: 850px;" class="bt btn-success">{{accountDetails[0].accountType.customer.name}}</button><br><br>
 <button *ngIf=otherOp (click)=pass() style="margin-left: 1270px;" class="bt btn-primary">Change Password</button>&nbsp;&nbsp;
  -->
- <br><br>
-    <span *ngIf=createSavings> <i><b>Do you want to Create Savings Account ---> </b></i> <button (click)=createSavingsAccount() class="bt btn-primary">Create Savings Account</button></span>
+<br><br>
+<span *ngIf=createSavings> <i><b>Do you want to Create Savings Account ---> </b></i> <button
+    (click)=createSavingsAccount() class="bt btn-primary">Create Savings Account</button></span>
 
-   <span *ngIf=createCurrent> <i><b>Do you want to Create Current Account ---> </b></i> <button   (click)=createCurrentAccount() class="bt btn-info">Create Current Account</button></span>&nbsp;&nbsp;
+<span *ngIf=createCurrent> <i><b>Do you want to Create Current Account ---> </b></i> <button
+    (click)=createCurrentAccount() class="bt btn-info">Create Current Account</button></span>&nbsp;&nbsp;
 
-    
+
 <div class="reglist" *ngIf=changePassword>
-    <form novalidate [formGroup]="signupForm" style="margin-left: 550px;margin-top: 50px;width: 300px;" (ngSubmit)="updatePassword()">
-  <fieldset>
-    <div class="form-group">
+  <form novalidate [formGroup]="signupForm" style="margin-left: 550px;margin-top: 50px;width: 300px;"
+    (ngSubmit)="updatePassword()">
+    <fieldset>
+      <div class="form-group">
         <label>*Mobile Number :</label>
         <input type="tel" class="form-control" formControlName="mobileNo" readonly>
-    </div><br>
+      </div><br>
 
-    
-    <div class="form-group">
+
+      <div class="form-group">
         <label>*Old Password:</label>
         <input type="text" class="form-control" formControlName="password">
         <div class="alert alert-danger"
-            *ngIf="signupForm.get('password').hasError('required') && signupForm.get('password').dirty">
-           Old Password is required
+          *ngIf="signupForm.get('password').hasError('required') && signupForm.get('password').dirty">
+          Old Password is required
         </div>
 
         <div class="alert alert-danger"
-            *ngIf="signupForm.get('password').hasError('minlength') && signupForm.get('password').dirty">
-            Old Password  should be minimum of 6 characters.
+          *ngIf="signupForm.get('password').hasError('minlength') && signupForm.get('password').dirty">
+          Old Password should be minimum of 6 characters.
         </div>
 
-    </div><br>
+      </div><br>
 
-    <div class="form-group">
+      <div class="form-group">
         <label>*New Password:</label>
         <input type="text" class="form-control" formControlName="newPassword">
         <div class="alert alert-danger"
-            *ngIf="signupForm.get('newPassword').hasError('required') && signupForm.get('newPassword').dirty">
-           New Password is required
+          *ngIf="signupForm.get('newPassword').hasError('required') && signupForm.get('newPassword').dirty">
+          New Password is required
         </div>
 
         <div class="alert alert-danger"
-            *ngIf="signupForm.get('newPassword').hasError('minlength') && signupForm.get('newPassword').dirty">
-             Password  should be minimum of 6 characters.
+          *ngIf="signupForm.get('newPassword').hasError('minlength') && signupForm.get('newPassword').dirty">
+          Password should be minimum of 6 characters.
         </div>
-    </div><br>
+      </div><br>
 
-    <button type="submit" class="btn btn-primary" [disabled] ="signupForm.invalid" style="margin-left: 55px">Change Password</button> &nbsp;
-    <button type="button" (click)=back() class="btn btn-info">Back</button>
-    
-  </fieldset>
-    </form>
+      <button type="submit" class="btn btn-primary" [disabled]="signupForm.invalid" style="margin-left: 55px">Change
+        Password</button> &nbsp;
+      <button type="button" (click)=back() class="btn btn-info">Back</button>
+
+    </fieldset>
+  </form>
 </div>
-

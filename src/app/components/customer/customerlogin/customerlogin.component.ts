@@ -42,12 +42,12 @@ export class CustomerloginComponent implements OnInit {
       (data) => {
         cust = data;
         cust = cust.data;
-       
-          this.router.navigate(['customeroperations', cust.id])
-       
-      },err=>{
+
+        this.router.navigate(['customeroperations', cust.id])
+
+      }, err => {
         this.wrongLogin();
-          this.router.navigate(['customerlogin'])
+        this.router.navigate(['customerlogin'])
       }
     )
   }
@@ -56,12 +56,12 @@ export class CustomerloginComponent implements OnInit {
     this.customerService.getCustomerByEmail(this.getEmailForm.get('email').value).subscribe(data => {
       cust = data;
       cust = cust.data;
-        this.customerService.forgetPassword(this.getEmailForm.get('email').value).subscribe(
-          (data) => {
-            this.forget();
-            this.updated(); 
-          },err=>{console.log(err.error)});
-    },err=>{
+      this.customerService.forgetPassword(this.getEmailForm.get('email').value).subscribe(
+        (data) => {
+          this.forget();
+          this.updated();
+        }, err => { console.log(err.error) });
+    }, err => {
       this.wrongLogin();
     })
 

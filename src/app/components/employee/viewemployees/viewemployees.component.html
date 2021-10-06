@@ -1,56 +1,57 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <body>
-    <ul>
-      <li >
-        <a (click)="addEmployee()" class="fa fa-user-circle">&nbsp;Add Employee</a>
-      </li>
-      <li>
-        <a (click)="showAdminop()"  class="fa fa-sign-out">&nbsp;Back</a>
-      </li>
-    </ul>     
+  <ul>
+    <li>
+      <a (click)="addEmployee()" class="fa fa-user-circle">&nbsp;Add Employee</a>
+    </li>
+    <li>
+      <a (click)="showAdminop()" class="fa fa-sign-out">&nbsp;Back</a>
+    </li>
+  </ul>
 </body>
 <br>
 
-    <div class="search-hero">
-        <input style="margin-left: 550px;width: 300px;"  [ngClass]="['form-control','fa fa-search']" type="text" name="search" [(ngModel)]="searchemployee" 
-            autocomplete="off" placeholder="&#xF002;Search by Employees Name or Mobileno or Email or Salary">
-      </div><br><br>
+<div class="search-hero">
+  <input style="margin-left: 550px;width: 300px;" [ngClass]="['form-control','fa fa-search']" type="text" name="search"
+    [(ngModel)]="searchemployee" autocomplete="off"
+    placeholder="&#xF002;Search by Employees Name or Mobileno or Email or Salary">
+</div><br><br>
 <div>
-    <div class="reglist">
-         <table class="table table-striped">
-              <thead>
-              <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Mobile No</th>
-              <th>Address</th>
-              <th>Branch Name</th>
-              <th>IFSC code</th>
-              <th>Salary</th>
-              <th>Edit</th>
-              <th>Delete</th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr *ngFor="let e of employee |filter:searchemployee|paginate:config">
-              <td>{{e.name}}</td>
-              <td>{{e.email}}</td>
-              <td>{{e.mobileNo}}</td>
-              <td>{{e.address}}</td>
-              <td>{{e.branch.name}}</td>
-              <td>{{e.branch.ifscCode}}</td>
-              <td>{{e.salary}}</td>
-             
-              <td><button type="button" class="btn btn-info" (click)="editEmployee(e.id)" >Edit</button></td>
-              <td><button type="button" class="btn btn-danger" (click)="alertConfirmation(e.id)">Delete</button></td>
-             
-            </tr>
-              </tbody>
-              </table>
-              <br>
-    <pagination-controls style="text-align: center;color:brown;" (pageChange)="pageChanged($event)"></pagination-controls>
+  <div class="reglist">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Mobile No</th>
+          <th>Address</th>
+          <th>Branch Name</th>
+          <th>IFSC code</th>
+          <th>Salary</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let e of employee |filter:searchemployee|paginate:config">
+          <td>{{e.name}}</td>
+          <td>{{e.email}}</td>
+          <td>{{e.mobileNo}}</td>
+          <td>{{e.address}}</td>
+          <td>{{e.branch.name}}</td>
+          <td>{{e.branch.ifscCode}}</td>
+          <td>{{e.salary}}</td>
+
+          <td><button type="button" class="btn btn-info" (click)="editEmployee(e.id)">Edit</button></td>
+          <td><button type="button" class="btn btn-danger" (click)="alertConfirmation(e.id)">Delete</button></td>
+
+        </tr>
+      </tbody>
+    </table>
+    <br>
+    <pagination-controls style="text-align: center;color:brown;" (pageChange)="pageChanged($event)">
+    </pagination-controls>
     <br><br>
 
-     </div>
- 
- 
+  </div>

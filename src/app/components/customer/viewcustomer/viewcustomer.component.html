@@ -1,73 +1,77 @@
+<div *ngIf=viewTrans>
+    <h3>
+        <font color="red" style="margin-left: 550px;width: 800px;"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font>
+    </h3>
 
-    <div *ngIf=viewTrans>
-        <h3><font color="red"  style="margin-left: 550px;width: 800px;"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font></h3>
-    
-     <div class="reglist">
-             <table class="table table-striped" style="margin-left: 300px;width: 800px;border-style: ridge;">
-                  <thead>
-                  <tr>
-                  <th>Deposit</th>
-                  <th>Withdraw</th>
-                  <th>Balance</th>
-                  <th>Transaction Date</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr *ngFor="let e of transaction |filter:searchCus">
-                  <td>{{e.deposit | currency:'INR'}}</td>
-                  <td>{{e.withdraw |  currency:'INR'}}</td>
-                  <td>{{e.balance | currency:'INR'}}</td>
-                  <td>{{e.transactionDate  |  date: 'dd/MM/yyyy HH:mm:ss'}}</td>
-                  </tr>
-                </tbody>
-                  </table> 
-                   <button type="button" style="margin-left: 650px;border-style: ridge;" (click)=back() class="btn btn-info">Back</button>
-         </div>
-     
-     
-     </div>
-    
-    <div *ngIf=viewCust>
-        <h3><font color="red"  style="margin-left: 550px;width: 800px;"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font></h3>
-        <div class="reglist">
-             <table class="table table-striped"> 
-                  <thead>
-                  <tr>
-                  <th>Name</th>
-                  <th>Account Number</th>
-                  <th>Mobile No</th>
-                  <th>Branch Name</th>
-                  <th>IFSC code</th>
-                  <th>Balance</th>
-                  <th>Transactions</th>
-                  <th>Delete</th>
-                  <th>alerrt</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr *ngFor="let c of account">
-                  <td>{{c.accountType.customer.name}}</td>
-                  <td>{{c.accountType.accountNo}}</td>
-                  <td>{{c.accountType.customer.mobileNo}}</td>
-                  <td>{{c.accountType.customer.branch.name}}</td>
-                  <td>{{c.accountType.customer.branch.ifscCode}}</td>
-                  <td>{{c.balance | currency:'INR'}}</td>
-                
-                  <td>
-                      <button type="button" class="btn btn-info" (click)="viewTransacations(c.id)"> Transacations</button></td>
-                  <td>
-                     <button type="button" class="btn btn-danger" (click)="alertConfirmation(c.accountType.id,c.accountType.customer.id)"> {{c.accountType.type}} Account</button>
-                  </td>
-                  <td *ngIf="c.balance<=5000">
-                   <button>kkk</button>
-                 </td>
-                  </tr>
-                  </tbody>
-                  </table>
-         </div>
-     
-     <div>
+    <div class="reglist">
+        <table class="table table-striped" style="margin-left: 300px;width: 800px;border-style: ridge;">
+            <thead>
+                <tr>
+                    <th>Deposit</th>
+                    <th>Withdraw</th>
+                    <th>Balance</th>
+                    <th>Transaction Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let e of transaction |filter:searchCus">
+                    <td>{{e.deposit | currency:'INR'}}</td>
+                    <td>{{e.withdraw | currency:'INR'}}</td>
+                    <td>{{e.balance | currency:'INR'}}</td>
+                    <td>{{e.transactionDate | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="button" style="margin-left: 650px;border-style: ridge;" (click)=back()
+            class="btn btn-info">Back</button>
+    </div>
 
-      
-             
-   
+
+</div>
+
+<div *ngIf=viewCust>
+    <h3>
+        <font color="red" style="margin-left: 550px;width: 800px;"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font>
+    </h3>
+    <div class="reglist">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Account Number</th>
+                    <th>Mobile No</th>
+                    <th>Branch Name</th>
+                    <th>IFSC code</th>
+                    <th>Balance</th>
+                    <th>Transactions</th>
+                    <th>Delete</th>
+                    <th>alerrt</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let c of account">
+                    <td>{{c.accountType.customer.name}}</td>
+                    <td>{{c.accountType.accountNo}}</td>
+                    <td>{{c.accountType.customer.mobileNo}}</td>
+                    <td>{{c.accountType.customer.branch.name}}</td>
+                    <td>{{c.accountType.customer.branch.ifscCode}}</td>
+                    <td>{{c.balance | currency:'INR'}}</td>
+
+                    <td>
+                        <button type="button" class="btn btn-info" (click)="viewTransacations(c.id)">
+                            Transacations</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger"
+                            (click)="alertConfirmation(c.accountType.id,c.accountType.customer.id)">
+                            {{c.accountType.type}} Account</button>
+                    </td>
+                    <td *ngIf="c.balance<=5000">
+                        <button>kkk</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div>

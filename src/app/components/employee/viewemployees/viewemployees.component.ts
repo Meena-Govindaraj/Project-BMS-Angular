@@ -16,7 +16,7 @@ export class ViewemployeesComponent implements OnInit {
   employee: Observable<Employee[]> | any;
   errorMessage?: string
   searchemployee?: any
-  config:any 
+  config: any
 
   constructor(public router: Router, public formBuilder: FormBuilder, public employeeService: EmployeeService) { }
 
@@ -29,17 +29,18 @@ export class ViewemployeesComponent implements OnInit {
     this.employeeService.getAllEmployees().subscribe(
       (data) => {
         console.log("####Getting all Employees");
-       
-          console.log(data);
-          this.employee = data;
-          this.employee = this.employee.data;
 
-          this.config = { itemsPerPage: 5, currentPage: 1, totalItems: this.employee.count }
+        console.log(data);
+        this.employee = data;
+        this.employee = this.employee.data;
+
+        this.config = { itemsPerPage: 5, currentPage: 1, totalItems: this.employee.count }
 
 
       }, err => {
         this.errorMessage = "NO DATA FOUND!!"
-        this.errorMessage = err})
+        this.errorMessage = err
+      })
   }
 
   //navigating to editcomponent
@@ -94,8 +95,8 @@ export class ViewemployeesComponent implements OnInit {
     this.router.navigate(['adminop'])
   }
 
-  
- pageChanged(event: any) {​​​​​​
-  this.config.currentPage = event; 
- }​​​​​​
+
+  pageChanged(event: any) {
+    this.config.currentPage = event;
+  }
 }

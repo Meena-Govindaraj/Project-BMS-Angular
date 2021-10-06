@@ -27,14 +27,14 @@ export class AddbranchComponent implements OnInit {
   //TO ADD BRANCH
   addBranch() {
 
-      this.branchService.addBranch(this.addBranchForm?.value)
+    this.branchService.addBranch(this.addBranchForm?.value)
       .subscribe(
         res => {
           console.log(res);
           this.back();
           this.success();
-        },err=>{
-          this.errorMessage="Branch Code already exists"
+        }, err => {
+          this.errorMessage = "Branch Code already exists"
           this.toasterService.warning("Branch Code already exists");
         }
       )

@@ -1,43 +1,45 @@
 <body>
-<div class="reglist">
-  <br><br><h4 style="margin-left: 550px;width: 300px;margin-top: 100px;">Change Transaction PIN</h4><br><br>
-  <fieldset> 
-  <form novalidate [formGroup]="signupForm" style="margin-left: 550px;width: 300px;" (ngSubmit)="updatePassword()">
+  <div class="reglist">
+    <br><br>
+    <h4 style="margin-left: 550px;width: 300px;margin-top: 100px;">Change Transaction PIN</h4><br><br>
+    <fieldset>
+      <form novalidate [formGroup]="signupForm" style="margin-left: 550px;width: 300px;" (ngSubmit)="updatePassword()">
 
-    <div class="form-group"  >
-      Old Password<label>*</label>
-        <input type="text" class="form-control" formControlName="password">
-        <div class="alert alert-danger"
+        <div class="form-group">
+          Old Password<label>*</label>
+          <input type="text" class="form-control" formControlName="password">
+          <div class="alert alert-danger"
             *ngIf="signupForm.get('password').hasError('required') && signupForm.get('password').dirty">
-           Old Password is required
-        </div>
+            Old Password is required
+          </div>
 
-        <div class="alert alert-danger"
+          <div class="alert alert-danger"
             *ngIf="signupForm.get('password').hasError('minlength') && signupForm.get('password').dirty">
-            Old Password  should be minimum of 6 characters.
-        </div>
+            Old Password should be minimum of 6 characters.
+          </div>
 
-    </div><br>
+        </div><br>
 
-    <div class="form-group">
-      New Password<label>*</label>
-        <input type="text" class="form-control" formControlName="newPassword">
-        <div class="alert alert-danger"
+        <div class="form-group">
+          New Password<label>*</label>
+          <input type="text" class="form-control" formControlName="newPassword">
+          <div class="alert alert-danger"
             *ngIf="signupForm.get('newPassword').hasError('required') && signupForm.get('newPassword').dirty">
-           New Password is required
-        </div>
+            New Password is required
+          </div>
 
-        <div class="alert alert-danger"
+          <div class="alert alert-danger"
             *ngIf="signupForm.get('newPassword').hasError('minlength') && signupForm.get('newPassword').dirty">
-             Password  should be minimum of 6 characters.
-        </div>
-    </div><br>
+            Password should be minimum of 6 characters.
+          </div>
+        </div><br>
 
-    <button type="submit" class="btn btn-primary" [disabled] ="signupForm.invalid" style="margin-left: 30px">Change Password</button> &nbsp;
-    <button type="button" (click)=back() class="btn btn-info">Back</button>
-    
-  
-    </form>
-  </fieldset>
-</div> <br><br> <br><br> <br><br>
+        <button type="submit" class="btn btn-primary" [disabled]="signupForm.invalid" style="margin-left: 30px">Change
+          Password</button> &nbsp;
+        <button type="button" (click)=back() class="btn btn-info">Back</button>
+
+
+      </form>
+    </fieldset>
+  </div> <br><br> <br><br> <br><br>
 </body>

@@ -51,10 +51,11 @@ export class EmployeeloginComponent implements OnInit {
             this.wrongLogin();
             this.router.navigate(['employeelogin'])
           }
-        },err=>{
+        }, err => {
           console.log(err)
           this.wrongLogin();
-          this.router.navigate(['employeelogin'])}
+          this.router.navigate(['employeelogin'])
+        }
       )
     }
   }

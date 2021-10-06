@@ -11,27 +11,26 @@ import Swal from 'sweetalert2';
 })
 export class AdminloginComponent implements OnInit {
 
-  adminLoginForm?:FormGroup
- 
+  adminLoginForm?: FormGroup
 
-  constructor(public activatedRoute :ActivatedRoute,public formBuilder:FormBuilder,public router: Router) { }
-   
+
+  constructor(public activatedRoute: ActivatedRoute, public formBuilder: FormBuilder, public router: Router) { }
+
   ngOnInit(): void {
 
     this.adminLoginForm = this.formBuilder.group({
       name: [''],
-      password: ['', [Validators.required ,Validators.minLength(6)]],
-  })
-   
+      password: ['', [Validators.required, Validators.minLength(6)]],
+    })
+
   }
-  adminLogin()
-  {
-    if(this.adminLoginForm.get('name').value=="admin" && this.adminLoginForm.get('password').value=="admin123")
-        this.router.navigate(['adminop'])
+  adminLogin() {
+    if (this.adminLoginForm.get('name').value == "admin" && this.adminLoginForm.get('password').value == "admin123")
+      this.router.navigate(['adminop'])
     else
-    this.wrongLogin();
+      this.wrongLogin();
   }
-  wrongLogin(){
+  wrongLogin() {
     Swal.fire('Wrong!', 'Your Login Credentials are not matched!', 'error')
   }
 }

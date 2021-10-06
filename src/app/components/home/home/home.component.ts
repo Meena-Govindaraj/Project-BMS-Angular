@@ -8,21 +8,18 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public router:Router) { }
+  constructor(public router: Router) { }
 
   ngOnInit(): void {
-    
+
   }
-  admin()
-  {
+  admin() {
     this.router.navigate(["adminlogin"])
   }
-  employee()
-  {
+  employee() {
     this.router.navigate(['employeelogin'])
   }
-  customer()
-  {
+  customer() {
     this.router.navigate(['customerlogin'])
   }
 }

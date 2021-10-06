@@ -25,21 +25,20 @@ export class EditbranchComponent implements OnInit {
     this.branchId = this.activatedRoute.snapshot.params['branchId'];
     console.log("####branchId: ", this.branchId)
 
- 
+
     this.branchService.getBranchById(this.branchId)
       .subscribe(res => {
         console.log(res)
-        branch=res;
-        branch=branch.data;
+        branch = res;
+        branch = branch.data;
         this.editBranchForm = this.formBuilder.group({
           id: [branch.id, [Validators.required]],
           name: [branch.name, [Validators.required]],
           city: [branch.city, [Validators.required]],
           ifscCode: [branch.ifscCode, [Validators.required]],
-          createdDate:[branch.createdDate]
+          createdDate: [branch.createdDate]
         })
-      },err=>
-      {
+      }, err => {
         console.log(err.error.message);
       }
       )

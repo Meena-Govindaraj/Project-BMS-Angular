@@ -17,15 +17,15 @@ export class ViewallbranchesComponent implements OnInit {
   branch: Observable<Branch[]> | any;
   searchBranchForm?: FormGroup
   searches?: any;
-  showBranches?:boolean
-  config:any;
+  showBranches?: boolean
+  config: any;
 
   constructor(public branchService: BranchService, public router: Router, public formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
 
     this.viewAllBranches();
-    this.showBranches=true;
+    this.showBranches = true;
     this.searchBranchForm = this.formBuilder.group({
       branchId: ['', Validators.required]
     })
@@ -37,15 +37,15 @@ export class ViewallbranchesComponent implements OnInit {
 
     this.branchService.getAllBranches().subscribe(
       (res) => {
-      
-          console.log(res);
-          this.branch = res;
-          this.branch=this.branch.data;
-          this.config = {​​​​​​itemsPerPage:5,currentPage:1,totalItems:this.branch.count}   
-          
+
+        console.log(res);
+        this.branch = res;
+        this.branch = this.branch.data;
+        this.config = { itemsPerPage: 5, currentPage: 1, totalItems: this.branch.count }
+
       }, err => {
-           this.errorMessage = "NO DATA FOUND!!"
-          console.log(this.errorMessage)
+        this.errorMessage = "NO DATA FOUND!!"
+        console.log(this.errorMessage)
       })
   }
 
@@ -107,7 +107,7 @@ export class ViewallbranchesComponent implements OnInit {
     this.router.navigate(['adminop'])
   }
 
-  pageChanged(event: any) {​​​​​​
-    this.config.currentPage = event; 
-   }​​​​​​
+  pageChanged(event: any) {
+    this.config.currentPage = event;
+  }
 }

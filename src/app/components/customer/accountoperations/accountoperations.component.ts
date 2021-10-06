@@ -136,8 +136,8 @@ export class AccountOperationsComponent implements OnInit {
     this.transferAmt = true;
     this.shownav = false;
     this.showDetails = false;
-    this.viewBal=false;
-    this.showBalance=false;
+    this.viewBal = false;
+    this.showBalance = false;
     console.log("Sender Id:" + this.senderDetails.id)
     this.senderId = this.senderDetails.id;
   }
@@ -155,12 +155,12 @@ export class AccountOperationsComponent implements OnInit {
           this.receiverId = this.receiverDetails.id;
           if (this.sendAmount > this.senderBalance)
             this.availInfo("Available Balance: " + this.senderBalance);
-          
-            //if savings account--->per transaction limit 20000 
+
+          //if savings account--->per transaction limit 20000 
           else if (this.type == "Savings" && this.sendAmount > 20000)
             this.wrongInfo("Payment Failed, Send money less than 20000")
-         
-            else {
+
+          else {
             if (this.senderPIN == this.bankTransferForm.get('pin').value) {
               this.accountService.bankTransfer(this.senderId, this.receiverId, this.sendAmount)
                 .subscribe(data => {
@@ -189,7 +189,7 @@ export class AccountOperationsComponent implements OnInit {
         this.transaction.balance = sBalance;
         this.transaction.balance = this.transaction.balance.data.balance;
         this.transaction.withdraw = amount;
-      
+
         this.transactionService.addTransaction(this.transaction).subscribe(data => {
         }, err => { console.log(err.error.message) })
       })
@@ -201,7 +201,7 @@ export class AccountOperationsComponent implements OnInit {
         this.transaction.withdraw = null;
         this.transaction.account = reciever;
         this.transaction.balance = rBalance;
-        this.transaction.balance=this.transaction.balance.data.balance
+        this.transaction.balance = this.transaction.balance.data.balance
         this.transaction.deposit = amount;
         this.transaction.message = this.bankTransferForm.get('message').value;
         this.transactionService.addTransaction(this.transaction).subscribe(data => {
@@ -213,7 +213,7 @@ export class AccountOperationsComponent implements OnInit {
     this.viewBal = true;
     this.shownav = false;
     this.showDetails = false;
-    this.transferAmt=false;
+    this.transferAmt = false;
   }
 
   back() {

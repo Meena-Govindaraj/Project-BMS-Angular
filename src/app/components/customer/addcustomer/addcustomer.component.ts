@@ -111,11 +111,11 @@ export class AddcustomerComponent implements OnInit {
                 this.success();
                 this.router.navigate(['customerlogin'])
               }, err => {
-              console.log(err.error.message)
-            })
+                console.log(err.error.message)
+              })
         }, err => {
-        console.log(err.error.message)
-      })
+          console.log(err.error.message)
+        })
   }
 
 

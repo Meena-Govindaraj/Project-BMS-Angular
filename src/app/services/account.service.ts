@@ -78,7 +78,7 @@ export class AccountService {
   }
 
    //get all account
-  getCountOfCustomerAccount(customerId:number):Observable<Accountype[]>
+  getCountOfCustomerAccount(customerId:number):Observable<any>
   {
     return this.http.get<Accountype[]>(`${accountTypeURL}/getCustomerById/${customerId}`)
     .pipe(retry(0),
@@ -118,7 +118,7 @@ export class AccountService {
   }
 
   //localhost:9001/account/getCustomerByCustomerId/16
-  getCustomerOnAccount(customerId:number):Observable<Account[]>
+  getCustomerOnAccount(customerId:number):Observable<any>
   {
     return this.http.get<Account[]>(`${accountURL}/getCustomerByCustomerId/${customerId}`)
     .pipe(
@@ -128,9 +128,9 @@ export class AccountService {
   }
 
   //localhost:9001/account/getAccountsByType/23/Current
-  getAccountByType(customerId:number,type:string):Observable<Account>
+  getAccountByType(customerId:number,type:string):Observable<any>
   {
-    return this.http.get<Account>(`${accountURL}/getAccountsByType/${customerId}/${type}`)
+    return this.http.get<any>(`${accountURL}/getAccountsByType/${customerId}/${type}`)
     .pipe(
       retry(0),
       catchError(this.errorHandler)
@@ -138,7 +138,7 @@ export class AccountService {
   }
   
   //localhost:9001/account/getaccountbyaccountno/602970040956
-  getAccountByaccountNo(accountNo:string)
+  getAccountByaccountNo(accountNo:string):Observable<any>
   {
     return this.http.get<Account>(`${accountURL}/getaccountbyaccountno/${accountNo}`)
     .pipe(
@@ -157,9 +157,9 @@ export class AccountService {
   }
 
   //localhost:9001/account/updatePassword/33/555555
-  updatePassword(typeId:number,oldPassword:string,newPassword:string)
+  updatePassword(accountId:number,oldPassword:string,newPassword:string)
   {
-    return this.http.put(`${accountURL}/updatePassword/${typeId}/${oldPassword}/${newPassword}`,this.httpOptions)
+    return this.http.put(`${accountURL}/updatePassword/${accountId}/${oldPassword}/${newPassword}`,this.httpOptions)
     .pipe
     (
       retry(0),

@@ -19,29 +19,28 @@ export class AccountOperationsComponent implements OnInit {
 
   viewBalanceForm: FormGroup;
   bankTransferForm: FormGroup;
-  errorMessage?: string
+  errorMessage: string
   customerId: number;
   type: string;
 
-  viewBal?: boolean;
-  showBalance?: boolean;
-  transferAmt?: boolean;
-  shownav?: boolean;
-  checkPIN?: boolean;
-
-  senderBalance?: number;
+  viewBal: boolean;
+  showBalance: boolean;
+  transferAmt: boolean;
+  shownav: boolean;
+ 
+  senderBalance: number;
   senderId: number;
   senderPIN: number;
 
-  senderDetails: Observable<Account[]> | any;
+  senderDetails:Account;
 
   receiverId: number;
   sendAmount: number;
-  receiverDetails: Observable<Account[]> | any;
-  transaction: Observable<Transaction[]> | any;
-  showDetails?: boolean;
+  receiverDetails:Account;
+  transaction: Transaction;
+  showDetails: boolean;
   date = new Date();
-  invoice?: boolean;
+  invoice: boolean;
 
 
   constructor(public activatedRoute: ActivatedRoute, public formBuilder: FormBuilder, public transactionService: TransactionService, public router: Router, public customerService: CustomerService, public accountService: AccountService) { }
@@ -110,8 +109,7 @@ export class AccountOperationsComponent implements OnInit {
     //to get account details on account type of customer
     this.accountService.getAccountByType(this.customerId, this.type)
       .subscribe(data => {
-        this.senderDetails = data;
-        this.senderDetails = this.senderDetails.data;
+        this.senderDetails = data.data;
         console.log(this.senderDetails)
         this.senderBalance = this.senderDetails.balance
         this.senderPIN = this.senderDetails.transactionPIN;
@@ -147,8 +145,7 @@ export class AccountOperationsComponent implements OnInit {
     //to get account id of reciever account 
     this.accountService.getAccountByaccountNo(this.bankTransferForm.get('recieverAccount').value)
       .subscribe(data => {
-        this.receiverDetails = data;
-        this.receiverDetails = this.receiverDetails.data;
+        this.receiverDetails = data.data;
 
         if (this.receiverDetails != null) {
 
@@ -186,8 +183,7 @@ export class AccountOperationsComponent implements OnInit {
       .subscribe(sBalance => {
 
         this.transaction.account = sender;
-        this.transaction.balance = sBalance;
-        this.transaction.balance = this.transaction.balance.data.balance;
+        this.transaction.balance = sBalance.data.balance;
         this.transaction.withdraw = amount;
 
         this.transactionService.addTransaction(this.transaction).subscribe(data => {
@@ -200,8 +196,7 @@ export class AccountOperationsComponent implements OnInit {
 
         this.transaction.withdraw = null;
         this.transaction.account = reciever;
-        this.transaction.balance = rBalance;
-        this.transaction.balance = this.transaction.balance.data.balance
+        this.transaction.balance = rBalance.data;
         this.transaction.deposit = amount;
         this.transaction.message = this.bankTransferForm.get('message').value;
         this.transactionService.addTransaction(this.transaction).subscribe(data => {

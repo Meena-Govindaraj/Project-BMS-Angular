@@ -60,7 +60,7 @@ export class CustomerService {
 
   //get customer by mobileno
   //http://localhost:9001/customer/getCustomerByMobileNo/4545445444
-  getCustomerByMobileNo(mobileNo: string): Observable<Customer> {
+  getCustomerByMobileNo(mobileNo: string): Observable<any> {
     return this.http.get<Customer>(`${customerURL}/getCustomerByMobileNo/${mobileNo}`)
       .pipe(
         retry(0),
@@ -87,7 +87,7 @@ export class CustomerService {
 
   //localhost:9001/customer/customerLogin/5688877666/123456
   //http://localhost:9001/login/customerLogin/8987654321/309831
-  customerLogin(mobileNo: string, password: String): Observable<Customer> {
+  customerLogin(mobileNo: string, password: String): Observable<any> {
     return this.http.get<Customer>(`${login}/customerLogin/${mobileNo}/${password}`)
       .pipe(
         retry(0),

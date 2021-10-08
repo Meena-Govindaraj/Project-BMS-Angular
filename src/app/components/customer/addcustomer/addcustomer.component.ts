@@ -20,13 +20,12 @@ export class AddcustomerComponent implements OnInit {
 
 
   signupForm: FormGroup
-  branches: Observable<Branch[]> | any;
-  customer?: Customer;
-  errorMessage?: string;
-  getType?: boolean;
-  getCustomer?: boolean = true;
+  branches: Branch[];
+  customer: Customer;
+  errorMessage: string;
+  getType: boolean;
+  getCustomer: boolean = true;
   typeForm: FormGroup
-
 
   constructor(public activatedRoute: ActivatedRoute, private toasterService: ToasterserviceService, public customerService: CustomerService, public branchService: BranchService, public accountService: AccountService, public formBuilder: FormBuilder, public router: Router) { }
 
@@ -52,33 +51,16 @@ export class AddcustomerComponent implements OnInit {
   viewAllBranches() {
     this.branchService.getAllBranches().subscribe(
       (response) => {
-        this.branches = response;
-        this.branches = this.branches.data;
+        this.branches = response.data;
         console.log(this.branches)
       }, err => console.log(err.error.message)
     )
   }
 
-  viewBranchByIFSC() {
-
-    var branch: Observable<Branch[]> | any;
-    this.branchService.getBranchByName(this.signupForm.get('branch')?.value).subscribe(
-      (response) => {
-        console.log("branch Name: " + this.signupForm.get('branch')?.value)
-        branch = response;
-        branch = branch.data;
-        this.customer = this.signupForm.value;
-        this.customer.branch = branch;
-        this.customerSignup(this.customer);
-      }, err => {
-        console.log(err.error.message)
-      })
-  }
-
-  customerSignup(customer: Customer) {
-    console.log(this.signupForm?.value)
+  customerSignup() {
+    console.log(this.signupForm.value)
     this.getType = true
-    this.customerService.addCustomer(customer)
+    this.customerService.addCustomer(this.signupForm.value)
       .subscribe(
         response => {
           this.customer = response
@@ -93,15 +75,13 @@ export class AddcustomerComponent implements OnInit {
 
   addAccountType() {
     var accountType: Accountype;
-    var cust: Observable<Customer[]> | any;
+    var cust:Customer;
     accountType = this.typeForm.value;
     this.customerService.getCustomerByMobileNo(this.signupForm.get('mobileNo').value)
       .subscribe(
         response => {
           console.log(response);
-          cust = response
-          cust = cust.data;
-          console.log(cust);
+          cust = response.data
           accountType.customer = cust
           this.accountService.addAccountType(accountType)
             .subscribe(

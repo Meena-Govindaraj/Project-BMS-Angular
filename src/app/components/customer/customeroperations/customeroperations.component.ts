@@ -16,19 +16,19 @@ import Swal from 'sweetalert2';
 })
 export class CustomeroperationsComponent implements OnInit {
 
-  signupForm?: FormGroup;
+  signupForm: FormGroup;
   customerId: number
   customer: Customer;
-  accountDetails: Observable<Account[]> | any;
-  savingsAccount?: boolean;
-  currentAccount?: boolean;
-  noAccount?: boolean;
-  createSavings?: boolean;
-  createCurrent?: boolean;
+  accountDetails: Account[];
+  savingsAccount: boolean;
+  currentAccount: boolean;
+  noAccount: boolean;
+  createSavings: boolean;
+  createCurrent: boolean;
   accountType = new Accountype();
   type: string;
-  changePassword?: boolean;
-  otherOp?: boolean;
+  changePassword: boolean;
+  otherOp: boolean;
 
   constructor(public activatedRoute: ActivatedRoute, public formBuilder: FormBuilder, public router: Router, public customerService: CustomerService, public accountService: AccountService) { }
 
@@ -40,8 +40,7 @@ export class CustomeroperationsComponent implements OnInit {
     this.accountService.getCustomerOnAccount(this.customerId)
       .subscribe(data => {
         console.log(data)
-        this.accountDetails = data;
-        this.accountDetails = this.accountDetails.data;
+        this.accountDetails = data.data;
         console.log(this.accountDetails)
 
         this.signupForm = this.formBuilder.group({
@@ -147,14 +146,14 @@ export class CustomeroperationsComponent implements OnInit {
 
     console.log("updating password!!")
 
-    this.customerService.updatePassword(this.signupForm.get('mobileNo').value,this.signupForm.get('password').value, this.signupForm.get('newPassword').value)
-        .subscribe(data => {
-          console.log(data)
-          this.success();
+    this.customerService.updatePassword(this.signupForm.get('mobileNo').value, this.signupForm.get('password').value, this.signupForm.get('newPassword').value)
+      .subscribe(data => {
+        console.log(data)
+        this.success();
 
-    },err=>{
-      this.wrongPassword();
-    })
+      }, err => {
+        this.wrongPassword();
+      })
   }
   success() {
     Swal.fire('Success', 'Password Updated!', 'success')

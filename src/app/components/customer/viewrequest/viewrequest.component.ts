@@ -18,7 +18,7 @@ export class ViewrequestComponent implements OnInit {
 
   accountTypes: Accountype[];
   errorMessage?: string
-  account:Account;
+  account: Account;
   employeeId?: number;
   searchReq?: any
 
@@ -34,7 +34,7 @@ export class ViewrequestComponent implements OnInit {
   //getting all customers..
   viewAllCustomer() {
 
-    var  employee: Employee;
+    var employee: Employee;
 
     this.employeeService.getEmployeeById(this.employeeId)
       .subscribe(
@@ -42,12 +42,12 @@ export class ViewrequestComponent implements OnInit {
           employee = response.data;
           this.accountService.getCustomersByIFSCOnType(employee.branch.ifscCode).subscribe(
             (data) => {
-              this.accountTypes=data.data;
+              this.accountTypes = data.data;
               console.log(this.accountTypes)
 
             }, err => {
               this.errorMessage = "NO DATA FOUND!!"
-              console.log(this.errorMessage)
+              console.log(err.error.meessage)
             })
         });
   }
@@ -93,13 +93,13 @@ export class ViewrequestComponent implements OnInit {
       .subscribe(
         response => {
           console.log(response);
-          console.log("#######updated successfully ");
           this.successNotification()
           this.createAccount(accountNo);
           this.viewAllCustomer();
         });
   }
 
+  //to get accounttype for adding account
   createAccount(accountNo: string) {
     this.accountService.getByAccountNumber(accountNo)
       .subscribe(
@@ -111,6 +111,7 @@ export class ViewrequestComponent implements OnInit {
         })
   }
 
+  //to add account on type with balance
   addAccount(account: Account) {
     if (this.account.accountType.type == "Savings")
       this.account.balance = 500;

@@ -13,12 +13,11 @@ import Swal from 'sweetalert2';
 })
 export class CustomerloginComponent implements OnInit {
 
-  customerLoginForm?: FormGroup
-  errorMessage?: string;
-  customer: Customer;
-  getEmailForm?: FormGroup
-  resetPassword?: boolean
-  login?: boolean
+  customerLoginForm: FormGroup
+  errorMessage: string;
+  getEmailForm: FormGroup
+  resetPassword: boolean
+  login: boolean
 
   constructor(public activatedRoute: ActivatedRoute, public customerService: CustomerService, public formBuilder: FormBuilder, public router: Router) { }
 
@@ -37,11 +36,10 @@ export class CustomerloginComponent implements OnInit {
 
   //validate customer login
   customerLogin() {
-    var cust: Observable<Customer[]> | any;
+    var cust: Customer;
     this.customerService.customerLogin(this.customerLoginForm.get('mobileNo').value, this.customerLoginForm.get('password').value,).subscribe(
       (data) => {
-        cust = data;
-        cust = cust.data;
+        cust = data.data;
         this.router.navigate(['customeroperations', cust.id])
 
       }, err => {
@@ -51,18 +49,12 @@ export class CustomerloginComponent implements OnInit {
     )
   }
   forgetPassword() {
-    var cust: Observable<Customer[]> | any;
-    this.customerService.getCustomerByEmail(this.getEmailForm.get('email').value).subscribe(data => {
-      cust = data;
-      cust = cust.data;
-      this.customerService.forgetPassword(this.getEmailForm.get('email').value).subscribe(
-        (data) => {
-          this.forget();
-          this.updated();
-        }, err => { console.log(err.error) });
-    }, err => {
-      this.wrongLogin();
-    })
+
+    this.customerService.forgetPassword(this.getEmailForm.get('email').value).subscribe(
+      (data) => {
+        this.forget();
+        this.updated();
+      }, err => { console.log(err.error) });
 
   }
   updated() {

@@ -25,7 +25,7 @@
 
 <div class="reglist" *ngIf="getCustomer">
     <form novalidate [formGroup]="signupForm" style="margin-top: 100px;margin-left: 550px;width: 420px;"
-        (ngSubmit)="viewBranchByIFSC()">
+        (ngSubmit)="customerSignup()">
         <fieldset>
 
             <div class="form-group">
@@ -102,7 +102,7 @@
                     <div>
                         <select class="form-control form-control-lg" name="branch" formControlName="branch">
                             <option> </option>
-                            <option *ngFor="let b of branches">{{b.name}}</option>
+                            <option [ngValue]="b" *ngFor="let b of branches">{{b.city}}-{{b.name}}-{{b.ifscCode}}</option>
                         </select>
 
                     </div>

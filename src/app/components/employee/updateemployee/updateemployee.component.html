@@ -1,7 +1,7 @@
 <body>
     <div class="reglist"><br><br>
         <form novalidate [formGroup]="editEmployeeForm" style="margin-left: 550px;width: 420px;"
-            (ngSubmit)="viewBranchByIFSC()">
+            (ngSubmit)="updateEmployee()">
             <fieldset>
 
                 <div class="form-group">
@@ -81,12 +81,13 @@
                     <div class="col-md-13">
                         <label for="branch">Working Branch</label>
                         <div>
-                            <input class="form-control" type="text" value={{branchIfsc}}-{{branchName}} readonly>
+                            <input class="form-control" type="text" value={{employee.branch.name}}-{{employee.branch.ifscCode}} readonly>
+                       
                         </div>
                     </div>
                 </div><br>
 
-                <button type="submit" class="btn btn-primary" [disabled]="editEmployeeForm.invalid"
+                <button type="submit" class="btn btn-info" [disabled]="editEmployeeForm.invalid"
                     style="margin-left: 100px">Update</button> &nbsp;
                 <button type="button" (click)=back() class="btn btn-info">Back</button>
 

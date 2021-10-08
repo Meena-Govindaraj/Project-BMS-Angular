@@ -22,18 +22,16 @@ import Swal from 'sweetalert2';
 export class EmployeeoperationsComponent implements OnInit {
 
   employeeId: number;
-  changePassword?: boolean;
-  signupForm?: FormGroup
-  employee: Observable<Employee[]> | any;
-  customers: Customer[] = [];
-  errorMessage?: string
-  account: Observable<Account[]> | any;
-  ifscCode?: string;
-  transaction: Observable<Transaction[]> | any;
-  viewTrans?: boolean;
-  viewCust?: boolean;
-  showAll?: boolean;
-  searchCus?: any;
+  changePassword: boolean;
+  signupForm: FormGroup
+  employee: Employee;
+  errorMessage: string
+  account: Account[];
+  transaction: Transaction[];
+  viewTrans: boolean;
+  viewCust: boolean;
+  showAll: boolean;
+  searchCus: any;
   config: any;
 
   constructor(public activatedRoute: ActivatedRoute, public formBuilder: FormBuilder, public router: Router, public employeeService: EmployeeService, public accountService: AccountService, public customerService: CustomerService, public transactionService: TransactionService) { }
@@ -46,75 +44,58 @@ export class EmployeeoperationsComponent implements OnInit {
     this.viewCust = true;
     this.showAll = true;
 
-    this.viewAllCustomer();
 
     this.employeeService.getEmployeeById(this.employeeId)
       .subscribe(response => {
         console.log(response)
-        this.employee = response;
-        this.employee = this.employee.data;
+        this.employee = response.data;
+
         this.signupForm = this.formBuilder.group({
           mobileNo: [this.employee.mobileNo],
           password: ['', [Validators.required, Validators.minLength(6)]],
           newPassword: ['', [Validators.required, Validators.minLength(6)]]
 
         })
+        this.viewAllCustomer();
+        console.log(this.employee.branch.ifscCode)
       })
+
   }
 
   updatePassword() {
 
     console.log("updating password!!")
 
-    if (this.employee.password == this.signupForm.get('password').value) {
-      this.employeeService.updatePassword(this.signupForm.get('mobileNo').value, this.signupForm.get('password').value, this.signupForm.get('newPassword').value)
-        .subscribe(response => {
-          console.log(response)
-          this.successNotification();
-        }, err => {
-          console.log(err)
-        })
-    }
-    else
-      this.wrongPassword();
+    this.employeeService.updatePassword(this.signupForm.get('mobileNo').value, this.signupForm.get('password').value, this.signupForm.get('newPassword').value)
+      .subscribe(response => {
+        console.log(response)
+        this.successNotification();
+      }, err => {
+        console.log(err)
+        this.wrongPassword();
+      })
 
-  }
-  successNotification() {
-    Swal.fire('Success', 'Password Updated!', 'success')
-    this.router.navigate(['employeelogin'])
-  }
-  wrongPassword() {
-    Swal.fire('Wrong', 'Enter correct OLD PASSWORD', 'warning')
-    this.pass();
   }
 
   //getting all customers..on employee branch(ifsc)
   viewAllCustomer() {
 
-    this.employeeService.getEmployeeById(this.employeeId)
-      .subscribe(
-        response => {
-          this.employee = response;
-          this.employee = this.employee.data;
-          console.log(this.employee)
-          this.accountService.getCustomersByIFSC(this.employee.branch.ifscCode).subscribe(
-            (data) => {
-              console.log("####Getting all Customers");
+    this.accountService.getCustomersByIFSC(this.employee.branch.ifscCode).subscribe(
+      (data) => {
+        console.log("####Getting all Customers");
 
-              console.log(data);
-              this.account = data;
-              this.account = this.account.data;
-              this.config = { itemsPerPage: 5, currentPage: 1, totalItems: this.account.count }
+        console.log(data);
+        this.account = data.data;
+        this.config = { itemsPerPage: 5, currentPage: 1 }
 
-            }, err => {
-              this.errorMessage = "NO DATA FOUND!!"
-              console.log(this.errorMessage)
-            })
-        });
+      }, err => {
+        this.errorMessage = "NO DATA FOUND!!"
+        console.log(this.errorMessage)
+      })
   }
 
   //to delete customer
-  deleteCustomer(customerId: any) {
+  deleteCustomer(customerId: number) {
     console.log("customer Id Going to delete:" + customerId)
     this.customerService.deleteCustomer(customerId)
       .subscribe(
@@ -126,7 +107,7 @@ export class EmployeeoperationsComponent implements OnInit {
       );
   }
 
-  deleteAccount(typeId: any, customerId: any) {
+  deleteAccount(typeId: number, customerId: number) {
 
     console.log("Account type Id Going to delete:" + typeId)
     this.accountService.deleteAccount(typeId)
@@ -147,7 +128,7 @@ export class EmployeeoperationsComponent implements OnInit {
   }
 
   //for pop up for deletion of customer
-  alertConfirmation(typeId: any, customerId: any) {
+  alertConfirmation(typeId:number, customerId:number) {
     Swal.fire({
       title: 'Are you sure?',
       text: 'This process is irreversible.',
@@ -172,17 +153,17 @@ export class EmployeeoperationsComponent implements OnInit {
       }
     })
   }
+
+
   viewTransacations(accountId: number) {
     this.viewTrans = true;
     this.viewCust = false;
     this.showAll = false;
 
     this.transactionService.getTransactionByAccount(accountId).subscribe(data => {
-      this.transaction = data;
-      this.transaction = this.transaction.data
+      this.transaction = data.data;
       console.log(this.transaction)
-
-      this.config = { itemsPerPage: 3, currentPage: 1, totalItems: this.transaction.count }
+      this.config = { itemsPerPage: 3, currentPage: 1 }
 
     }, err => {
       this.errorMessage = "NO DATA FOUND!"
@@ -197,6 +178,7 @@ export class EmployeeoperationsComponent implements OnInit {
     this.changePassword = false;
     this.showAll = true;
     this.errorMessage = ""
+    this.reloadComponent();
     this.router.navigate(['employeeop', this.employeeId])
   }
 
@@ -231,6 +213,15 @@ export class EmployeeoperationsComponent implements OnInit {
   }
   pageChanged(event: any) {
     this.config.currentPage = event;
+  }
+
+  successNotification() {
+    Swal.fire('Success', 'Password Updated!', 'success')
+    this.router.navigate(['employeelogin'])
+  }
+  wrongPassword() {
+    Swal.fire('Wrong', 'Enter correct OLD PASSWORD', 'warning')
+    this.pass();
   }
 
 }

@@ -20,13 +20,12 @@ export class EditEmployeeComponent implements OnInit {
   branches:Branch[];
   employee:Employee;
   editBranch: boolean;
-  
+
   constructor(public activatedRoute: ActivatedRoute, public toasterService: ToasterserviceService, public formBuilder: FormBuilder, public router: Router, public employeeService: EmployeeService, public branchService: BranchService) { }
 
   ngOnInit(): void {
 
     var employeeId: number;
-    var createdDate: Date;
     employeeId = this.activatedRoute.snapshot.params['employeeId'];
     console.log("####employeeId: ", employeeId)
 
@@ -41,9 +40,9 @@ export class EditEmployeeComponent implements OnInit {
           email: [this.employee.email, [Validators.required, Validators.email]],
           address: [this.employee.address, [Validators.required]],
           salary: [this.employee.salary, [Validators.required, Validators.min(0)]],
-          branch: [this.employee.branch.ifscCode, Validators.required],
+          branch: [this.employee.branch, Validators.required],
+          createdDate:[this.employee.createdDate]
         })
-        createdDate = this.employee.createdDate;
       })
 
   }
@@ -61,7 +60,9 @@ export class EditEmployeeComponent implements OnInit {
 
   updateEmployee() {
     console.log(this.editEmployeeForm.value)
-    this.employeeService.updateEmployee(this.editEmployeeForm.value)
+    var emp:Employee;
+    emp=this.editEmployeeForm.value
+    this.employeeService.updateEmployee(emp)
       .subscribe(
         response => {
           this.successNotification();

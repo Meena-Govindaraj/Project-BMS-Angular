@@ -33,7 +33,7 @@ export class TransactionService {
   //get transaction history of customer
   //get all branches
   //localhost:9001/transaction/transactionById/27
-  getTransactionByAccount(accountId: number): Observable<Transaction[]> {
+  getTransactionByAccount(accountId: number): Observable<any> {
     return this.http.get<Transaction[]>(`${transactionURL}/transactionById/${accountId}`)
       .pipe(retry(0),
         catchError(this.errorHandler)

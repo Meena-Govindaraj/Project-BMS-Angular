@@ -30,7 +30,7 @@ export class AccountService {
   }
 
   //localhost:9001/account/getCustomersByIFSC/IDIB0000107
-  getCustomersByIFSC(ifscCode:string):Observable<Account[]>
+  getCustomersByIFSC(ifscCode:string):Observable<any>
   {
     return this.http.get<Account[]>(`${accountURL}/getCustomersByIFSC/${ifscCode}`)
     .pipe(retry(0),

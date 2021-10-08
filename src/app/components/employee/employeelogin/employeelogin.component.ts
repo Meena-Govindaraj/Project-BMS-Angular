@@ -17,9 +17,9 @@ export class EmployeeloginComponent implements OnInit {
   employeeLoginForm: FormGroup;
   errorMessage: string;
   employee: Employee;
-  getEmailForm?: FormGroup
-  resetPassword?: boolean
-  login?: boolean
+  getEmailForm: FormGroup
+  resetPassword: boolean
+  login: boolean
 
   constructor(public activatedRoute: ActivatedRoute, public employeeService: EmployeeService, public formBuilder: FormBuilder, public router: Router, public toasterService: ToasterserviceService) { }
 
@@ -44,15 +44,10 @@ export class EmployeeloginComponent implements OnInit {
         (response) => {
           this.employee = response.data;
           console.log(this.employee)
-          if (this.employee != null)
-            this.router.navigate(['employeeop', this.employee.id])
-          else {
-            this.wrongLogin();
-            this.router.navigate(['employeelogin'])
-          }
+          this.router.navigate(['employeeop', this.employee.id])
         }, err => {
-          console.log(err)
-          this.wrongLogin();
+          console.log(err.error.message)
+          this.wrongLogin("'Your Login Credentials are not matched!'");
           this.router.navigate(['employeelogin'])
         }
       )
@@ -61,20 +56,20 @@ export class EmployeeloginComponent implements OnInit {
 
   forgetPassword() {
 
-    var emp: Observable<Employee[]> | any;
-   
-        this.employeeService.forgetPassword(this.getEmailForm.get('email').value).subscribe(
-          (emp) => {
-            console.log(emp)
-            this.updated();
-            this.forget();
-          }, err => {
-            console.log(err)}
-        )
+    this.employeeService.forgetPassword(this.getEmailForm.get('email').value).subscribe(
+      (emp) => {
+        console.log(emp)
+        this.updated();
+        this.forget();
+      }, err => {
+        console.log(err)
+        this.wrongLogin("Email Id Not found!!")
+      }
+    )
 
   }
-  wrongLogin() {
-    Swal.fire('Wrong!', 'Your Login Credentials are not matched!', 'error')
+  wrongLogin(msg: string) {
+    Swal.fire('Wrong!', msg, 'error')
   }
   updated() {
     this.toasterService.success("Your password sent to your Mail!")

@@ -16,13 +16,11 @@ import Swal from 'sweetalert2';
 })
 export class UpdateemployeeComponent implements OnInit {
 
-  editEmployeeForm?: FormGroup
+  editEmployeeForm: FormGroup
   employeeId: number;
-  employee: Observable<Employee[]> | any;
-  errorMessage?: string
-  branchIfsc?: string
-  branchName?: string;
-  createdDate?: Date;
+  employee: Employee;
+  errorMessage: string
+  createdDate: Date;
 
   constructor(public activatedRoute: ActivatedRoute, public formBuilder: FormBuilder, public router: Router, public employeeService: EmployeeService, public branchService: BranchService, public toasterService: ToasterserviceService) { }
 
@@ -34,8 +32,7 @@ export class UpdateemployeeComponent implements OnInit {
     this.employeeService.getEmployeeById(this.employeeId)
       .subscribe(response => {
         console.log(response)
-        this.employee = response
-        this.employee = this.employee.data
+        this.employee = response.data;
         this.editEmployeeForm = this.formBuilder.group({
           id: [this.employeeId, [Validators.required]],
           name: [this.employee.name, [Validators.required, Validators.minLength(3)]],
@@ -46,38 +43,25 @@ export class UpdateemployeeComponent implements OnInit {
           salary: [this.employee.salary, [Validators.required, Validators.min(0)]],
           branch: [this.employee.branch.ifscCode, Validators.required],
         })
-        this.branchIfsc = this.employee.branch.ifscCode;
-        this.branchName = this.employee.branch.name;
         this.createdDate = this.employee.createdDate;
       })
 
   }
 
-  //getting branch details on Selected IFSC..
-  viewBranchByIFSC() {
-    var branch: Observable<Branch[]> | any;
-    this.branchService.getBranchByIfscCode(this.editEmployeeForm.get('branch')?.value).subscribe(
-      (data) => {
-        console.log("branch Name: " + this.editEmployeeForm.get('branch')?.value)
-        branch = data;
-        branch = branch.data
-        this.employee = this.editEmployeeForm.value;
-        this.employee.createdDate = this.createdDate;
-        this.employee.branch = branch;
-        this.updateEmployee(this.employee);
-      })
-  }
-
-  updateEmployee(employee: any) {
-    console.log(this.editEmployeeForm?.value)
-    this.employeeService.updateEmployee(employee)
+  updateEmployee() {
+    console.log(this.editEmployeeForm.value)
+    var emp: Employee;
+    emp = this.editEmployeeForm.value;
+    emp.branch = this.employee.branch
+    console.log(emp);
+    this.employeeService.updateEmployee(emp)
       .subscribe(
         response => {
           this.employee = response
           this.successNotification();
           console.log("Employee account Updated successfully!")
           this.back();
-        })
+        }, err => { console.error(err.errormessage) });
 
   }
 

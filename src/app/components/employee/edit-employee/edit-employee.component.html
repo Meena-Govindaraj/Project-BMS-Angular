@@ -1,3 +1,4 @@
+<body>
 <div class="reglist">
     <br><br>
     <form novalidate [formGroup]="editEmployeeForm" style="margin-left: 550px;width: 420px;"
@@ -86,7 +87,7 @@
                 </div>
             </div><br>
 
-            <a (click)="editBranchDetails()" class="btn btn-success">Update Branch</a><br><br>
+            <a (click)="editBranchDetails()" style="color:black;background-color: blanchedalmond;" class="btn btn-primary">Update Branch</a><br><br>
 
             <div *ngIf="editBranch">
                 <div class="form-group">
@@ -102,7 +103,7 @@
                     </div>
                 </div><br>
 `           </div>
-            <button type="submit" class="btn btn-primary" [disabled]="editEmployeeForm.invalid"
+            <button type="submit" class="btn btn-info" [disabled]="editEmployeeForm.invalid"
                 style="margin-left: 120px">Update</button>
             &nbsp;
             <button type="button" (click)=back() class="btn btn-info">Back</button>
@@ -111,3 +112,4 @@
         </fieldset>
     </form>
 </div>
+</body>

@@ -42,7 +42,6 @@ export class CustomerloginComponent implements OnInit {
       (data) => {
         cust = data;
         cust = cust.data;
-
         this.router.navigate(['customeroperations', cust.id])
 
       }, err => {

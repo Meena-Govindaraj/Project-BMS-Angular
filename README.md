@@ -1,5 +1,5 @@
 <h1> Banking Mangement System </h1>
-<h3>BACK END</h3>
+<h3>FRONT END</h3>
 <h5>Note</h5>
 This project Angular project (Front End) and please find corressponding Spring project(Back End) <a href="https://github.com/Meena-Govindaraj/Project-BMS/tree/BMS-Spring">here</a>
 

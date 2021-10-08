@@ -38,18 +38,18 @@ export class BranchService {
 
   //get branch by IFSC CODE
   //http://localhost:9001/branch/IDIB001014
-  getBranchByIfscCode(ifscCode: string): Observable<Branch> {
+  getBranchByIfscCode(ifscCode: string): Observable<any> {
     return this.http.get<Branch>(`${branchURL}/getBranchByIfscCode/${ifscCode}`)
   }
 
   //branch by branch Id
   //http://localhost:9001/branch/1
-  getBranchById(branchId: number): Observable<Branch> {
+  getBranchById(branchId: number): Observable<any> {
     return this.http.get<Branch>(`${branchURL}/${branchId}`)
   }
 
   //branch by name
-  getBranchByName(branchName: string): Observable<Branch> {
+  getBranchByName(branchName: string): Observable<any> {
     return this.http.get<Branch>(`${branchURL}/getBranchByName/${branchName}`)
   }
 

@@ -13,11 +13,10 @@ import Swal from 'sweetalert2';
 })
 export class ViewallbranchesComponent implements OnInit {
 
-  errorMessage?: string;
+  errorMessage: string;
   branch: Branch[];
-  searchBranchForm?: FormGroup
-  searches?: any;
-  showBranches?: boolean
+  showBranches: boolean
+  searches: any;
   config: any;
 
   constructor(public branchService: BranchService, public router: Router, public formBuilder: FormBuilder) { }
@@ -26,10 +25,6 @@ export class ViewallbranchesComponent implements OnInit {
 
     this.viewAllBranches();
     this.showBranches = true;
-    this.searchBranchForm = this.formBuilder.group({
-      branchId: ['', Validators.required]
-    })
-
   }
 
   //to get all branches
@@ -39,27 +34,23 @@ export class ViewallbranchesComponent implements OnInit {
       (res) => {
 
         console.log(res);
-        console.log(res.data);
         this.branch = res.data;
-        console.log(this.branch);
-        //this.branch = this.branch.data;
         this.config = { itemsPerPage: 5, currentPage: 1 }
 
       }, err => {
         this.errorMessage = "NO DATA FOUND!!"
-        console.log(this.errorMessage)
+        console.log(err.error.message)
       })
   }
 
 
   //to delete all branches
-  deleteBranch(branchId: any) {
+  deleteBranch(branchId: number) {
 
     console.log("Branch Id Going to delete:" + branchId)
     this.branchService.deleteBranch(branchId)
       .subscribe(
         response => {
-          console.log(response)
           console.log("Branch Id:" + branchId + "deleted successfully ");
           this.viewAllBranches();
         },
@@ -70,7 +61,7 @@ export class ViewallbranchesComponent implements OnInit {
   }
 
   //for pop up for deletion of branch
-  alertConfirmation(branchId: any) {
+  alertConfirmation(branchId: number) {
     Swal.fire({
       title: 'Are you sure?',
       text: 'This process is irreversible.',

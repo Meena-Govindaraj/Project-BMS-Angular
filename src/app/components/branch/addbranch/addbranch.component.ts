@@ -27,7 +27,7 @@ export class AddbranchComponent implements OnInit {
   //TO ADD BRANCH
   addBranch() {
  
-    this.branchService.addBranch(this.addBranchForm?.value)
+    this.branchService.addBranch(this.addBranchForm.value)
       .subscribe(
         res => {
           console.log(res);
@@ -35,7 +35,7 @@ export class AddbranchComponent implements OnInit {
           this.success();
         }, err => {
           this.errorMessage = err.error.message;
-          this.toasterService.warning(err.error.message);
+          this.toasterService.error(err.error.message);
         }
       )
   }

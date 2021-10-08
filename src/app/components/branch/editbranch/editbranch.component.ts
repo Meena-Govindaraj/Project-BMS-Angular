@@ -13,24 +13,23 @@ import { ToasterserviceService } from 'src/app/toasterservice.service';
 })
 export class EditbranchComponent implements OnInit {
 
-  editBranchForm?: FormGroup
-  errorMessage?: string
-  branchId?: number;
-
+  editBranchForm: FormGroup
+  errorMessage: string
+ 
   constructor(public activatedRoute: ActivatedRoute, public toasterService: ToasterserviceService, public formBuilder: FormBuilder, public branchService: BranchService, public router: Router) { }
 
   ngOnInit(): void {
 
-    var branch: Observable<Branch> | any;
-    this.branchId = this.activatedRoute.snapshot.params['branchId'];
-    console.log("####branchId: ", this.branchId)
+    var branch: Branch;
+    var branchId: number;
+    branchId = this.activatedRoute.snapshot.params['branchId'];
+    console.log("####branchId: ",branchId)
 
-
-    this.branchService.getBranchById(this.branchId)
+    //to retrive branch data
+    this.branchService.getBranchById(branchId)
       .subscribe(res => {
         console.log(res)
-        branch = res;
-        branch = branch.data;
+        branch = res.data;
         this.editBranchForm = this.formBuilder.group({
           id: [branch.id, [Validators.required]],
           name: [branch.name, [Validators.required]],
@@ -45,7 +44,7 @@ export class EditbranchComponent implements OnInit {
   }
 
   updateBranch() {
-    this.branchService.updateBranch(this.editBranchForm?.value)
+    this.branchService.updateBranch(this.editBranchForm.value)
       .subscribe(
         response => {
           console.log(response);

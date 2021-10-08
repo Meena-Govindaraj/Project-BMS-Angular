@@ -13,7 +13,6 @@ import { EditbranchComponent } from './components/branch/editbranch/editbranch.c
 import { AddemployeeComponent } from './components/employee/addemployee/addemployee.component';
 import { ViewemployeesComponent } from './components/employee/viewemployees/viewemployees.component';
 import { EditEmployeeComponent } from './components/employee/edit-employee/edit-employee.component';
-import { ViewcustomerComponent } from './components/customer/viewcustomer/viewcustomer.component';
 import { EmployeeoperationsComponent } from './components/employee/employeeoperations/employeeoperations.component';
 import { AddcustomerComponent } from './components/customer/addcustomer/addcustomer.component';
 import { ViewrequestComponent } from './components/customer/viewrequest/viewrequest.component';
@@ -39,7 +38,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
     AddemployeeComponent,
     ViewemployeesComponent,
     EditEmployeeComponent,
-    ViewcustomerComponent,
     EmployeeoperationsComponent,
     AddcustomerComponent,
     ViewrequestComponent,
@@ -51,7 +49,6 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ChangepinComponent,
     ViewtransactionsComponent,
     AdminloginComponent,
-
   ],
   imports: [
     BrowserModule,

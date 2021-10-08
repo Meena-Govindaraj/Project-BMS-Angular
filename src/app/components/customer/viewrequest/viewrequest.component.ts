@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { Account } from 'src/app/models/account';
 import { Accountype } from 'src/app/models/accountype';
-import { Customer } from 'src/app/models/customer';
 import { Employee } from 'src/app/models/employee';
 import { AccountService } from 'src/app/services/account.service';
 import { CustomerService } from 'src/app/services/customer.service';
@@ -18,14 +16,11 @@ import { ToasterserviceService } from 'src/app/toasterservice.service';
 })
 export class ViewrequestComponent implements OnInit {
 
-  customers: Observable<Customer[]> | any
-  accountTypes: Observable<Accountype[]> | any;
+  accountTypes: Accountype[];
   errorMessage?: string
-  account: Observable<Account> | any;
+  account:Account;
   employeeId?: number;
-  employee: Observable<Employee[]> | any;
   searchReq?: any
-  requestAccounts: Observable<Accountype[]> | any;
 
   constructor(public activatedRoute: ActivatedRoute, public router: Router, public formBuilder: FormBuilder, public customerService: CustomerService, public accountService: AccountService, public employeeService: EmployeeService, public toasterService: ToasterserviceService) { }
 
@@ -38,24 +33,18 @@ export class ViewrequestComponent implements OnInit {
 
   //getting all customers..
   viewAllCustomer() {
+
+    var  employee: Employee;
+
     this.employeeService.getEmployeeById(this.employeeId)
       .subscribe(
         response => {
-          this.employee = response;
-          this.employee = this.employee.data
-          console.log(this.employee)
-          this.accountService.getCustomersByIFSCOnType(this.employee.branch.ifscCode).subscribe(
+          employee = response.data;
+          this.accountService.getCustomersByIFSCOnType(employee.branch.ifscCode).subscribe(
             (data) => {
-              console.log(data)
-              this.accountTypes = data;
-              this.accountTypes = this.accountTypes.data
+              this.accountTypes=data.data;
               console.log(this.accountTypes)
-              console.log("####Getting all Customers");
-              for (var i = 0; i < this.accountTypes.length; i++) {
-                if (this.accountTypes[i].accountStatus == "No")
-                  this.requestAccounts = this.accountTypes[i];
-              }
-              console.log(this.requestAccounts)
+
             }, err => {
               this.errorMessage = "NO DATA FOUND!!"
               console.log(this.errorMessage)
@@ -64,7 +53,7 @@ export class ViewrequestComponent implements OnInit {
   }
 
   //to delete customer
-  deleteCustomer(customerId: any) {
+  deleteCustomer(customerId: number) {
 
     console.log("customer Id Going to delete:" + customerId)
     this.customerService.deleteCustomer(customerId)
@@ -78,12 +67,13 @@ export class ViewrequestComponent implements OnInit {
       );
   }
 
-  deleteAccount(typeId: any, customerId: any) {
+  deleteAccount(typeId: number, customerId: number) {
     console.log("Account type Id Going to delete:" + typeId)
     this.accountService.deleteAccount(typeId)
       .subscribe(
         response => {
           console.log("Response" + response)
+          window.alert("Rejected")
           this.accountService.getCountOfCustomerAccount(customerId)
             .subscribe(
               cust => {
@@ -115,14 +105,13 @@ export class ViewrequestComponent implements OnInit {
       .subscribe(
         response => {
           this.account = new Account();
-          this.account.accountType = response
-          this.account.accountType = this.account.accountType.data
+          this.account.accountType = response.data;
           console.log(this.account)
           this.addAccount(this.account);
         })
   }
 
-  addAccount(account: any) {
+  addAccount(account: Account) {
     if (this.account.accountType.type == "Savings")
       this.account.balance = 500;
     else

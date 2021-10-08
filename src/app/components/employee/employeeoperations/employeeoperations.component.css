@@ -27,3 +27,6 @@ li a:hover {
 {
   background-color: burlywood;
 }
+.pointer {
+  cursor: pointer;
+  color:maroon;}

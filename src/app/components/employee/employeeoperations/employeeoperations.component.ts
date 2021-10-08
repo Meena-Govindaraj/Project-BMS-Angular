@@ -1,17 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { Account } from 'src/app/models/account';
-import { Accountype } from 'src/app/models/accountype';
-import { Branch } from 'src/app/models/branch';
-import { Customer } from 'src/app/models/customer';
 import { Employee } from 'src/app/models/employee';
 import { Transaction } from 'src/app/models/transaction';
 import { AccountService } from 'src/app/services/account.service';
 import { CustomerService } from 'src/app/services/customer.service';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { TransactionService } from 'src/app/services/transaction.service';
+import { ToasterserviceService } from 'src/app/toasterservice.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -34,7 +31,7 @@ export class EmployeeoperationsComponent implements OnInit {
   searchCus: any;
   config: any;
 
-  constructor(public activatedRoute: ActivatedRoute, public formBuilder: FormBuilder, public router: Router, public employeeService: EmployeeService, public accountService: AccountService, public customerService: CustomerService, public transactionService: TransactionService) { }
+  constructor(public activatedRoute: ActivatedRoute,public toasterService:  ToasterserviceService, public formBuilder: FormBuilder, public router: Router, public employeeService: EmployeeService, public accountService: AccountService, public customerService: CustomerService, public transactionService: TransactionService) { }
 
   ngOnInit(): void {
 
@@ -172,6 +169,15 @@ export class EmployeeoperationsComponent implements OnInit {
 
   }
 
+  sendMail(email:string)
+  {
+    console.log(email)
+    this.customerService.alertCustomer(email).subscribe(res=>
+      {
+        this.toasterService.success("Mail sent");
+      });
+      
+  }
   back() {
     this.viewTrans = false;
     this.viewCust = true;

@@ -95,6 +95,15 @@ export class CustomerService {
       )
   }
 
+  //localhost:9001/customer/sendAlertMail/meena.govindaraj@revature.com
+  alertCustomer(email: string) {
+    return this.http.post(`${customerURL}/sendAlertMail/${email}`, this.httpOptions)
+      .pipe
+      (
+        retry(0),
+        catchError(this.errorHandler)
+      )
+  }
 
   //localhost:9001/customer/updatePassword/9600432486/123456
   updatePassword(mobileNo: string,oldPassword:string, newPassword: string) {

@@ -7,7 +7,6 @@ import { ViewallbranchesComponent } from './components/branch/viewallbranches/vi
 import { AddcustomerComponent } from './components/customer/addcustomer/addcustomer.component';import { CustomerloginComponent } from './components/customer/customerlogin/customerlogin.component';
 import { CustomeroperationsComponent } from './components/customer/customeroperations/customeroperations.component';
 import { AccountOperationsComponent} from './components/customer/accountoperations/accountoperations.component';
-import { ViewcustomerComponent } from './components/customer/viewcustomer/viewcustomer.component';
 import { ViewrequestComponent } from './components/customer/viewrequest/viewrequest.component';
 import { AddemployeeComponent } from './components/employee/addemployee/addemployee.component';
 import { EditEmployeeComponent } from './components/employee/edit-employee/edit-employee.component';
@@ -41,7 +40,6 @@ const routes: Routes = [
   {path:'updateemployee/:employeeId',component:UpdateemployeeComponent},
 
   //employee on customers
-  {path:'viewcustomers/:employeeId',component:ViewcustomerComponent},
   {path:'addcustomers',component:AddcustomerComponent},
   {path:'viewrequests/:employeeId',component:ViewrequestComponent},
 

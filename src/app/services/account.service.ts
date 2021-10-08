@@ -39,7 +39,7 @@ export class AccountService {
   }
 
   //localhost:9001/accounttype/getCustomersByIFSC/IDIB0000107
-  getCustomersByIFSCOnType(ifscCode:string):Observable<Accountype[]>
+  getCustomersByIFSCOnType(ifscCode:string):Observable<any>
   {
     return this.http.get<Accountype[]>(`${accountTypeURL}/getCustomersByIFSC/${ifscCode}`)
     .pipe(retry(0),
@@ -99,7 +99,7 @@ export class AccountService {
    
     //localhost:9001/accounttype/getByAccountNumber/609770104811
    //get customer by accountNo
-   getByAccountNumber(accountNo:string):Observable<Accountype>
+   getByAccountNumber(accountNo:string):Observable<any>
   {
     return this.http.get<Accountype>(`${accountTypeURL}/getByAccountNumber/${accountNo}`)
     .pipe(

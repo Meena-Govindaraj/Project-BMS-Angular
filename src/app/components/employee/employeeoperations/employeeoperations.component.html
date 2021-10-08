@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <ul>
   <li>
     <a (click)="viewrequests()" class="fa fa-users">&nbsp;View Requests</a>
@@ -101,9 +103,9 @@
 
 <!--View all customers-->
 <div *ngIf=viewCust>
+  <br><span><i>Click To alert customer On balance</i></span><span  class="fa fa-warning" style="font-size:20px;color:maroon" ></span>
   <!--Search-->
   <br><br>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <div class="search-hero">
     <input style="margin-left: 600px;width: 300px;" [ngClass]="['form-control','fa fa-search']" type="text"
@@ -130,7 +132,9 @@
       </thead>
       <tbody>
         <tr *ngFor="let c of account |filter:searchCus|paginate:config">
-          <td>{{c.accountType.customer.name}}</td>
+          <td>{{c.accountType.customer.name}} <span *ngIf="c.balance<5000 && c.accountType.type=='Current'">
+                                      <span [ngClass]="['fa fa-warning','pointer']" style="font-size:20px;color:maroon" (click)="sendMail(c.accountType.customer.email)"></span></span>
+          </td>
           <td>{{c.accountType.accountNo}}</td>
           <td>{{c.accountType.customer.mobileNo}}</td>
           <td>{{c.accountType.customer.email}}</td>
@@ -145,9 +149,7 @@
               (click)="alertConfirmation(c.accountType.id,c.accountType.customer.id)"> {{c.accountType.type}}
               Account</button>
           </td>
-          <!--  <td *ngIf="c.balance<=5000 && c.accountType.type=='Current'">
-                <button>kkk</button>
-          </td> -->
+          
         </tr>
       </tbody>
     </table><br><br>

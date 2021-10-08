@@ -1,6 +1,6 @@
 <div class="reglist">
     <form novalidate [formGroup]="signupForm" style="margin-top: 100px ;margin-left: 550px;width: 420px;"
-        (ngSubmit)="viewBranchByIFSC()">
+        (ngSubmit)="employeeSignup()">
         <fieldset>
 
             <div class="form-group">
@@ -79,20 +79,13 @@
                             <select class="form-control form-control-lg" name="branch" formControlName="branch"
                                 [(ngModel)]="branch" autocomplete="off">
                                 <option> </option>
-                                <option *ngFor="let b of branches">{{b.ifscCode}}</option>
+                                <option [ngValue]="b" *ngFor="let b of branches">{{b.name}} - {{b.city}} - {{b.ifscCode}}</option>
                             </select>
                         </div>
                     </div>
                 </div>
             </div><br>
-            <div class="form-group" *ngIf="this.signupForm.get('branch').valid">
-                <div class="col-md-13">
-                    <label for="branch" *ngIf="this.signupForm.get('branch').valid">Branch Name</label>
-                    <div *ngFor="let b of branches |filter:this.signupForm.get('branch')?.value">
-                        <input class="form-control" value={{b.name}} type="text">
-                    </div>
-                </div>
-            </div>
+         
 
             <h6>
                 <font color="red"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font>

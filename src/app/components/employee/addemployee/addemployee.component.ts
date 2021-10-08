@@ -7,7 +7,6 @@ import { Employee } from 'src/app/models/employee';
 import { BranchService } from 'src/app/services/branch.service';
 import { EmployeeService } from 'src/app/services/employee.service';
 import { ToasterserviceService } from 'src/app/toasterservice.service';
-import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-addemployee',
@@ -41,15 +40,16 @@ export class AddemployeeComponent implements OnInit {
   }
 
   viewBranchByIFSC() {
-    console.log(this.signupForm.get('branch')?.value)
+    console.log(this.signupForm.value)
     this.branchService.getBranchByIfscCode(this.signupForm.get('branch')?.value).subscribe(
       (data) => {
         console.log("branch Name: " + this.signupForm.get('branch')?.value)
         this.branch = data;
         this.branch = this.branch.data;
         this.employee = this.signupForm.value;
-        this.employee.branch = this.branch;
-        this.employeeSignup(this.employee)
+      
+       // this.employee.branch = this.branch;
+     //   this.employeeSignup(this.employee)
       })
   }
 
@@ -65,10 +65,10 @@ export class AddemployeeComponent implements OnInit {
     )
   }
 
-  employeeSignup(employee: Employee) {
+  employeeSignup() {
 
-    console.log(this.signupForm?.value)
-    this.employeeService.addEmployee(employee)
+    console.log(this.signupForm.value)
+    this.employeeService.addEmployee(this.signupForm.value)
       .subscribe(
         response => {
           this.viewEmployees();

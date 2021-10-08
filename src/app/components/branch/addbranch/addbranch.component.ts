@@ -11,8 +11,8 @@ import { ToasterserviceService } from 'src/app/toasterservice.service';
 })
 export class AddbranchComponent implements OnInit {
 
-  addBranchForm?: FormGroup
-  errorMessage?: string;
+  addBranchForm: FormGroup;
+  errorMessage: string;
 
   constructor(public activatedRoute: ActivatedRoute, private toasterService: ToasterserviceService, public formBuilder: FormBuilder, public branchService: BranchService, public router: Router) { }
 
@@ -26,7 +26,7 @@ export class AddbranchComponent implements OnInit {
 
   //TO ADD BRANCH
   addBranch() {
-
+ 
     this.branchService.addBranch(this.addBranchForm?.value)
       .subscribe(
         res => {
@@ -34,8 +34,8 @@ export class AddbranchComponent implements OnInit {
           this.back();
           this.success();
         }, err => {
-          this.errorMessage = "Branch Code already exists"
-          this.toasterService.warning("Branch Code already exists");
+          this.errorMessage = err.error.message;
+          this.toasterService.warning(err.error.message);
         }
       )
   }

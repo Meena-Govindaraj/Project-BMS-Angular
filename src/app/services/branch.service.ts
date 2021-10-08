@@ -21,7 +21,7 @@ export class BranchService {
   }
 
   //get all branches
-  getAllBranches(): Observable<Branch[]> {
+  getAllBranches(): Observable<any> {
     return this.http.get<Branch[]>(branchURL)
   }
 

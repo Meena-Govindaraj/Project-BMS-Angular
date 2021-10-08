@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 export class ViewallbranchesComponent implements OnInit {
 
   errorMessage?: string;
-  branch: Observable<Branch[]> | any;
+  branch: Branch[];
   searchBranchForm?: FormGroup
   searches?: any;
   showBranches?: boolean
@@ -39,9 +39,11 @@ export class ViewallbranchesComponent implements OnInit {
       (res) => {
 
         console.log(res);
-        this.branch = res;
-        this.branch = this.branch.data;
-        this.config = { itemsPerPage: 5, currentPage: 1, totalItems: this.branch.count }
+        console.log(res.data);
+        this.branch = res.data;
+        console.log(this.branch);
+        //this.branch = this.branch.data;
+        this.config = { itemsPerPage: 5, currentPage: 1 }
 
       }, err => {
         this.errorMessage = "NO DATA FOUND!!"

@@ -36,7 +36,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let b of branch |paginate:config|filter:searches">
+        <tr *ngFor="let b of branch |filter:searches|paginate:config">
           <td>{{b.name}}</td>
           <td>{{b.city}}</td>
           <td>{{b.ifscCode}}</td>

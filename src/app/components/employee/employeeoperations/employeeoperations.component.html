@@ -129,7 +129,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let c of account |paginate:config|filter:searchCus">
+        <tr *ngFor="let c of account |filter:searchCus|paginate:config">
           <td>{{c.accountType.customer.name}}</td>
           <td>{{c.accountType.accountNo}}</td>
           <td>{{c.accountType.customer.mobileNo}}</td>

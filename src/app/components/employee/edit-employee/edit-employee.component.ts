@@ -68,7 +68,7 @@ export class EditEmployeeComponent implements OnInit {
         this.employee.createdDate = this.createdDate;
         this.employee.branch = this.branch;
         console.log(this.employee)
-        this.updateEmployee(this.employee);
+      //  this.updateEmployee(this.employee);
       })
   }
 
@@ -98,10 +98,9 @@ export class EditEmployeeComponent implements OnInit {
     )
   }
 
-  updateEmployee(employee: Employee) {
-    console.log(this.editEmployeeForm?.value)
-    console.log(this.employee)
-    this.employeeService.updateEmployee(employee)
+  updateEmployee() {
+    console.log(this.editEmployeeForm.value)
+    this.employeeService.updateEmployee(this.editEmployeeForm.value)
       .subscribe(
         response => {
           this.employee = response

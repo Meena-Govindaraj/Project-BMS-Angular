@@ -95,7 +95,6 @@ export class ViewemployeesComponent implements OnInit {
     this.router.navigate(['adminop'])
   }
 
-
   pageChanged(event: any) {
     this.config.currentPage = event;
   }

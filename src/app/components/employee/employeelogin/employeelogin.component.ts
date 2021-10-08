@@ -15,8 +15,8 @@ import Swal from 'sweetalert2';
 export class EmployeeloginComponent implements OnInit {
 
   employeeLoginForm: FormGroup;
-  errorMessage?: string;
-  employee: Observable<Employee[]> | any;
+  errorMessage: string;
+  employee: Employee;
   getEmailForm?: FormGroup
   resetPassword?: boolean
   login?: boolean
@@ -42,8 +42,7 @@ export class EmployeeloginComponent implements OnInit {
     else {
       this.employeeService.employeeeLogin(this.employeeLoginForm.get('mobileNo').value, this.employeeLoginForm.get('password').value,).subscribe(
         (response) => {
-          this.employee = response;
-          this.employee = this.employee.data
+          this.employee = response.data;
           console.log(this.employee)
           if (this.employee != null)
             this.router.navigate(['employeeop', this.employee.id])
@@ -63,22 +62,16 @@ export class EmployeeloginComponent implements OnInit {
   forgetPassword() {
 
     var emp: Observable<Employee[]> | any;
-    this.employeeService.getEmployeeByEmail(this.getEmailForm.get('email').value).subscribe(response => {
-      emp = response
-      if (emp.data != null) {
+   
         this.employeeService.forgetPassword(this.getEmailForm.get('email').value).subscribe(
           (emp) => {
             console.log(emp)
             this.updated();
             this.forget();
           }, err => {
-            console.log(err)
-          })
-      }
-      else {
-        this.wrongLogin();
-      }
-    })
+            console.log(err)}
+        )
+
   }
   wrongLogin() {
     Swal.fire('Wrong!', 'Your Login Credentials are not matched!', 'error')

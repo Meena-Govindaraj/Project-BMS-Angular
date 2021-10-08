@@ -16,11 +16,10 @@ import { ToasterserviceService } from 'src/app/toasterservice.service';
 export class AddemployeeComponent implements OnInit {
 
   signupForm: FormGroup
-  branch: Observable<Branch[]> | any;
-  errorMessage?: string
+  errorMessage: string
   employee: Employee;
-  branches: Observable<Branch[]> | any;
-  searches?: any
+  branches: Branch[];
+  searches: any
 
   constructor(public activatedRoute: ActivatedRoute, private toasterService: ToasterserviceService, public employeeService: EmployeeService, public branchService: BranchService, public formBuilder: FormBuilder,
     public router: Router) { }
@@ -39,28 +38,13 @@ export class AddemployeeComponent implements OnInit {
     )
   }
 
-  viewBranchByIFSC() {
-    console.log(this.signupForm.value)
-    this.branchService.getBranchByIfscCode(this.signupForm.get('branch')?.value).subscribe(
-      (data) => {
-        console.log("branch Name: " + this.signupForm.get('branch')?.value)
-        this.branch = data;
-        this.branch = this.branch.data;
-        this.employee = this.signupForm.value;
-      
-       // this.employee.branch = this.branch;
-     //   this.employeeSignup(this.employee)
-      })
-  }
-
 
   //to get all branches
   viewAllBranches() {
     this.branchService.getAllBranches().subscribe(
       (data) => {
-        this.branches = data;
-        this.branches = this.branches.data;
-        console.log(data)
+        this.branches = data.data;
+        console.log(this.branches)
       }
     )
   }
@@ -75,7 +59,7 @@ export class AddemployeeComponent implements OnInit {
           this.successNotification();
           console.log("Employee account created successfully!")
         }, err => {
-          this.toasterService.warning("Employee Mobile No already exists")
+          this.toasterService.error("Employee Mobile No already exists")
         }
       )
   }

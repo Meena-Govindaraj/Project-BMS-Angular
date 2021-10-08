@@ -38,7 +38,7 @@ export class EmployeeService {
   }
 
   //get all employees
-  getAllEmployees(): Observable<Employee[]> {
+  getAllEmployees(): Observable<any> {
     return this.http.get<Employee[]>(employeeURL)
 
   }
@@ -50,7 +50,7 @@ export class EmployeeService {
   }
 
   //get employee by id
-  getEmployeeById(employeeId: number): Observable<Employee> {
+  getEmployeeById(employeeId: number): Observable<any> {
     return this.http.get<Employee>(`${employeeURL}/${employeeId}`)
 
   }
@@ -61,7 +61,7 @@ export class EmployeeService {
 
   }
   //localhost:9001/employee/employeeLogin/8765433237/123456
-  employeeeLogin(mobileNo: string, password: String): Observable<Employee> {
+  employeeeLogin(mobileNo: string, password: String): Observable<any> {
     return this.http.get<Employee>(`${login}/employeeLogin/${mobileNo}/${password}`)
 
   }

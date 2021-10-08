@@ -147,17 +147,14 @@ export class CustomeroperationsComponent implements OnInit {
 
     console.log("updating password!!")
 
-    if (this.accountDetails[0].accountType.customer.password == this.signupForm.get('password').value) {
-      console.log(this.signupForm.get('newPassword').value)
-      this.customerService.updatePassword(this.signupForm.get('mobileNo').value, this.signupForm.get('newPassword').value)
+    this.customerService.updatePassword(this.signupForm.get('mobileNo').value,this.signupForm.get('password').value, this.signupForm.get('newPassword').value)
         .subscribe(data => {
           console.log(data)
           this.success();
-        })
-    }
 
-    else
+    },err=>{
       this.wrongPassword();
+    })
   }
   success() {
     Swal.fire('Success', 'Password Updated!', 'success')

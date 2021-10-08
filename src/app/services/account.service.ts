@@ -157,9 +157,9 @@ export class AccountService {
   }
 
   //localhost:9001/account/updatePassword/33/555555
-  updatePassword(typeId:number,newPassword:string)
+  updatePassword(typeId:number,oldPassword:string,newPassword:string)
   {
-    return this.http.put(`${accountURL}/updatePassword/${typeId}/${newPassword}`,this.httpOptions)
+    return this.http.put(`${accountURL}/updatePassword/${typeId}/${oldPassword}/${newPassword}`,this.httpOptions)
     .pipe
     (
       retry(0),

@@ -46,7 +46,7 @@ export class ChangepinComponent implements OnInit {
     console.log(this.signupForm.get('newPassword').value)
     if (this.senderDetails.transactionPIN == this.signupForm.get('password').value) {
       console.log(this.senderDetails.accountType.id)
-      this.accountService.updatePassword(this.senderDetails.accountType.id, this.signupForm.get('newPassword').value)
+      this.accountService.updatePassword(this.senderDetails.accountType.id,this.signupForm.get('password').value, this.signupForm.get('newPassword').value)
         .subscribe(data => {
           console.log(data)
           this.successNotification();

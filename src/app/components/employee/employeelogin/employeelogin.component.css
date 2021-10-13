@@ -1,0 +1,18 @@
+.pointer {cursor: pointer;
+color:maroon;}
+
+h3{
+    width: 420px;
+    padding: 50px;
+}
+label{
+    color:red;
+}
+
+body form{
+    background-color:ghostwhite;
+}
+body{
+    background-color:gainsboro;
+
+    }

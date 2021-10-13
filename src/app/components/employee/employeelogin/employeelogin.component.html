@@ -1,0 +1,79 @@
+<div class="reglist" *ngIf=resetPassword>
+<br>
+    <form novalidate [formGroup]="getEmailForm" style="margin-top: 100px;margin-left: 520px;width: 400px"
+        (ngSubmit)="forgetPassword()">
+        <fieldset>
+            <h3>Forget Password</h3><br>
+            <div class="form-group">
+                Email<label>*</label>
+                <input type="email" placeholder="example57@gmail.com" class="form-control" formControlName="email">
+                <div class="alert alert-danger"
+                    *ngIf="getEmailForm.get('email').hasError('required') && getEmailForm.get('email').dirty">
+                    Email is required
+                </div>
+                <div class="alert alert-danger"
+                    *ngIf="getEmailForm.get('email').hasError('email') && getEmailForm.get('email').dirty">
+                    Enter Correct email
+                </div>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-success" [disabled]="getEmailForm.invalid"
+                style="margin-left:30px">Reset Password</button>&nbsp;&nbsp;
+            <button class="btn btn-info" type="reset">Reset</button>&nbsp;&nbsp;
+            <button class="btn btn-primary" (click)=forget() type="reset">Login</button><br>
+        </fieldset>
+    </form> <br><br>
+    <br><br><br><br>
+</div>
+
+<body>
+    <div class="reglist" *ngIf=login>
+        <br>
+        <form novalidate [formGroup]="employeeLoginForm"
+            style="margin-top: 50px;margin-left: 550px;width: 420px;padding: 50px;" (ngSubmit)="employeeLogin()">
+            <fieldset>
+
+                <div class="form-group">
+                    Mobile Number<label>* </label>
+                    <input type="tel" class="form-control" formControlName="mobileNo">
+                    <div class="alert alert-danger"
+                        *ngIf="employeeLoginForm.get('mobileNo').hasError('required') && employeeLoginForm.get('mobileNo').dirty">
+                        Mobile Number is required
+                    </div>
+                    <div class="alert alert-danger"
+                        *ngIf="employeeLoginForm.get('mobileNo').hasError('minlength') && employeeLoginForm.get('mobileNo').dirty">
+                        Enter Appropriate 10 digit Mobile Number
+                    </div>
+                    <div class="alert alert-danger"
+                        *ngIf="employeeLoginForm.get('mobileNo').hasError('maxlength') && employeeLoginForm.get('mobileNo').dirty">
+                        Mobile No should be 10 digits
+                    </div>
+                </div>
+                <br>
+
+                <div class="form-group">
+                    Password<label>*</label>
+                    <input type="password" class="form-control" formControlName="password">
+                    <div class="alert alert-danger"
+                        *ngIf="employeeLoginForm.get('password').hasError('required') && employeeLoginForm.get('password').dirty">
+                        Password is required
+                    </div>
+                    <div class="alert alert-danger"
+                        *ngIf="employeeLoginForm.get('password').hasError('minlength') && employeeLoginForm.get('password').dirty">
+                        Password should be minimum of 6 characters.
+                    </div>
+                </div><br>
+
+                <h6>
+                    <font color="red"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font>
+                </h6>
+                <button type="submit" class="btn btn-primary" [disabled]="employeeLoginForm.invalid"
+                    style="margin-left: 80px">Login</button>&nbsp;&nbsp;<button class="btn btn-success"
+                    type="reset">Reset</button><br><br>
+                <u style="margin-left: 90px;width: 420px;"><a class="pointer" style="color: red;"
+                        (click)=forget()>Forget Password</a></u>
+
+            </fieldset>
+        </form> <br><br>
+    </div>
+</body>

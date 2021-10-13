@@ -1,0 +1,39 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<h3>
+  <font color="red" style="margin-left: 550px;width: 800px;"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font>
+</h3>
+
+
+<div class="search-hero">
+  <input style="text-align: center;margin-left: 600px;width: 300px;" [ngClass]="['form-control','fa fa-search']"
+    type="date" name="search" [(ngModel)]="searchDate" autocomplete="off" placeholder="&#xF002;Search">
+</div><br><br>
+
+<div>
+  <div class="reglist">
+    <table class="table table-striped" style="margin-left: 300px;width: 800px;border-style: ridge;">
+      <thead>
+        <tr>
+          <th>Deposit</th>
+          <th>Withdraw</th>
+          <th>Balance</th>
+          <th>Transaction Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let e of transaction |paginate:config|filter:searchDate">
+          <td>{{e.deposit | currency:'INR'}}</td>
+          <td>{{e.withdraw | currency:'INR'}}</td>
+          <td>{{e.balance | currency:'INR'}}</td>
+          <td>{{e.transactionDate | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <button type="button" style="margin-left: 650px;border-style: ridge;" (click)=back()
+      class="btn btn-info">Back</button>
+    <br><br><br>
+    <pagination-controls style="text-align: center;color:cadetblue;" (pageChange)="pageChanged($event)">
+    </pagination-controls>
+    <br>
+  </div>

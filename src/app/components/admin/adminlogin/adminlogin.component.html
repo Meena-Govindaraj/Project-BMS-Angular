@@ -1,0 +1,36 @@
+<div class="reglist">
+    <form novalidate [formGroup]="adminLoginForm"
+        style="margin-top: 100px;margin-left: 550px;width: 420px;padding: 50px;" (ngSubmit)="adminLogin()">
+        <fieldset>
+
+            <div class="form-group">
+                <label>*User Name :</label>
+                <input type="text" class="form-control" formControlName="name">
+                <div class="alert alert-danger"
+                    *ngIf="adminLoginForm.get('name').hasError('required') && adminLoginForm.get('name').dirty">
+                    User Name is required
+                </div>
+            </div>
+            <br>
+
+            <div class="form-group">
+                <label>*Password:</label>
+                <input type="password" class="form-control" formControlName="password">
+                <div class="alert alert-danger"
+                    *ngIf="adminLoginForm.get('password').hasError('required') && adminLoginForm.get('password').dirty">
+                    Password is required
+                </div>
+                <div class="alert alert-danger"
+                    *ngIf="adminLoginForm.get('password').hasError('minlength') && adminLoginForm.get('password').dirty">
+                    Password should be minimum of 6 characters.
+                </div>
+            </div><br>
+
+            <button type="submit" class="btn btn-primary" [disabled]="adminLoginForm.invalid"
+                style="margin-left: 80px">Login</button>&nbsp;&nbsp;
+
+            <button class="btn btn-success" type="reset">Reset</button><br><br>
+
+        </fieldset>
+    </form>
+</div>

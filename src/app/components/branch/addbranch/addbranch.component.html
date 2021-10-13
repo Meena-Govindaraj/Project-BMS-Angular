@@ -1,0 +1,54 @@
+<br>
+<h5 style="margin-left: 540px">
+    <font color="red"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font>
+</h5>
+<br>
+
+<div class="reglist">
+    <form novalidate [formGroup]="addBranchForm" style="margin-top: 50px;margin-left: 550px;width: 340px;"
+        (ngSubmit)="addBranch()">
+        <fieldset>
+
+            <div class="form-group">
+                <label>*Branch Name:</label>
+                <input type="text" class="form-control" formControlName="name">
+                <div class="alert alert-danger"
+                    *ngIf="addBranchForm.get('name').hasError('required') && addBranchForm.get('name').dirty">
+                    Branch Name is required
+                </div>
+            </div><br>
+
+            <div class="form-group">
+                <label>*Branch City:</label>
+                <input type="text" class="form-control" formControlName="city">
+                <div class="alert alert-danger"
+                    *ngIf="addBranchForm.get('city').hasError('required') && addBranchForm.get('city').dirty">
+                    Branch city is required
+                </div>
+            </div><br>
+
+            <div class="form-group">
+                <label>*IFSC Code:</label>
+                <input type="text" class="form-control" formControlName="ifscCode">
+                <div class="alert alert-danger"
+                    *ngIf="addBranchForm.get('ifscCode').hasError('required') && addBranchForm.get('ifscCode').dirty">
+                    IFSC Code is required
+                </div>
+                <div class="alert alert-danger"
+                    *ngIf="addBranchForm.get('ifscCode').hasError('minlength') && addBranchForm.get('ifscCode').dirty">
+                    IFSC Code Length>6
+                </div>
+            </div><br>
+
+            <td>
+                <button type="submit" class="btn btn-primary" [disabled]="addBranchForm.invalid"
+                    style="margin-left: 30px">Add Branch</button>&nbsp;&nbsp;
+                <button class="btn btn-success" type="reset">Reset</button>&nbsp;&nbsp;
+                <button class="btn btn-info" (click)="back()">Back</button>&nbsp;&nbsp;
+            </td>
+            <br><br>
+        </fieldset>
+    </form>
+
+
+</div>

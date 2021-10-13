@@ -1,0 +1,56 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<h3>
+    <font color="red" style="margin-left: 550px;width: 800px;"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font>
+</h3>
+
+
+<div class="search-hero">
+    <input style="margin-left: 600px;width: 300px;" [ngClass]="['form-control','fa fa-search']" type="text"
+        name="search" [(ngModel)]="searchReq" autocomplete="off" placeholder="&#xF002;Search">
+</div><br><br>
+
+<div>
+    <div class="reglist">
+        <h3>
+            <font color="red" style="margin-left: 550px;width: 800px;"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font>
+        </h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Customer id</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Mobile No</th>
+                    <th>Account Type</th>
+                    <th>Branch Name</th>
+                    <th>IFSC code</th>
+                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Actions</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let c of accountTypes |filter:searchReq">
+
+                    <td *ngIf="c.accountStatus=='No'">{{c.customer.id}}</td>
+                    <td *ngIf="c.accountStatus=='No'">{{c.customer.name}}</td>
+                    <td *ngIf="c.accountStatus=='No'">{{c.customer.email}}</td>
+                    <td *ngIf="c.accountStatus=='No'">{{c.customer.mobileNo}}</td>
+                    <td *ngIf="c.accountStatus=='No'">{{c.type}}</td>
+                    <td *ngIf="c.accountStatus=='No'">{{c.customer.branch.name}}</td>
+                    <td *ngIf="c.accountStatus=='No'">{{c.customer.branch.ifscCode}}</td>
+
+                    <td *ngIf="c.accountStatus=='No'">
+                        <button type="button" class="btn btn-success"
+                            (click)="updateAccountStatus(c.accountNo)">Accept</button>&nbsp;&nbsp;
+                        <button type="button" class="btn btn-danger"
+                            (click)="deleteAccount(c.id,c.customer.id)">Reject</button>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+        <button type="button" style="margin-left: 650px;border-style: ridge;" (click)=back()
+            class="btn btn-info">Back</button>
+
+    </div>

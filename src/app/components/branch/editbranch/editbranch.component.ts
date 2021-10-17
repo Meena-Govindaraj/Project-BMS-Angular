@@ -53,6 +53,7 @@ export class EditbranchComponent implements OnInit {
         },
         error => {
           console.log("ERROR in update : " + error.error.message);
+          this.toasterService.error("Branch code already exists!")
         });
   }
 

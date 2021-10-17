@@ -1,3 +1,5 @@
+
+<app-adminoperations></app-adminoperations>
 <br>
 <h5 style="margin-left: 540px">
     <font color="red"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font>
@@ -10,7 +12,7 @@
         <fieldset>
 
             <div class="form-group">
-                <label>*Branch Name:</label>
+                Branch Name<label>*</label>
                 <input type="text" class="form-control" formControlName="name">
                 <div class="alert alert-danger"
                     *ngIf="addBranchForm.get('name').hasError('required') && addBranchForm.get('name').dirty">
@@ -19,7 +21,7 @@
             </div><br>
 
             <div class="form-group">
-                <label>*Branch City:</label>
+                Branch City<label>*</label>
                 <input type="text" class="form-control" formControlName="city">
                 <div class="alert alert-danger"
                     *ngIf="addBranchForm.get('city').hasError('required') && addBranchForm.get('city').dirty">
@@ -28,7 +30,7 @@
             </div><br>
 
             <div class="form-group">
-                <label>*IFSC Code:</label>
+                IFSC Code<label>*</label>
                 <input type="text" class="form-control" formControlName="ifscCode">
                 <div class="alert alert-danger"
                     *ngIf="addBranchForm.get('ifscCode').hasError('required') && addBranchForm.get('ifscCode').dirty">
@@ -36,14 +38,14 @@
                 </div>
                 <div class="alert alert-danger"
                     *ngIf="addBranchForm.get('ifscCode').hasError('minlength') && addBranchForm.get('ifscCode').dirty">
-                    IFSC Code Length>6
+                    Code should greater than 6
                 </div>
             </div><br>
 
             <td>
-                <button type="submit" class="btn btn-primary" [disabled]="addBranchForm.invalid"
+                <button type="submit" class="btn btn-info" [disabled]="addBranchForm.invalid"
                     style="margin-left: 30px">Add Branch</button>&nbsp;&nbsp;
-                <button class="btn btn-success" type="reset">Reset</button>&nbsp;&nbsp;
+                <button class="btn btn-info" type="reset">Reset</button>&nbsp;&nbsp;
                 <button class="btn btn-info" (click)="back()">Back</button>&nbsp;&nbsp;
             </td>
             <br><br>

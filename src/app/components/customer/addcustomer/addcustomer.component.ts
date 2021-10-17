@@ -68,7 +68,7 @@ export class AddcustomerComponent implements OnInit {
           this.getType = true
           console.log("Customer saved successfully!")
         }, err => {
-          this.toasterService.error("Mobile no already exists..")
+          this.toasterService.error("User Already exists! Please check mobiloNo/email")
           this.getType = false;
         })
   }

@@ -50,7 +50,9 @@ const routes: Routes = [
   {path:'changetransacationPIN/:customerId/:type',component:ChangepinComponent},
 
   //transactions
-  {path:'transactions/:accountId/:customerId/:type',component:ViewtransactionsComponent}
+  {path:'transactions/:accountId/:customerId/:type',component:ViewtransactionsComponent},
+
+  {path:"**" ,component:HomeComponent}
 
 ];
 

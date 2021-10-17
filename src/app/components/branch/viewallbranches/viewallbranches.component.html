@@ -1,17 +1,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<body>
-  <ul>
-    <li>
-      <a (click)="addBranch()" class="fa fa-bank">&nbsp;Add Branch</a>
-    </li>
-    <li>
-      <a (click)="showAdminop()" class="fa fa-sign-in">&nbsp;Back</a>
-    </li>
-  </ul>
-</body>
-
+<app-adminoperations></app-adminoperations>
 <br><br>
+<button (click)="addBranch()" [ngClass]="['fa fa-bank','btn btn-info']">&nbsp;Add Branch</button>
 <div class="search-hero">
 
   <input style="margin-left: 550px;width: 300px;" [ngClass]="['form-control','fa fa-search']" type="text" name="search"

@@ -25,7 +25,7 @@ export class CustomerloginComponent implements OnInit {
 
     this.login = true;
     this.customerLoginForm = this.formBuilder.group({
-      mobileNo: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      email: ['',[Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     })
     this.getEmailForm = this.formBuilder.group({
@@ -37,7 +37,7 @@ export class CustomerloginComponent implements OnInit {
   //validate customer login
   customerLogin() {
     var cust: Customer;
-    this.customerService.customerLogin(this.customerLoginForm.get('mobileNo').value, this.customerLoginForm.get('password').value,).subscribe(
+    this.customerService.customerLogin(this.customerLoginForm.get('email').value, this.customerLoginForm.get('password').value,).subscribe(
       (data) => {
         cust = data.data;
         this.router.navigate(['customeroperations', cust.id])

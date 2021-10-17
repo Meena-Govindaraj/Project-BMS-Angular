@@ -2,8 +2,10 @@
 
     <form novalidate [formGroup]="typeForm" style="margin-top: 100px;margin-left: 550px;width: 420px;"
         (ngSubmit)="addAccountType()">
-        <h3>Select type to create account</h3>
+        
         <div class="form-group">
+            <h3 >Select type to create account</h3> 
+            <br>
             <div class="col-md-13">
                 <label for="type">*Account Type</label>
                 <select class="form-control form-control-lg" name="type" formControlName="type" ngModel required>

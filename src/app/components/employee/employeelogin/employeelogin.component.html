@@ -20,7 +20,7 @@
             <button type="submit" class="btn btn-success" [disabled]="getEmailForm.invalid"
                 style="margin-left:30px">Reset Password</button>&nbsp;&nbsp;
             <button class="btn btn-info" type="reset">Reset</button>&nbsp;&nbsp;
-            <button class="btn btn-primary" (click)=forget() type="reset">Login</button><br>
+            <button class="btn btn-info" (click)=forget() type="reset">Login</button><br>
         </fieldset>
     </form> <br><br>
     <br><br><br><br>
@@ -34,20 +34,16 @@
             <fieldset>
 
                 <div class="form-group">
-                    Mobile Number<label>* </label>
-                    <input type="tel" class="form-control" formControlName="mobileNo">
+                    Email<label>* </label>
+                    <input type="tel" class="form-control" formControlName="email">
                     <div class="alert alert-danger"
-                        *ngIf="employeeLoginForm.get('mobileNo').hasError('required') && employeeLoginForm.get('mobileNo').dirty">
-                        Mobile Number is required
+                        *ngIf="employeeLoginForm.get('email').hasError('required') && employeeLoginForm.get('email').dirty">
+                        Email required
                     </div>
                     <div class="alert alert-danger"
-                        *ngIf="employeeLoginForm.get('mobileNo').hasError('minlength') && employeeLoginForm.get('mobileNo').dirty">
-                        Enter Appropriate 10 digit Mobile Number
-                    </div>
-                    <div class="alert alert-danger"
-                        *ngIf="employeeLoginForm.get('mobileNo').hasError('maxlength') && employeeLoginForm.get('mobileNo').dirty">
-                        Mobile No should be 10 digits
-                    </div>
+                    *ngIf="employeeLoginForm.get('email').hasError('email') && employeeLoginForm.get('email').dirty">
+                    Enter Correct email
+                </div>
                 </div>
                 <br>
 

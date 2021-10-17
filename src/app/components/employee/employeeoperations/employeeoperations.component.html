@@ -24,13 +24,13 @@
     (ngSubmit)="updatePassword()">
     <fieldset>
       <div class="form-group">
-        <label>*Mobile Number :</label>
+        Mobile Number  <label>*</label>
         <input type="tel" class="form-control" formControlName="mobileNo" readonly>
       </div><br>
 
 
       <div class="form-group">
-        <label>*Old Password:</label>
+        Old Password <label>*</label>
         <input type="text" class="form-control" formControlName="password">
         <div class="alert alert-danger"
           *ngIf="signupForm.get('password').hasError('required') && signupForm.get('password').dirty">
@@ -45,7 +45,7 @@
       </div><br>
 
       <div class="form-group">
-        <label>*New Password:</label>
+        New Password<label>*</label>
         <input type="text" class="form-control" formControlName="newPassword">
         <div class="alert alert-danger"
           *ngIf="signupForm.get('newPassword').hasError('required') && signupForm.get('newPassword').dirty">

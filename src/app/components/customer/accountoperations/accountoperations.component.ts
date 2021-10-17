@@ -1,3 +1,4 @@
+
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -67,6 +68,7 @@ export class AccountOperationsComponent implements OnInit {
       pin: ['', [Validators.required, Validators.minLength(6)]],
     })
 
+    
     this.getAccountDetails();
   }
 
@@ -191,12 +193,13 @@ export class AccountOperationsComponent implements OnInit {
       })
 
 
+
     this.accountService.getAccountByaccountNo(reciever.accountType.accountNo)
       .subscribe(rBalance => {
 
         this.transaction.withdraw = null;
         this.transaction.account = reciever;
-        this.transaction.balance = rBalance.data;
+        this.transaction.balance = rBalance.data.balance;
         this.transaction.deposit = amount;
         this.transaction.message = this.bankTransferForm.get('message').value;
         this.transactionService.addTransaction(this.transaction).subscribe(data => {
@@ -253,3 +256,4 @@ export class AccountOperationsComponent implements OnInit {
     this.router.navigate(['customeroperations', this.customerId]);
   }
 }
+

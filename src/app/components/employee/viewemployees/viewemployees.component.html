@@ -1,19 +1,9 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<body>
-  <ul>
-    <li>
-      <a (click)="addEmployee()" class="fa fa-user-circle">&nbsp;Add Employee</a>
-    </li>
-    <li>
-      <a (click)="showAdminop()" class="fa fa-sign-out">&nbsp;Back</a>
-    </li>
-  </ul>
-</body>
-<br>
-
+<app-adminoperations></app-adminoperations>
+<br><br>
 <div class="search-hero">
-  <input style="margin-left: 550px;width: 300px;" [ngClass]="['form-control','fa fa-search']" type="text" name="search"
+  <button (click)="addEmployee()" [ngClass]="['fa fa-user-circle','btn btn-info']" class="fa fa-user-circle">&nbsp;Add Employee</button>
+  <input style="margin-left: 500px;width: 300px;" [ngClass]="['form-control','fa fa-search']" type="text" name="search"
     [(ngModel)]="searchemployee" autocomplete="off"
     placeholder="&#xF002;Search by Employees Name or Mobileno or Email or Salary">
 </div><br><br>

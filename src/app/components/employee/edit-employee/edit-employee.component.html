@@ -1,4 +1,5 @@
 <body>
+<app-adminoperations></app-adminoperations>
 <div class="reglist">
     <br><br>
     <form novalidate [formGroup]="editEmployeeForm" style="margin-left: 550px;width: 420px;"
@@ -6,12 +7,7 @@
         <fieldset>
 
             <div class="form-group">
-                <label>*Employee Id:</label>
-                <input type="text" class="form-control" formControlName="id" readonly>
-            </div><br>
-
-            <div class="form-group">
-                <label>*Employee Name:</label>
+                Employee Name<label>*</label>
                 <input type="text" class="form-control" formControlName="name">
                 <div class="alert alert-danger"
                     *ngIf="editEmployeeForm.get('name').hasError('required') && editEmployeeForm.get('name').dirty">
@@ -24,7 +20,7 @@
             </div><br>
 
             <div class="form-group">
-                <label>*Mobile Number :</label>
+                Mobile Number <label>*</label>
                 <input type="tel" class="form-control" formControlName="mobileNo">
                 <div class="alert alert-danger"
                     *ngIf="editEmployeeForm.get('mobileNo').hasError('required') && editEmployeeForm.get('mobileNo').dirty">
@@ -42,7 +38,7 @@
             <br>
 
             <div class="form-group">
-                <label>*Email:</label>
+                Email<label>*</label>
                 <input type="email" placeholder="example57@gmail.com" class="form-control" formControlName="email">
                 <div class="alert alert-danger"
                     *ngIf="editEmployeeForm.get('email').hasError('required') && editEmployeeForm.get('email').dirty">
@@ -56,7 +52,7 @@
             <br>
 
             <div class="form-group">
-                <label>*Address:</label>
+                Address<label>*</label>
                 <input type="text" class="form-control" formControlName="address">
                 <div class="alert alert-danger"
                     *ngIf="editEmployeeForm.get('address').hasError('required') && editEmployeeForm.get('address').dirty">
@@ -65,7 +61,7 @@
             </div><br>
 
             <div class="form-group">
-                <label>*Salary:</label>
+                Salary<label>*</label>
                 <input type="number" class="form-control" formControlName="salary">
                 <div class="alert alert-danger"
                     *ngIf="editEmployeeForm.get('salary').hasError('required') && editEmployeeForm.get('salary').dirty">
@@ -80,7 +76,7 @@
 
             <div class="form-group">
                 <div class="col-md-13">
-                    <label for="branch">Working Branch</label>
+                    Working Branch
                     <div>
                         <input class="form-control" type="text" value={{employee.branch.name}}-{{employee.branch.ifscCode}} readonly>
                     </div>
@@ -92,7 +88,7 @@
             <div *ngIf="editBranch">
                 <div class="form-group">
                     <div class="col-md-13">
-                        <label for="branch">*Branch </label>
+                        Branch  <label for="branch">* </label>
                         <div>
 
                             <select class="form-control form-control-lg" name="branch" formControlName="branch">

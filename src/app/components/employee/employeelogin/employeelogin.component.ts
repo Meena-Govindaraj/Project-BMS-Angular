@@ -27,7 +27,7 @@ export class EmployeeloginComponent implements OnInit {
 
     this.login = true;
     this.employeeLoginForm = this.formBuilder.group({
-      mobileNo: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+      email: ['',[Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     })
     this.getEmailForm = this.formBuilder.group({
@@ -37,10 +37,10 @@ export class EmployeeloginComponent implements OnInit {
 
   //validate employee login
   employeeLogin() {
-    if (this.employeeLoginForm.get('mobileNo').value == "9876543210" && this.employeeLoginForm.get('password').value == "admin123")
+    if (this.employeeLoginForm.get('email').value == "admin57@mailinator.com" && this.employeeLoginForm.get('password').value == "admin123")
       this.router.navigate(['adminop'])
     else {
-      this.employeeService.employeeeLogin(this.employeeLoginForm.get('mobileNo').value, this.employeeLoginForm.get('password').value,).subscribe(
+      this.employeeService.employeeeLogin(this.employeeLoginForm.get('email').value, this.employeeLoginForm.get('password').value,).subscribe(
         (response) => {
           this.employee = response.data;
           console.log(this.employee)

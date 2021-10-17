@@ -1,3 +1,5 @@
+
+<app-adminoperations></app-adminoperations>
 <br>
 <h5 style="margin-left: 540px">
     <font color="red"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font>
@@ -10,12 +12,7 @@
         <fieldset>
 
             <div class="form-group">
-                <label>*Branch Id:</label>
-                <input type="text" class="form-control" formControlName="id" readonly>
-            </div><br>
-
-            <div class="form-group">
-                <label>*Branch Name:</label>
+                Branch Name <label>*</label>
                 <input type="text" class="form-control" formControlName="name">
                 <div class="alert alert-danger"
                     *ngIf="editBranchForm.get('name').hasError('required') && editBranchForm.get('name').dirty">
@@ -24,7 +21,7 @@
             </div><br>
 
             <div class="form-group">
-                <label>*Branch City:</label>
+                Branch City<label>*</label>
                 <input type="text" class="form-control" formControlName="city">
                 <div class="alert alert-danger"
                     *ngIf="editBranchForm.get('city').hasError('required') && editBranchForm.get('city').dirty">
@@ -33,8 +30,8 @@
             </div><br>
 
             <div class="form-group">
-                <label>*IFSC Code:</label>
-                <input type="text" class="form-control" formControlName="ifscCode" readonly>
+                IFSC Code <label>*</label>
+                <input type="text" class="form-control" formControlName="ifscCode" >
                 <div class="alert alert-danger"
                     *ngIf="editBranchForm.get('ifscCode').hasError('required') && editBranchForm.get('ifscCode').dirty">
                     IFSC Code is required

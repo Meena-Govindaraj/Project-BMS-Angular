@@ -44,15 +44,21 @@ export class ChangepinComponent implements OnInit {
   updatePassword() {
 
     console.log("updating password!!")
-
+    if(this.senderDetails.transactionPIN==this.signupForm.get('password').value){
     this.accountService.updatePassword(this.senderDetails.id, this.signupForm.get('password').value, this.signupForm.get('newPassword').value)
       .subscribe(data => {
         console.log(data)
         this.successNotification();
-      }, err => {
+      }
+      , err => {
         console.log(err.error.message)
         this.wrongInfo("Wrong OLD PIN")
       })
+    }
+    else
+    {
+      this.wrongInfo("Wrong OLD PIN")
+    }
 
   }
 

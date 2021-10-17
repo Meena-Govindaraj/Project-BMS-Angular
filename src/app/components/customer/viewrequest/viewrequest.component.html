@@ -1,14 +1,26 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<h3>
-    <font color="red" style="margin-left: 550px;width: 800px;"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font>
-</h3>
-
+<!-- <ul>
+    <li>
+      <a (click)="viewrequests()" class="fa fa-users">&nbsp;View Requests</a>
+    </li>
+    <li>
+      <a (click)="updateemployee()" class="fa fa-user-circle">&nbsp;View Profile</a>
+    </li>
+    <li>
+      <a (click)="pass()" class="fa fa-key">&nbsp;Change Password</a>
+    </li>
+    <li>
+      <a (click)="logout()" style="margin-left: 650px;" class="fa fa-sign-out">&nbsp;Logout</a>
+    </li>
+  </ul> -->
+  
+<br><br>
 
 <div class="search-hero">
     <input style="margin-left: 600px;width: 300px;" [ngClass]="['form-control','fa fa-search']" type="text"
         name="search" [(ngModel)]="searchReq" autocomplete="off" placeholder="&#xF002;Search">
-</div><br><br>
+</div><br>
 
 <div>
     <div class="reglist">

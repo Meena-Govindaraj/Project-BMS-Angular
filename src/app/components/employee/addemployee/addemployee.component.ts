@@ -59,7 +59,7 @@ export class AddemployeeComponent implements OnInit {
           this.successNotification();
           console.log("Employee account created successfully!")
         }, err => {
-          this.toasterService.error("Employee Mobile No already exists")
+          this.toasterService.error("Employee already exists with this MobileNo/Email")
         }
       )
   }

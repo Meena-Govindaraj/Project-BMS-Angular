@@ -114,9 +114,9 @@ export class EmployeeoperationsComponent implements OnInit {
           this.accountService.getCountOfCustomerAccount(customerId)
             .subscribe(
               cust => {
-                console.log("Count of customer in type" + cust)
-                if (cust == null)
-                  this.deleteCustomer(customerId)
+                console.log( cust)
+                   },err=>{
+                    this.deleteCustomer(customerId)
               })
           this.viewAllCustomer();
         }

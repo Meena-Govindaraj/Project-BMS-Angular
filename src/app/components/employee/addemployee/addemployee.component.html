@@ -1,10 +1,11 @@
 <body>
+<app-adminoperations></app-adminoperations>
 <div class="reglist">
-    <form novalidate [formGroup]="signupForm" style="margin-top: 100px ;margin-left: 550px;width: 420px;"
+    <form novalidate [formGroup]="signupForm" style="margin-top: 50px ;margin-left: 550px;width: 420px;"
         (ngSubmit)="employeeSignup()">
         <fieldset>
             <div class="form-group">
-                <label>*Employee Name:</label>
+                Employee Name <label>*</label>
                 <input type="text" class="form-control" formControlName="name">
                 <div class="alert alert-danger"
                     *ngIf="signupForm.get('name').hasError('required') && signupForm.get('name').dirty">
@@ -17,7 +18,7 @@
             </div><br>
 
             <div class="form-group">
-                <label>*Mobile Number :</label>
+                Mobile Number  <label>*</label>
                 <input type="tel" class="form-control" formControlName="mobileNo">
                 <div class="alert alert-danger"
                     *ngIf="signupForm.get('mobileNo').hasError('required') && signupForm.get('mobileNo').dirty">
@@ -36,7 +37,7 @@
             <br>
 
             <div class="form-group">
-                <label>*Email:</label>
+                Email <label>*</label>
                 <input type="email" placeholder="example57@gmail.com" class="form-control" formControlName="email">
                 <div class="alert alert-danger"
                     *ngIf="signupForm.get('email').hasError('required') && signupForm.get('email').dirty">
@@ -50,7 +51,7 @@
             <br>
 
             <div class="form-group">
-                <label>*Address:</label>
+                Address<label>*</label>
                 <input type="text" class="form-control" formControlName="address">
                 <div class="alert alert-danger"
                     *ngIf="signupForm.get('address').hasError('required') && signupForm.get('address').dirty">
@@ -59,7 +60,7 @@
             </div><br>
 
             <div class="form-group">
-                <label>*Salary:</label>
+                Salary <label>*</label>
                 <input type="number" class="form-control" formControlName="salary">
                 <div class="alert alert-danger"
                     *ngIf="signupForm.get('salary').hasError('required') && signupForm.get('salary').dirty">
@@ -73,7 +74,7 @@
             
             <div class="form-group">
                 <div class="col-md-13">
-                    <label for="branch">*Branch </label>
+                    Branch <label for="branch">* </label>
                     <div>
                         <select class="form-control form-control-lg" name="branch" formControlName="branch">
                             <option> </option>
@@ -87,8 +88,8 @@
             </h6>
             <button type="submit" class="btn btn-primary" [disabled]="signupForm.invalid" style="margin-left: 50px">Add
                 Employee</button>&nbsp;&nbsp;
-            <button class="btn btn-success" type="reset">Reset</button>&nbsp;&nbsp;
-            <button class="btn btn-info" (click)="viewEmployees()">Back</button>&nbsp;&nbsp;<br><br>
+            <button class="btn btn-primary" type="reset">Reset</button>&nbsp;&nbsp;
+            <button class="btn btn-primary" (click)="viewEmployees()">Back</button>&nbsp;&nbsp;<br><br>
 
             <br><br>
         </fieldset>

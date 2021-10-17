@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+<br><br>
 <h3>
   <font color="red" style="margin-left: 550px;width: 800px;"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font>
 </h3>
@@ -22,7 +22,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let e of transaction |paginate:config|filter:searchDate">
+        <tr *ngFor="let e of transaction |filter:searchDate|paginate:config">
           <td>{{e.deposit | currency:'INR'}}</td>
           <td>{{e.withdraw | currency:'INR'}}</td>
           <td>{{e.balance | currency:'INR'}}</td>

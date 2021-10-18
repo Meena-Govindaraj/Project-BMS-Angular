@@ -1,0 +1,122 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<ul>
+    <li *ngIf=viewTrans>
+        <a (click)="back()" class="fa fa-home">&nbsp;Home</a>
+    </li>
+    <li>
+        <h3 style="color:darkturquoise">Welcome, {{ this.employee.name }}</h3>
+    </li>
+    <li style="margin-left: 70px;">
+        <a (click)="updateemployee()" class="fa fa-user-circle">&nbsp;View Profile</a>
+    </li>
+    <li>
+        <a (click)="viewrequests()" class="fa fa-users">&nbsp;View Requests</a>
+    </li>
+    <li>
+        <a (click)="pass()" class="fa fa-key">&nbsp;Change Password</a>
+    </li>
+    <li *ngIf="viewCus">
+        <a (click)="logout()" style="margin-left: 290px;" class="fa fa-sign-out">&nbsp;Logout</a>
+    </li>
+</ul>
+<div>
+
+    <!--View all customers-->
+
+    <h3>
+        <font color="red" style="margin-left: 550px;width: 800px;"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font>
+    </h3>
+    <div class="reglist" *ngIf=viewCus>
+        <br><span class="myDIV"><i>Click To alert customer On balance <span [ngClass]="['fa fa-warning','pointer']"></span></i></span>
+            <span class="hide">To send mail to customer who have current account with balance less than 5000 </span>
+        <!--Search-->
+        <br><br>
+
+        <div class="search-hero">
+            <input style="margin-left: 600px;width: 300px;" [ngClass]="['form-control','fa fa-search']" type="text"
+                name="search" [(ngModel)]="searchCus" autocomplete="off"
+                placeholder="&#xF002;&nbsp;Search Customer Name,MobileNo">
+        </div>
+        <br>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Account Number</th>
+                    <th>Mobile No</th>
+                    <th>Email</th>
+                    <th>IFSC code</th>
+                    <th>Balance</th>
+                    <th>Transactions</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let c of account |filter:searchCus|paginate:config">
+                    <td>{{c.accountType.customer.name}} <span *ngIf="c.balance<5000 && c.accountType.type=='Current'">
+                            <span [ngClass]="['fa fa-warning','pointer']" style="font-size:20px;color:maroon"
+                                (click)="sendMail(c.accountType.customer.email)"></span></span>
+                    </td>
+                    <td>{{c.accountType.accountNo}}</td>
+                    <td>{{c.accountType.customer.mobileNo}}</td>
+                    <td>{{c.accountType.customer.email}}</td>
+                    <td>{{c.accountType.customer.branch.ifscCode}}</td>
+                    <td>{{c.balance | currency:'INR'}}</td>
+
+                    <td>
+                        <button type="button" class="btn btn-info" (click)="viewTransacations(c.id)">
+                            Transacations</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger"
+                            (click)="alertConfirmation(c.accountType.id,c.accountType.customer.id)">
+                            {{c.accountType.type}}
+                            Account</button>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table><br><br>
+        <pagination-controls style="text-align: center;color:brown;" (pageChange)="pageChanged($event)">
+        </pagination-controls>
+
+    </div>
+
+    <div>
+
+
+        <!--View Transacations-->
+
+        <div *ngIf=viewTrans>
+            <div class="search-hero">
+                <input style="text-align: center;margin-left: 600px;width: 300px;"
+                    [ngClass]="['form-control','fa fa-search']" type="date" name="search" [(ngModel)]="searchDate"
+                    autocomplete="off" placeholder="&#xF002;Search">
+            </div><br><br>
+            <div class="reglist">
+                <table class="table table-striped" style="margin-left: 300px;width: 800px;border-style: ridge;">
+                    <thead>
+                        <tr>
+                            <th>Deposit</th>
+                            <th>Withdraw</th>
+                            <th>Balance</th>
+                            <th>Transaction Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let e of transaction |filter:searchDate|paginate:config">
+                            <td>{{e.deposit | currency:'INR'}}</td>
+                            <td>{{e.withdraw | currency:'INR'}}</td>
+                            <td>{{e.balance | currency:'INR'}}</td>
+                            <td>{{e.transactionDate | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+            </div>
+            <pagination-controls style="text-align: center;color:brown;" (pageChange)="pageChanged($event)">
+            </pagination-controls>
+    
+        </div>

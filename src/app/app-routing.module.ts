@@ -18,6 +18,7 @@ import { HomeComponent } from './components/home/home/home.component';
 import { ViewtransactionsComponent } from './components/transactions/viewtransactions/viewtransactions.component';
 import { ChangepinComponent } from './components/customer/changepin/changepin.component';
 import { AdminloginComponent } from './components/admin/adminlogin/adminlogin.component';
+import { ViewcustomersComponent } from './components/customer/viewcustomers/viewcustomers.component';
 
 const routes: Routes = [
   {path:'home',component:HomeComponent},
@@ -42,6 +43,8 @@ const routes: Routes = [
   //employee on customers
   {path:'addcustomers',component:AddcustomerComponent},
   {path:'viewrequests/:employeeId',component:ViewrequestComponent},
+  {path:'viewcustomers/:employeeIfsc/:employeeId',component:ViewcustomersComponent},
+  
 
   //customer
   {path:'customerlogin',component:CustomerloginComponent},

@@ -27,6 +27,7 @@ import { AdminloginComponent } from './components/admin/adminlogin/adminlogin.co
 import { Ng2SearchPipeModule } from 'ng2-search-filter'
 import { ToasterserviceService } from './toasterservice.service';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ViewcustomersComponent } from './components/customer/viewcustomers/viewcustomers.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,6 +50,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     ChangepinComponent,
     ViewtransactionsComponent,
     AdminloginComponent,
+    ViewcustomersComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,4 @@
-
-
-  .navul {
+ul {
     list-style-type: none;
     margin: 0;
     overflow: hidden;
@@ -29,13 +27,17 @@
   {
     background-color: burlywood;
   }
-
-  h3{
-    padding:10px;
-    margin-top: 150px;
-    color:gray;
-    font-family: cursive;
-    font-style: italic;
-    font-size: medium;	
-    text-align: center;
+  .pointer {
+    cursor: pointer;
+    color:maroon;}
+  label{
+    color:red;
+  }
+  .hide {
+    display: none;
+  }
+      
+  .myDIV:hover + .hide {
+    display: block;
+    color: red;
   }

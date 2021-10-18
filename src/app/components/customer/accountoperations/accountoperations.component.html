@@ -1,7 +1,15 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="bootstrap-show-password.min.js"></script>
 
 <body>
     <ul>
+
+        <li>
+            <a (click)="backPage()" class="fa fa-home">&nbsp;Home</a>
+        </li>
         <li>
             <a (click)="transactionhistory()" class="fa fa-history">&nbsp;Show Transaction History</a>
         </li>
@@ -14,12 +22,42 @@
         <li>
             <a (click)="getAccount()" class="fa fa-credit-card">&nbsp;Bank Transfer</a>
         </li>
-        <li>
-            <a (click)="backPage()" class="fa fa-sign-out">&nbsp;Back</a>
-        </li>
+      
 
     </ul>
 
+
+    
+<div class="reglist" *ngIf=showDetails style="margin-top: 100px;">
+    <table>
+        <tr>
+            <th>Account No </th>
+            <td>{{senderDetails.accountType.accountNo}}</td>
+        </tr>
+        <tr>
+            <th>Branch Name </th>
+            <td> {{senderDetails.accountType.customer.branch.name}}</td>
+        </tr>
+        <tr>
+            <th>IFSC Code </th>
+            <td>{{senderDetails.accountType.customer.branch.ifscCode}}</td>
+        </tr>
+        <tr>
+            <th>Mobile No </th>
+            <td>{{senderDetails.accountType.customer.mobileNo}}</td>
+        </tr>
+        <tr>
+            <th>Email Id </th>
+            <td>{{senderDetails.accountType.customer.email}}</td>
+        </tr>
+        <tr>
+            <th> Account Type </th>
+            <td>{{senderDetails.accountType.type}}</td>
+        </tr>
+
+    </table>
+    <br><br><br>
+</div>
 
 <!--Recepit -->
 
@@ -46,6 +84,7 @@
                     <th>Account No </th>
                     <td>{{senderDetails.accountType.accountNo}}</td>
                 </tr>
+               
                 <tr>
                     <th>IFSC Code </th>
                     <td>{{senderDetails.accountType.customer.branch.ifscCode}}</td>
@@ -80,7 +119,7 @@
         </div>
         <button class="btn btn-primary" style="margin-left: 630px" (click)="openPDF()">Download Recepit</button>&nbsp;
         &nbsp;&nbsp; &nbsp;
-        <button class="btn btn-info" (click)=back()>Back</button>&nbsp;&nbsp;
+        <button class="btn btn-info" (click)=back()>Cancel</button>&nbsp;&nbsp;
 
     </div>
 </div>
@@ -128,12 +167,20 @@
 
             <div class="form-group">
                 Transaction PIN <label>*</label><br>
-                <input type="pin" class="form-control" formControlName="pin">
+                
+                <div class="input-group">
+                    <input type="pin" [type]="hide?'text':'password'" class="form-control" formControlName="pin" data-toggle="pin"/>
+                    <div class="input-group-append">
+
+                        <div class="input-group-text"><i (click)="hide=!hide" [ngClass]="hide?'fa fa-eye':'fa fa-eye-slash'"></i></div>
+                    </div>
+                </div>
+
             </div><br><br>
             <button type="submit" class="btn btn-info" [disabled]="bankTransferForm.invalid"
                 style="margin-left: 30px">Transfer</button>&nbsp;&nbsp;
             <button class="btn btn-info" type="reset">Reset</button>&nbsp;&nbsp;
-            <button class="btn btn-info" (click)=back()>Back</button>&nbsp;&nbsp;
+            <button class="btn btn-info" (click)=back()>Cancel</button>&nbsp;&nbsp;
 
         </fieldset>
     </form>
@@ -148,7 +195,13 @@
             <div class="form-group" *ngIf=viewBal>
                 <h3>View Account Balance</h3><br>
                 Transaction PIN<label>*</label><br>
-                <input type="password" class="form-control" formControlName="password">
+                    <div class="input-group">
+                        <input type="password" [type]="hide?'text':'password'" class="form-control" formControlName="password" data-toggle="password"/>
+                        <div class="input-group-append">
+    
+                            <div class="input-group-text"><i (click)="hide=!hide" [ngClass]="hide?'fa fa-eye':'fa fa-eye-slash'"></i></div>
+                        </div>
+                    </div>
             </div><br><br>
             <button *ngIf=viewBal type="submit" class="btn btn-info" [disabled]="viewBalanceForm.invalid"
                 style="margin-left: 30px">Submit</button>&nbsp;&nbsp;
@@ -168,30 +221,4 @@
     </form>
 </div>
 
-<div class="reglist" *ngIf=showDetails>
-    <table>
-        <tr>
-            <th>Account No </th>
-            <td>{{senderDetails.accountType.accountNo}}</td>
-        </tr>
-        <tr>
-            <th>IFSC Code </th>
-            <td>{{senderDetails.accountType.customer.branch.ifscCode}}</td>
-        </tr>
-        <tr>
-            <th>Mobile No </th>
-            <td>{{senderDetails.accountType.customer.mobileNo}}</td>
-        </tr>
-        <tr>
-            <th>Email Id </th>
-            <td>{{senderDetails.accountType.customer.email}}</td>
-        </tr>
-        <tr>
-            <th> Account Type </th>
-            <td>{{senderDetails.accountType.type}}</td>
-        </tr>
-
-    </table>
-    <br><br><br>
-</div>
 </body>

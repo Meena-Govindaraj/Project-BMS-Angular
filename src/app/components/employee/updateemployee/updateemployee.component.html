@@ -1,94 +1,115 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<body>
-    <div class="reglist"><br><br>
-        <form novalidate [formGroup]="editEmployeeForm" style="margin-left: 550px;width: 420px;"
-            (ngSubmit)="updateEmployee()">
-            <fieldset>
+<ul>
+    <li>
+        <a (click)="back()" class="fa fa-home">&nbsp;Home</a>
+    </li>
+    <li>
+        <a (click)="updateemployee()" class="fa fa-user-circle">&nbsp;View Profile</a>
+    </li>
+    <li>
+        <a (click)="viewrequests()" class="fa fa-users">&nbsp;View Requests</a>
+    </li>
+    <li>
+        <a (click)="pass()" class="fa fa-key">&nbsp;Change Password</a>
+    </li>
 
-                <div class="form-group">
-                    Employee Name<label>*</label>
-                    <input type="text" class="form-control" formControlName="name">
-                    <div class="alert alert-danger"
-                        *ngIf="editEmployeeForm.get('name').hasError('required') && editEmployeeForm.get('name').dirty">
-                        Employee Name is required
-                    </div>
-                    <div class="alert alert-danger"
-                        *ngIf="editEmployeeForm.get('name').hasError('minlength') && editEmployeeForm.get('name').dirty">
-                        Name should be minimum of 3 characters.
-                    </div>
-                </div><br>
+</ul>
+<div>
 
-                <div class="form-group">
-                    Mobile Number  <label>*</label>
-                    <input type="tel" class="form-control" formControlName="mobileNo" readonly>
-                    <div class="alert alert-danger"
-                        *ngIf="editEmployeeForm.get('mobileNo').hasError('required') && editEmployeeForm.get('mobileNo').dirty">
-                        Mobile Number is required
-                    </div>
-                    <div class="alert alert-danger"
-                        *ngIf="editEmployeeForm.get('mobileNo').hasError('minlength') && editEmployeeForm.get('mobileNo').dirty">
-                        Enter Appropriate 10 digit Mobile Number
-                    </div>
-                    <div class="alert alert-danger"
-                        *ngIf="editEmployeeForm.get('mobileNo').hasError('maxlength') && editEmployeeForm.get('mobileNo').dirty">
-                        Mobile No should be 10 digits
-                    </div>
-                </div>
-                <br>
+    <body>
 
-                <div class="form-group">
-                    Email <label>*</label>
-                    <input type="email" placeholder="example57@gmail.com" class="form-control" formControlName="email">
-                    <div class="alert alert-danger"
-                        *ngIf="editEmployeeForm.get('email').hasError('required') && editEmployeeForm.get('email').dirty">
-                        Email is required
+        <div class="reglist"><br><br>
+            <form novalidate [formGroup]="editEmployeeForm" style="margin-left: 550px;width: 420px;"
+                (ngSubmit)="updateEmployee()">
+                <fieldset>
+                    <div style="width: 800px;">
+                    <button type="submit" class="btn btn-info" [disabled]="editEmployeeForm.invalid"
+                        style="margin-left: 500px">Update</button> &nbsp;
+                    <button type="button" (click)=back() class="btn btn-info">Back</button>
                     </div>
-                    <div class="alert alert-danger"
-                        *ngIf="editEmployeeForm.get('email').hasError('email') && editEmployeeForm.get('email').dirty">
-                        Enter Correct email
-                    </div>
-                </div>
-                <br>
+                    <div class="form-group">
+                        Employee Name<label>*</label>
+                        <input type="text" class="form-control" formControlName="name">
+                        <div class="alert alert-danger"
+                            *ngIf="editEmployeeForm.get('name').hasError('required') && editEmployeeForm.get('name').dirty">
+                            Employee Name is required
+                        </div>
+                        <div class="alert alert-danger"
+                            *ngIf="editEmployeeForm.get('name').hasError('minlength') && editEmployeeForm.get('name').dirty">
+                            Name should be minimum of 3 characters.
+                        </div>
+                    </div><br>
 
-                <div class="form-group">
-                    Address <label>*</label>
-                    <input type="text" class="form-control" formControlName="address">
-                    <div class="alert alert-danger"
-                        *ngIf="editEmployeeForm.get('address').hasError('required') && editEmployeeForm.get('address').dirty">
-                        Address required
-                    </div>
-                </div><br>
-
-                <div class="form-group">
-                    Salary <label>*</label>
-                    <input type="number" class="form-control" formControlName="salary">
-                    <div class="alert alert-danger"
-                        *ngIf="editEmployeeForm.get('salary').hasError('required') && editEmployeeForm.get('salary').dirty">
-                        Salary required
-                    </div>
-                    <div class="alert alert-danger"
-                        *ngIf="editEmployeeForm.get('salary').hasError('min') && editEmployeeForm.get('salary').dirty">
-                        salary should be greater than 0
-                    </div>
-                </div><br>
-
-
-                <div class="form-group">
-                    <div class="col-md-13">
-                        Working Branch<label for="branch"></label>
-                        <div>
-                            <input class="form-control" type="text" value={{employee.branch.name}}-{{employee.branch.ifscCode}} readonly>
-                       
+                    <div class="form-group">
+                        Mobile Number <label>*</label>
+                        <input type="tel" class="form-control" formControlName="mobileNo" readonly>
+                        <div class="alert alert-danger"
+                            *ngIf="editEmployeeForm.get('mobileNo').hasError('required') && editEmployeeForm.get('mobileNo').dirty">
+                            Mobile Number is required
+                        </div>
+                        <div class="alert alert-danger"
+                            *ngIf="editEmployeeForm.get('mobileNo').hasError('minlength') && editEmployeeForm.get('mobileNo').dirty">
+                            Enter Appropriate 10 digit Mobile Number
+                        </div>
+                        <div class="alert alert-danger"
+                            *ngIf="editEmployeeForm.get('mobileNo').hasError('maxlength') && editEmployeeForm.get('mobileNo').dirty">
+                            Mobile No should be 10 digits
                         </div>
                     </div>
-                </div><br>
+                    <br>
 
-                <button type="submit" class="btn btn-info" [disabled]="editEmployeeForm.invalid"
-                    style="margin-left: 100px">Update</button> &nbsp;
-                <button type="button" (click)=back() class="btn btn-info">Back</button>
+                    <div class="form-group">
+                        Email <label>*</label>
+                        <input type="email" placeholder="example57@gmail.com" class="form-control"
+                            formControlName="email">
+                        <div class="alert alert-danger"
+                            *ngIf="editEmployeeForm.get('email').hasError('required') && editEmployeeForm.get('email').dirty">
+                            Email is required
+                        </div>
+                        <div class="alert alert-danger"
+                            *ngIf="editEmployeeForm.get('email').hasError('email') && editEmployeeForm.get('email').dirty">
+                            Enter Correct email
+                        </div>
+                    </div>
+                    <br>
 
-                <br><br>
-            </fieldset>
-        </form>
-    </div>
-</body>
+                    <div class="form-group">
+                        Address <label>*</label>
+                        <input type="text" class="form-control" formControlName="address">
+                        <div class="alert alert-danger"
+                            *ngIf="editEmployeeForm.get('address').hasError('required') && editEmployeeForm.get('address').dirty">
+                            Address required
+                        </div>
+                    </div><br>
+
+                    <div class="form-group">
+                        Salary <label>*</label>
+                        <input type="number" class="form-control" formControlName="salary">
+                        <div class="alert alert-danger"
+                            *ngIf="editEmployeeForm.get('salary').hasError('required') && editEmployeeForm.get('salary').dirty">
+                            Salary required
+                        </div>
+                        <div class="alert alert-danger"
+                            *ngIf="editEmployeeForm.get('salary').hasError('min') && editEmployeeForm.get('salary').dirty">
+                            salary should be greater than 0
+                        </div>
+                    </div><br>
+
+
+                    <div class="form-group">
+                        <div class="col-md-13">
+                            Working Branch<label for="branch"></label>
+                            <div>
+                                <input class="form-control" type="text"
+                                    value={{employee.branch.name}}-{{employee.branch.ifscCode}} readonly>
+
+                            </div>
+                        </div>
+                    </div><br>
+
+                    <br><br>
+                </fieldset>
+            </form>
+        </div>
+    </body>

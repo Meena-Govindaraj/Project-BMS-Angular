@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { Observable } from 'rxjs';
+import { ToasterserviceService } from 'src/app/toasterservice.service';
 @Component({
   selector: 'app-accountoperations',
   templateUrl: './accountoperations.component.html',
@@ -42,9 +43,9 @@ export class AccountOperationsComponent implements OnInit {
   showDetails: boolean;
   date = new Date();
   invoice: boolean;
+  hide:boolean;
 
-
-  constructor(public activatedRoute: ActivatedRoute, public formBuilder: FormBuilder, public transactionService: TransactionService, public router: Router, public customerService: CustomerService, public accountService: AccountService) { }
+  constructor(public activatedRoute: ActivatedRoute,public toasterService:ToasterserviceService, public formBuilder: FormBuilder, public transactionService: TransactionService, public router: Router, public customerService: CustomerService, public accountService: AccountService) { }
 
   ngOnInit(): void {
 
@@ -98,10 +99,10 @@ export class AccountOperationsComponent implements OnInit {
 
       const FILEURI = canvas.toDataURL('image/png')
       var PDF = new jsPDF('p', 'mm', 'a4');
-      let position = 0;
+      let position = 30;
       PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight)
 
-      PDF.save('Invoice.pdf');
+      PDF.save('Reciept.pdf');
     });
     this.back();
   }
@@ -145,6 +146,10 @@ export class AccountOperationsComponent implements OnInit {
   transferAmountByAccount() {
     this.sendAmount = this.bankTransferForm.get('amount').value;
     //to get account id of reciever account 
+    if(this.senderDetails.accountType.accountNo==this.bankTransferForm.get('recieverAccount').value){
+      this.toasterService.error("Please check Account No")
+    }
+    else{
     this.accountService.getAccountByaccountNo(this.bankTransferForm.get('recieverAccount').value)
       .subscribe(data => {
         this.receiverDetails = data.data;
@@ -175,7 +180,8 @@ export class AccountOperationsComponent implements OnInit {
           }
         }
 
-      }, err => { this.errorMessage = "Please enter Correct Account No" })
+      }, err => { this.toasterService.error( "Please enter Correct Account No" )})
+    }
   }
 
   addTransaction(amount: number, sender: Account, reciever: Account) {

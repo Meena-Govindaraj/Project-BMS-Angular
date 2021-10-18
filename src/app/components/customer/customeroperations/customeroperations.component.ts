@@ -29,7 +29,8 @@ export class CustomeroperationsComponent implements OnInit {
   type: string;
   changePassword: boolean;
   otherOp: boolean;
-
+  hide:boolean;
+  
   constructor(public activatedRoute: ActivatedRoute, public formBuilder: FormBuilder, public router: Router, public customerService: CustomerService, public accountService: AccountService) { }
 
   ngOnInit(): void {

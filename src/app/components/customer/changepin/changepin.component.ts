@@ -17,6 +17,7 @@ export class ChangepinComponent implements OnInit {
   type: string;
   signupForm?: FormGroup
   senderDetails: Observable<Account[]> | any;;
+  hide:boolean;
 
   constructor(public activatedRoute: ActivatedRoute, public formBuilder: FormBuilder, public router: Router, public accountService: AccountService) { }
 
@@ -52,12 +53,12 @@ export class ChangepinComponent implements OnInit {
       }
       , err => {
         console.log(err.error.message)
-        this.wrongInfo("Wrong OLD PIN")
+        this.wrongInfo("Please Check your current Transaction PIN")
       })
     }
     else
     {
-      this.wrongInfo("Wrong OLD PIN")
+      this.wrongInfo("Please Check your current Transaction PIN")
     }
 
   }
@@ -71,7 +72,7 @@ export class ChangepinComponent implements OnInit {
   }
 
   successNotification() {
-    Swal.fire('Success', 'Password Updated!', 'success')
+    Swal.fire('Success', 'Transacation PIN Updated!', 'success')
     this.back();
   }
 }

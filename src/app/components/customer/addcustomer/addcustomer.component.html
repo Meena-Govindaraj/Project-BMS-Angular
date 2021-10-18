@@ -7,7 +7,7 @@
             <h3 >Select type to create account</h3> 
             <br>
             <div class="col-md-13">
-                <label for="type">*Account Type</label>
+                Account Type <label for="type">*</label>
                 <select class="form-control form-control-lg" name="type" formControlName="type" ngModel required>
                     <option>Savings</option>
                     <option>Current</option>
@@ -31,7 +31,7 @@
         <fieldset>
 
             <div class="form-group">
-                <label>*Customer Name:</label>
+                Customer Name<label>*</label>
                 <input type="text" class="form-control" formControlName="name">
                 <div class="alert alert-danger"
                     *ngIf="signupForm.get('name').hasError('required') && signupForm.get('name').dirty">
@@ -44,7 +44,7 @@
             </div><br>
 
             <div class="form-group">
-                <label>*Mobile Number :</label>
+                Mobile Number <label>* </label>
                 <input type="tel" class="form-control" formControlName="mobileNo">
                 <div class="alert alert-danger"
                     *ngIf="signupForm.get('mobileNo').hasError('required') && signupForm.get('mobileNo').dirty">
@@ -62,7 +62,7 @@
             <br>
 
             <div class="form-group">
-                <label>*Email:</label>
+                Email <label>*</label>
                 <input type="email" placeholder="example57@gmail.com" class="form-control" formControlName="email">
                 <div class="alert alert-danger"
                     *ngIf="signupForm.get('email').hasError('required') && signupForm.get('email').dirty">
@@ -76,7 +76,7 @@
             <br>
 
             <div class="form-group">
-                <label>*State:</label>
+                State<label>*</label>
                 <input type="text" class="form-control" formControlName="state">
                 <div class="alert alert-danger"
                     *ngIf="signupForm.get('state').hasError('required') && signupForm.get('state').dirty">
@@ -85,7 +85,7 @@
             </div><br>
 
             <div class="form-group">
-                <label>*Age:</label>
+                Age<label>*</label>
                 <input type="number" class="form-control" formControlName="age">
                 <div class="alert alert-danger"
                     *ngIf="signupForm.get('age').hasError('required') && signupForm.get('age').dirty">
@@ -100,7 +100,7 @@
 
             <div class="form-group">
                 <div class="col-md-13">
-                    <label for="branch">*Branch </label>
+                    Branch <label for="branch">*</label>
                     <div>
                         <select class="form-control form-control-lg" name="branch" formControlName="branch">
                             <option> </option>

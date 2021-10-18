@@ -58,6 +58,7 @@ export class UpdateemployeeComponent implements OnInit {
       .subscribe(
         response => {
           this.employee = response
+          this.router.navigate(['viewcustomers',emp.branch.ifscCode,emp.id])
           this.successNotification();
           console.log("Employee account Updated successfully!")
           this.back();
@@ -70,6 +71,18 @@ export class UpdateemployeeComponent implements OnInit {
   }
 
   back() {
+    this.router.navigate(['viewcustomers',this.employee.branch.ifscCode,this.employee.id])
+  }
+   
+  viewrequests() {
+    this.router.navigate(['viewrequests', this.employeeId])
+  }
+
+  updateemployee() {
+    this.router.navigate(['updateemployee', this.employeeId])
+  }
+
+  pass() {
     this.router.navigate(['employeeop', this.employeeId])
   }
 }

@@ -20,6 +20,7 @@ export class EmployeeloginComponent implements OnInit {
   getEmailForm: FormGroup
   resetPassword: boolean
   login: boolean
+  hide:boolean;
 
   constructor(public activatedRoute: ActivatedRoute, public employeeService: EmployeeService, public formBuilder: FormBuilder, public router: Router, public toasterService: ToasterserviceService) { }
 
@@ -44,7 +45,7 @@ export class EmployeeloginComponent implements OnInit {
         (response) => {
           this.employee = response.data;
           console.log(this.employee)
-          this.router.navigate(['employeeop', this.employee.id])
+          this.router.navigate(['viewcustomers',this.employee.branch.ifscCode,this.employee.id])
         }, err => {
           console.log(err.error.message)
           this.wrongLogin("'Your Login Credentials are not matched!'");

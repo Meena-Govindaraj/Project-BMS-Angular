@@ -1,0 +1,35 @@
+ul {
+    list-style-type: none;
+    margin: 0;
+    overflow: hidden;
+    padding: 14px 16px;
+    background-color: #333;
+  }
+  
+  li {
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 21px;
+  }
+  
+  li a:hover {
+    color:orange
+  }
+  .bg
+  {
+    background-color: burlywood;
+  }
+  .pointer {
+    cursor: pointer;
+    color:maroon;}
+  label{
+    color:red;
+  }

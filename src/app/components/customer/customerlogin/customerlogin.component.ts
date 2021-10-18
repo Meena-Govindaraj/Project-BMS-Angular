@@ -18,7 +18,7 @@ export class CustomerloginComponent implements OnInit {
   getEmailForm: FormGroup
   resetPassword: boolean
   login: boolean
-
+  hide:boolean
   constructor(public activatedRoute: ActivatedRoute, public customerService: CustomerService, public formBuilder: FormBuilder, public router: Router) { }
 
   ngOnInit(): void {

@@ -1,68 +1,74 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<!-- <ul>
+<ul>
     <li>
-      <a (click)="viewrequests()" class="fa fa-users">&nbsp;View Requests</a>
+        <a (click)="back()" class="fa fa-home">&nbsp;Home</a>
     </li>
     <li>
-      <a (click)="updateemployee()" class="fa fa-user-circle">&nbsp;View Profile</a>
+        <a (click)="updateemployee()" class="fa fa-user-circle">&nbsp;View Profile</a>
     </li>
     <li>
-      <a (click)="pass()" class="fa fa-key">&nbsp;Change Password</a>
+        <a (click)="viewrequests()" class="fa fa-users">&nbsp;View Requests</a>
     </li>
+
     <li>
-      <a (click)="logout()" style="margin-left: 650px;" class="fa fa-sign-out">&nbsp;Logout</a>
+        <a (click)="pass()" class="fa fa-key">&nbsp;Change Password</a>
     </li>
-  </ul> -->
-  
+
+</ul>
+
 <br><br>
 
-<div class="search-hero">
-    <input style="margin-left: 600px;width: 300px;" [ngClass]="['form-control','fa fa-search']" type="text"
-        name="search" [(ngModel)]="searchReq" autocomplete="off" placeholder="&#xF002;Search">
-</div><br>
+<h3>
+    <font color="red" style="margin-left: 550px;width: 800px;"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font>
+</h3>
 
-<div>
-    <div class="reglist">
-        <h3>
-            <font color="red" style="margin-left: 550px;width: 800px;"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font>
-        </h3>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Customer id</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Mobile No</th>
-                    <th>Account Type</th>
-                    <th>Branch Name</th>
-                    <th>IFSC code</th>
-                    <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Actions</th>
+<div *ngIf="customerRequests">
+    <div class="search-hero">
+        <input style="margin-left: 600px;width: 300px;" [ngClass]="['form-control','fa fa-search']" type="text"
+            name="search" [(ngModel)]="searchReq" autocomplete="off" placeholder="&#xF002;Search">
+    </div><br>
 
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let c of accountTypes |filter:searchReq">
+    <div>
+        <div class="reglist">
 
-                    <td *ngIf="c.accountStatus=='No'">{{c.customer.id}}</td>
-                    <td *ngIf="c.accountStatus=='No'">{{c.customer.name}}</td>
-                    <td *ngIf="c.accountStatus=='No'">{{c.customer.email}}</td>
-                    <td *ngIf="c.accountStatus=='No'">{{c.customer.mobileNo}}</td>
-                    <td *ngIf="c.accountStatus=='No'">{{c.type}}</td>
-                    <td *ngIf="c.accountStatus=='No'">{{c.customer.branch.name}}</td>
-                    <td *ngIf="c.accountStatus=='No'">{{c.customer.branch.ifscCode}}</td>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                      
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Mobile No</th>
+                        <th>Account Type</th>
+                        <th>Branch Name</th>
+                        <th>IFSC code</th>
+                        <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Actions</th>
 
-                    <td *ngIf="c.accountStatus=='No'">
-                        <button type="button" class="btn btn-success"
-                            (click)="updateAccountStatus(c.accountNo)">Accept</button>&nbsp;&nbsp;
-                        <button type="button" class="btn btn-danger"
-                            (click)="deleteAccount(c.id,c.customer.id)">Reject</button>
-                    </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let c of accountTypes |filter:searchReq">
 
-                </tr>
-            </tbody>
-        </table>
-        <button type="button" style="margin-left: 650px;border-style: ridge;" (click)=back()
-            class="btn btn-info">Back</button>
+                        
+                        <td *ngIf="c.accountStatus=='No'">{{c.customer.name}}</td>
+                        <td *ngIf="c.accountStatus=='No'">{{c.customer.email}}</td>
+                        <td *ngIf="c.accountStatus=='No'">{{c.customer.mobileNo}}</td>
+                        <td *ngIf="c.accountStatus=='No'">{{c.type}}</td>
+                        <td *ngIf="c.accountStatus=='No'">{{c.customer.branch.name}}</td>
+                        <td *ngIf="c.accountStatus=='No'">{{c.customer.branch.ifscCode}}</td>
 
+                        <td *ngIf="c.accountStatus=='No'">
+                            <button type="button" class="btn btn-success"
+                                (click)="updateAccountStatus(c.accountNo)">Accept</button>&nbsp;&nbsp;
+                            <button type="button" class="btn btn-danger"
+                                (click)="deleteAccount(c.id,c.customer.id)">Reject</button>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+            <button type="button" style="margin-left: 650px;border-style: ridge;" (click)=back()
+                class="btn btn-info">Back</button>
+
+        </div>
     </div>

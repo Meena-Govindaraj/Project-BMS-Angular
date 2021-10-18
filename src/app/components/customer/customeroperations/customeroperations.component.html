@@ -1,7 +1,7 @@
 <body>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<div *ngIf=noAccount>
+<div style="margin-top: 100px;" *ngIf=noAccount>
   <h3>Sorry!! You Didn't have account right now! </h3>
   <h4>Please wait for Mail to accept your request on account and to get account details</h4>
   <h5>Thank You for creating account in Our Bank</h5>
@@ -30,17 +30,16 @@
     </li>
   </ul>
 
-
-
+  <br><br>
 <span *ngIf=createSavings> <i><b>Do you want to Create Savings Account ---> </b></i> <button
-    (click)=createSavingsAccount() class="bt btn-primary">Create Savings Account</button></span>
+    (click)=createSavingsAccount() class="bt btn-info">Create Savings Account</button></span>
 
-<span *ngIf=createCurrent> <i><b>Do you want to Create Current Account ---> </b></i> <button
+<span style="margin-top: 30px;" *ngIf=createCurrent> <i><b>Do you want to Create Current Account ---> </b></i> <button
     (click)=createCurrentAccount() class="bt btn-info">Create Current Account</button></span>&nbsp;&nbsp;
 
 
 <div class="reglist" *ngIf=changePassword>
-  <form novalidate [formGroup]="signupForm" style="margin-left: 550px;margin-top: 50px;width: 300px;"
+  <form novalidate [formGroup]="signupForm" style="margin-left: 550px;width: 300px;"
     (ngSubmit)="updatePassword()">
     <fieldset>
       <div class="form-group">
@@ -51,7 +50,13 @@
 
       <div class="form-group">
         Old Password<label>*</label>
-        <input type="text" class="form-control" formControlName="password">
+        <div class="input-group">
+          <input type="password" [type]="hide?'text':'password'" class="form-control" formControlName="password" data-toggle="password"/>
+          <div class="input-group-append">
+
+              <div class="input-group-text"><i (click)="hide=!hide" [ngClass]="hide?'fa fa-eye':'fa fa-eye-slash'"></i></div>
+          </div>
+      </div>
         <div class="alert alert-danger"
           *ngIf="signupForm.get('password').hasError('required') && signupForm.get('password').dirty">
           Old Password is required
@@ -66,7 +71,14 @@
 
       <div class="form-group">
         New Password<label>*</label>
-        <input type="text" class="form-control" formControlName="newPassword">
+    
+        <div class="input-group">
+          <input type="newPassword" [type]="hide?'text':'password'" class="form-control" formControlName="newPassword" data-toggle="newPassword"/>
+          <div class="input-group-append">
+
+              <div class="input-group-text"><i (click)="hide=!hide" [ngClass]="hide?'fa fa-eye':'fa fa-eye-slash'"></i></div>
+          </div>
+      </div>
         <div class="alert alert-danger"
           *ngIf="signupForm.get('newPassword').hasError('required') && signupForm.get('newPassword').dirty">
           New Password is required

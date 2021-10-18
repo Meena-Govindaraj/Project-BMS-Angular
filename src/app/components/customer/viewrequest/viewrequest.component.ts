@@ -22,6 +22,8 @@ export class ViewrequestComponent implements OnInit {
   employeeId: number;
   searchReq: any
   requests:Accountype[];
+  employee: Employee;
+  customerRequests=false;
 
   constructor(public activatedRoute: ActivatedRoute, public router: Router, public formBuilder: FormBuilder, public customerService: CustomerService, public accountService: AccountService, public employeeService: EmployeeService, public toasterService: ToasterserviceService) { }
 
@@ -30,18 +32,17 @@ export class ViewrequestComponent implements OnInit {
     this.employeeId = this.activatedRoute.snapshot.params['employeeId'];
     console.log(this.employeeId)
     this.viewAllCustomer();
+
   }
 
   //getting all customers..
   viewAllCustomer() {
 
-    var employee: Employee;
-
     this.employeeService.getEmployeeById(this.employeeId)
       .subscribe(
         response => {
-          employee = response.data;
-          this.accountService.getCustomersByIFSCOnType(employee.branch.ifscCode).subscribe(
+          this.employee = response.data;
+          this.accountService.getCustomersByIFSCOnType(this.employee.branch.ifscCode).subscribe(
             (data) => {
               this.accountTypes = data.data;
               console.log(this.accountTypes)
@@ -51,15 +52,21 @@ export class ViewrequestComponent implements OnInit {
               {
                 if(this.accountTypes[i].accountStatus=="No")
                 {
+                  this.customerRequests=true;
                   console.log(this.accountTypes[i]);
                   this.requests[j++]=this.accountTypes[i];
                   console.log(this.requests);
-                  console.log()
+                
                 }
               }
+              if(this.customerRequests==false){
+                this.errorMessage = "NO DATA FOUND!"
+                this.toasterService.error("No Requests Found")
+            }
               console.log(this.requests);
             }, err => {
               this.errorMessage = "NO DATA FOUND!!"
+              this.toasterService.error("No Requests Found")
               console.log(err.error.meessage)
             })
         });
@@ -142,22 +149,21 @@ export class ViewrequestComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(['employeeop', this.employeeId])
+    this.router.navigate(['viewcustomers',this.employee.branch.ifscCode,this.employee.id])
   }
 
-  // viewcustomers() {
+  viewrequests() {
+    this.router.navigate(['viewrequests', this.employeeId])
+  }
 
-  //   this.router.navigate(['viewcustomers', this.employeeId])
-  // }
+  updateemployee() {
+    this.router.navigate(['updateemployee', this.employeeId])
+  }
 
-  // viewrequests() {
-  //   this.router.navigate(['viewrequests', this.employeeId])
-  // }
-
-  // updateemployee() {
-  //   this.router.navigate(['updateemployee', this.employeeId])
-  // }
-  // logout() {
-  //   this.router.navigate(['employeelogin'])
-  // }
+  logout() {
+    this.router.navigate(['employeelogin'])
+  }
+  pass() {
+    this.router.navigate(['employeeop', this.employeeId])
+  }
 }

@@ -2,11 +2,12 @@
 
 
 <ul>
+ 
+    <li *ngIf=viewCus>
+        <h4 style="color:darkturquoise">Welcome, {{ this.employee.name }}</h4>
+    </li>
     <li *ngIf=viewTrans>
         <a (click)="back()" class="fa fa-home">&nbsp;Home</a>
-    </li>
-    <li>
-        <h3 style="color:darkturquoise">Welcome, {{ this.employee.name }}</h3>
     </li>
     <li style="margin-left: 70px;">
         <a (click)="updateemployee()" class="fa fa-user-circle">&nbsp;View Profile</a>

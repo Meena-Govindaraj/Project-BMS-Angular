@@ -32,7 +32,7 @@ export class EmployeeoperationsComponent implements OnInit {
   searchCus: any;
   config: any;
 
-  constructor(public activatedRoute: ActivatedRoute,public toasterService:  ToasterserviceService, public formBuilder: FormBuilder, public router: Router, public employeeService: EmployeeService, public accountService: AccountService, public customerService: CustomerService, public transactionService: TransactionService) { }
+  constructor(public activatedRoute: ActivatedRoute, public toasterService: ToasterserviceService, public formBuilder: FormBuilder, public router: Router, public employeeService: EmployeeService, public accountService: AccountService, public customerService: CustomerService, public transactionService: TransactionService) { }
 
   ngOnInit(): void {
 
@@ -73,7 +73,7 @@ export class EmployeeoperationsComponent implements OnInit {
   viewAllCustomer() {
 
     console.log(this.employee.branch.ifscCode)
-    this.router.navigate(['viewcustomers',this.employee.branch.ifscCode,this.employee.id])
+    this.router.navigate(['viewcustomers', this.employee.branch.ifscCode, this.employee.id])
 
   }
   viewrequests() {
@@ -89,7 +89,7 @@ export class EmployeeoperationsComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(['viewcustomers',this.employee.branch.ifscCode,this.employee.id])
+    this.router.navigate(['viewcustomers', this.employee.branch.ifscCode, this.employee.id])
   }
 
 

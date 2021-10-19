@@ -106,7 +106,7 @@ export class CustomerService {
   }
 
   //localhost:9001/customer/updatePassword/9600432486/123456
-  updatePassword(mobileNo: string,oldPassword:string, newPassword: string) {
+  updatePassword(mobileNo: string, oldPassword: string, newPassword: string) {
     console.log(newPassword)
     return this.http.put(`${customerURL}/updatePassword/${mobileNo}/${oldPassword}/${newPassword}`, this.httpOptions)
       .pipe

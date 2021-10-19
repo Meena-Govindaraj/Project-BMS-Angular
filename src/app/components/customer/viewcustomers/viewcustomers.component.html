@@ -2,7 +2,7 @@
 
 
 <ul>
- 
+
     <li *ngIf=viewCus>
         <h4 style="color:darkturquoise">Welcome, {{ this.employee.name }}</h4>
     </li>
@@ -30,8 +30,9 @@
         <font color="red" style="margin-left: 550px;width: 800px;"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font>
     </h3>
     <div class="reglist" *ngIf=viewCus>
-        <br><span class="myDIV"><i>Click To alert customer On balance <span [ngClass]="['fa fa-warning','pointer']"></span></i></span>
-            <span class="hide">To send mail to customer who have current account with balance less than 5000 </span>
+        <br><span class="myDIV"><i>Click To alert customer On balance <span
+                    [ngClass]="['fa fa-warning','pointer']"></span></i></span>
+        <span class="hide">To send mail to customer who have current account with balance less than 5000 </span>
         <!--Search-->
         <br><br>
 
@@ -119,5 +120,5 @@
             </div>
             <pagination-controls style="text-align: center;color:brown;" (pageChange)="pageChanged($event)">
             </pagination-controls>
-    
+
         </div>

@@ -21,9 +21,9 @@ export class ViewrequestComponent implements OnInit {
   account: Account;
   employeeId: number;
   searchReq: any
-  requests:Accountype[];
+  requests: Accountype[];
   employee: Employee;
-  customerRequests=false;
+  customerRequests = false;
 
   constructor(public activatedRoute: ActivatedRoute, public router: Router, public formBuilder: FormBuilder, public customerService: CustomerService, public accountService: AccountService, public employeeService: EmployeeService, public toasterService: ToasterserviceService) { }
 
@@ -46,23 +46,21 @@ export class ViewrequestComponent implements OnInit {
             (data) => {
               this.accountTypes = data.data;
               console.log(this.accountTypes)
-              var j=0;
+              var j = 0;
 
-              for(var i=0;i<this.accountTypes.length;i++)
-              {
-                if(this.accountTypes[i].accountStatus=="No")
-                {
-                  this.customerRequests=true;
+              for (var i = 0; i < this.accountTypes.length; i++) {
+                if (this.accountTypes[i].accountStatus == "No") {
+                  this.customerRequests = true;
                   console.log(this.accountTypes[i]);
-                  this.requests[j++]=this.accountTypes[i];
+                  this.requests[j++] = this.accountTypes[i];
                   console.log(this.requests);
-                
+
                 }
               }
-              if(this.customerRequests==false){
+              if (this.customerRequests == false) {
                 this.errorMessage = "NO DATA FOUND!"
                 this.toasterService.error("No Requests Found")
-            }
+              }
               console.log(this.requests);
             }, err => {
               this.errorMessage = "NO DATA FOUND!!"
@@ -98,7 +96,7 @@ export class ViewrequestComponent implements OnInit {
             .subscribe(
               cust => {
                 console.log(cust)
-              },err=>{this.deleteCustomer(customerId)})
+              }, err => { this.deleteCustomer(customerId) })
           this.viewAllCustomer();
         }
 
@@ -149,7 +147,7 @@ export class ViewrequestComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(['viewcustomers',this.employee.branch.ifscCode,this.employee.id])
+    this.router.navigate(['viewcustomers', this.employee.branch.ifscCode, this.employee.id])
   }
 
   viewrequests() {

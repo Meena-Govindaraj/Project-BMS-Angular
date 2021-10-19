@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="bootstrap-show-password.min.js"></script>
@@ -22,203 +23,209 @@
         <li>
             <a (click)="getAccount()" class="fa fa-credit-card">&nbsp;Bank Transfer</a>
         </li>
-      
+
 
     </ul>
 
 
-    
-<div class="reglist" *ngIf=showDetails style="margin-top: 100px;">
-    <table>
-        <tr>
-            <th>Account No </th>
-            <td>{{senderDetails.accountType.accountNo}}</td>
-        </tr>
-        <tr>
-            <th>Branch Name </th>
-            <td> {{senderDetails.accountType.customer.branch.name}}</td>
-        </tr>
-        <tr>
-            <th>IFSC Code </th>
-            <td>{{senderDetails.accountType.customer.branch.ifscCode}}</td>
-        </tr>
-        <tr>
-            <th>Mobile No </th>
-            <td>{{senderDetails.accountType.customer.mobileNo}}</td>
-        </tr>
-        <tr>
-            <th>Email Id </th>
-            <td>{{senderDetails.accountType.customer.email}}</td>
-        </tr>
-        <tr>
-            <th> Account Type </th>
-            <td>{{senderDetails.accountType.type}}</td>
-        </tr>
 
-    </table>
-    <br><br><br>
-</div>
+    <div class="reglist" *ngIf=showDetails style="margin-top: 100px;">
+        <table>
+            <tr>
+                <th>Account No </th>
+                <td>{{senderDetails.accountType.accountNo}}</td>
+            </tr>
+            <tr>
+                <th>Branch Name </th>
+                <td> {{senderDetails.accountType.customer.branch.name}}</td>
+            </tr>
+            <tr>
+                <th>IFSC Code </th>
+                <td>{{senderDetails.accountType.customer.branch.ifscCode}}</td>
+            </tr>
+            <tr>
+                <th>Mobile No </th>
+                <td>{{senderDetails.accountType.customer.mobileNo}}</td>
+            </tr>
+            <tr>
+                <th>Email Id </th>
+                <td>{{senderDetails.accountType.customer.email}}</td>
+            </tr>
+            <tr>
+                <th> Account Type </th>
+                <td>{{senderDetails.accountType.type}}</td>
+            </tr>
 
-<!--Recepit -->
-
-<div *ngIf="invoice">
-    <div class="form-group"><br>
-
-        <div class="table-responsive" id="htmlData">
-            <table class="table-striped" border="5" BORDERCOLOR=white align="center" cellpadding="10" cellspacing="10"
-                class="table text-white">
-                {{errorMessage}}
-                <thead class="thead text-dark" style="background-color:white;opacity: .6;right: 12px;">
-                    <tr>
-                        <th style=" margin-right: 400px; color: black;"><b>Customer Name:
-                                {{senderDetails?.accountType?.customer.name}}</b></th>
-                        <th style=" color: black;margin-right: 600px;"><b>Balance: {{senderDetails?.balance |
-                                currency:'INR'}}</b></th>
-                    </tr>
-                </thead>
-                <tr>
-                    <th>Account Name </th>
-                    <td> {{senderDetails.accountType.customer.name}}</td>
-                </tr>
-                <tr>
-                    <th>Account No </th>
-                    <td>{{senderDetails.accountType.accountNo}}</td>
-                </tr>
-               
-                <tr>
-                    <th>IFSC Code </th>
-                    <td>{{senderDetails.accountType.customer.branch.ifscCode}}</td>
-                </tr>
-                <tr>
-                    <th>Mobile No </th>
-                    <td>{{senderDetails.accountType.customer.mobileNo}}</td>
-                </tr>
-                <tr>
-                    <th>Email Id </th>
-                    <td>{{senderDetails.accountType.customer.email}}</td>
-                </tr>
-                <tr>
-                    <th> Account Type </th>
-                    <td>{{senderDetails.accountType.type}}</td>
-                </tr>
-                <tr>
-                    <th> Sent Amount</th>
-                    <td>{{sendAmount}}</td>
-                </tr>
-                <tr>
-                    <th> Sent To</th>
-                    <td>{{receiverDetails.accountType.accountNo}}</td>
-                </tr>
-                <tr>
-                    <th> Transaction date</th>
-                    <td>{{date | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
-                </tr>
-
-            </table>
-
-        </div>
-        <button class="btn btn-primary" style="margin-left: 630px" (click)="openPDF()">Download Recepit</button>&nbsp;
-        &nbsp;&nbsp; &nbsp;
-        <button class="btn btn-info" (click)=back()>Cancel</button>&nbsp;&nbsp;
-
+        </table>
+        <br><br><br>
     </div>
-</div>
 
-<!--Bank Transfer -->
-<div class="reglist" style="margin-top: 30px;" *ngIf=transferAmt>
-    <form novalidate [formGroup]="bankTransferForm" style="margin-left: 550px;width: 300px;"
-        (ngSubmit)="transferAmountByAccount()">
+    <!--Recepit -->
 
-        <h3>Enter Recipient Details</h3><br>
-        <h6>
-            <font color="red"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font>
-        </h6>
+    <div *ngIf="invoice">
+        <div class="form-group"><br>
 
-        <fieldset>
+            <div class="table-responsive" id="htmlData">
+                <table class="table-striped" border="5" BORDERCOLOR=white align="center" cellpadding="10"
+                    cellspacing="10" class="table text-white">
+                    {{errorMessage}}
+                    <thead class="thead text-dark" style="background-color:white;opacity: .6;right: 12px;">
+                        <tr>
+                            <th style=" margin-right: 400px; color: black;"><b>Customer Name:
+                                    {{senderDetails?.accountType?.customer.name}}</b></th>
+                            <th style=" color: black;margin-right: 600px;"><b>Balance: {{senderDetails?.balance |
+                                    currency:'INR'}}</b></th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <th>Account Name </th>
+                        <td> {{senderDetails.accountType.customer.name}}</td>
+                    </tr>
+                    <tr>
+                        <th>Account No </th>
+                        <td>{{senderDetails.accountType.accountNo}}</td>
+                    </tr>
 
-            <div class="form-group">
-                To Account Number<label>*</label><br>
-                <input type="number" class="form-control" formControlName="recieverAccount">
-                <div class="alert alert-danger"
-                    *ngIf="bankTransferForm.get('recieverAccount').hasError('required') && bankTransferForm.get('recieverAccount').dirty">
-                    Account Number is required
-                </div>
-            </div><br>
+                    <tr>
+                        <th>IFSC Code </th>
+                        <td>{{senderDetails.accountType.customer.branch.ifscCode}}</td>
+                    </tr>
+                    <tr>
+                        <th>Mobile No </th>
+                        <td>{{senderDetails.accountType.customer.mobileNo}}</td>
+                    </tr>
+                    <tr>
+                        <th>Email Id </th>
+                        <td>{{senderDetails.accountType.customer.email}}</td>
+                    </tr>
+                    <tr>
+                        <th> Account Type </th>
+                        <td>{{senderDetails.accountType.type}}</td>
+                    </tr>
+                    <tr>
+                        <th> Sent Amount</th>
+                        <td>{{sendAmount}}</td>
+                    </tr>
+                    <tr>
+                        <th> Sent To</th>
+                        <td>{{receiverDetails.accountType.accountNo}}</td>
+                    </tr>
+                    <tr>
+                        <th> Transaction date</th>
+                        <td>{{date | date: 'dd/MM/yyyy HH:mm:ss'}}</td>
+                    </tr>
 
+                </table>
 
-            <div class="form-group">
-                Amount<label>*</label><br>
-                <input type="number" class="form-control" formControlName="amount">
-                <div class="alert alert-danger"
-                    *ngIf="bankTransferForm.get('amount').hasError('required') && bankTransferForm.get('amount').dirty">
-                    Amount required
-                </div>
-                <div class="alert alert-danger"
-                    *ngIf="bankTransferForm.get('amount').hasError('min') && bankTransferForm.get('amount').dirty">
-                    Amount should be geater than 0
-                </div>
-            </div><br>
-
-            <div class="form-group">
-                Message<br>
-                <input type="text" class="form-control" formControlName="message">
-
-            </div><br>
-
-            <div class="form-group">
-                Transaction PIN <label>*</label><br>
-                
-                <div class="input-group">
-                    <input type="pin" [type]="hide?'text':'password'" class="form-control" formControlName="pin" data-toggle="pin"/>
-                    <div class="input-group-append">
-
-                        <div class="input-group-text"><i (click)="hide=!hide" [ngClass]="hide?'fa fa-eye':'fa fa-eye-slash'"></i></div>
-                    </div>
-                </div>
-
-            </div><br><br>
-            <button type="submit" class="btn btn-info" [disabled]="bankTransferForm.invalid"
-                style="margin-left: 30px">Transfer</button>&nbsp;&nbsp;
-            <button class="btn btn-info" type="reset">Reset</button>&nbsp;&nbsp;
+            </div>
+            <button class="btn btn-primary" style="margin-left: 630px" (click)="openPDF()">Download
+                Recepit</button>&nbsp;
+            &nbsp;&nbsp; &nbsp;
             <button class="btn btn-info" (click)=back()>Cancel</button>&nbsp;&nbsp;
 
-        </fieldset>
-    </form>
+        </div>
+    </div>
 
-</div>
+    <!--Bank Transfer -->
+    <div class="reglist" style="margin-top: 30px;" *ngIf=transferAmt>
+        <form novalidate [formGroup]="bankTransferForm" style="margin-left: 550px;width: 300px;"
+            (ngSubmit)="transferAmountByAccount()">
 
-<!--View Account Balance -->
-<div class="reglist" style="margin-top: 100px;">
-    <form novalidate [formGroup]="viewBalanceForm" style="margin-left: 550px;width: 300px;" (ngSubmit)="viewBalance()">
+            <h3>Enter Recipient Details</h3><br>
+            <h6>
+                <font color="red"> &nbsp;&nbsp;&nbsp;{{errorMessage}}</font>
+            </h6>
 
-        <fieldset>
-            <div class="form-group" *ngIf=viewBal>
-                <h3>View Account Balance</h3><br>
-                Transaction PIN<label>*</label><br>
+            <fieldset>
+
+                <div class="form-group">
+                    To Account Number<label>*</label><br>
+                    <input type="number" class="form-control" formControlName="recieverAccount">
+                    <div class="alert alert-danger"
+                        *ngIf="bankTransferForm.get('recieverAccount').hasError('required') && bankTransferForm.get('recieverAccount').dirty">
+                        Account Number is required
+                    </div>
+                </div><br>
+
+
+                <div class="form-group">
+                    Amount<label>*</label><br>
+                    <input type="number" class="form-control" formControlName="amount">
+                    <div class="alert alert-danger"
+                        *ngIf="bankTransferForm.get('amount').hasError('required') && bankTransferForm.get('amount').dirty">
+                        Amount required
+                    </div>
+                    <div class="alert alert-danger"
+                        *ngIf="bankTransferForm.get('amount').hasError('min') && bankTransferForm.get('amount').dirty">
+                        Amount should be geater than 0
+                    </div>
+                </div><br>
+
+                <div class="form-group">
+                    Message<br>
+                    <input type="text" class="form-control" formControlName="message">
+
+                </div><br>
+
+                <div class="form-group">
+                    Transaction PIN <label>*</label><br>
+
                     <div class="input-group">
-                        <input type="password" [type]="hide?'text':'password'" class="form-control" formControlName="password" data-toggle="password"/>
+                        <input type="pin" [type]="hide?'text':'password'" class="form-control" formControlName="pin"
+                            data-toggle="pin" />
                         <div class="input-group-append">
-    
-                            <div class="input-group-text"><i (click)="hide=!hide" [ngClass]="hide?'fa fa-eye':'fa fa-eye-slash'"></i></div>
+
+                            <div class="input-group-text"><i (click)="hide=!hide"
+                                    [ngClass]="hide?'fa fa-eye':'fa fa-eye-slash'"></i></div>
                         </div>
                     </div>
-            </div><br><br>
-            <button *ngIf=viewBal type="submit" class="btn btn-info" [disabled]="viewBalanceForm.invalid"
-                style="margin-left: 30px">Submit</button>&nbsp;&nbsp;
-            <button *ngIf=viewBal class="btn btn-info" type="reset">Reset</button>&nbsp;&nbsp;
-            <button *ngIf=viewBal class="btn btn-info" (click)=back()>Back</button>&nbsp;&nbsp;
 
-            <!--Show Balance -->
-            <div class="form-group" *ngIf=showBalance>
-                <label class="avail">AVAILABLE BALANCE</label><br><br>
-                <input style="text-align: center;" class="form-control" type="text" value={{senderBalance}}
-                    readonly><br><br>
+                </div><br><br>
+                <button type="submit" class="btn btn-info" [disabled]="bankTransferForm.invalid"
+                    style="margin-left: 30px">Transfer</button>&nbsp;&nbsp;
+                <button class="btn btn-info" type="reset">Reset</button>&nbsp;&nbsp;
+                <button class="btn btn-info" (click)=back()>Cancel</button>&nbsp;&nbsp;
 
-                <button style="margin-left: 130px;" class="avail" (click)=back()
-                    class="bt btn-info">Back</button>&nbsp;&nbsp;
-            </div>
-        </fieldset>
-    </form>
-</div>
+            </fieldset>
+        </form>
+
+    </div>
+
+    <!--View Account Balance -->
+    <div class="reglist" style="margin-top: 100px;">
+        <form novalidate [formGroup]="viewBalanceForm" style="margin-left: 550px;width: 300px;"
+            (ngSubmit)="viewBalance()">
+
+            <fieldset>
+                <div class="form-group" *ngIf=viewBal>
+                    <h3>View Account Balance</h3><br>
+                    Transaction PIN<label>*</label><br>
+                    <div class="input-group">
+                        <input type="password" [type]="hide?'text':'password'" class="form-control"
+                            formControlName="password" data-toggle="password" />
+                        <div class="input-group-append">
+
+                            <div class="input-group-text"><i (click)="hide=!hide"
+                                    [ngClass]="hide?'fa fa-eye':'fa fa-eye-slash'"></i></div>
+                        </div>
+                    </div>
+                </div><br><br>
+                <button *ngIf=viewBal type="submit" class="btn btn-info" [disabled]="viewBalanceForm.invalid"
+                    style="margin-left: 30px">Submit</button>&nbsp;&nbsp;
+                <button *ngIf=viewBal class="btn btn-info" type="reset">Reset</button>&nbsp;&nbsp;
+                <button *ngIf=viewBal class="btn btn-info" (click)=back()>Back</button>&nbsp;&nbsp;
+
+                <!--Show Balance -->
+                <div class="form-group" *ngIf=showBalance>
+                    <label class="avail">AVAILABLE BALANCE</label><br><br>
+                    <input style="text-align: center;" class="form-control" type="text" value={{senderBalance}}
+                        readonly><br><br>
+
+                    <button style="margin-left: 130px;" class="avail" (click)=back()
+                        class="bt btn-info">Back</button>&nbsp;&nbsp;
+                </div>
+            </fieldset>
+        </form>
+    </div>
 
 </body>

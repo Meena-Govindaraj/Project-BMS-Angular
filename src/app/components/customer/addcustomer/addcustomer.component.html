@@ -2,9 +2,9 @@
 
     <form novalidate [formGroup]="typeForm" style="margin-top: 100px;margin-left: 550px;width: 420px;"
         (ngSubmit)="addAccountType()">
-        
+
         <div class="form-group">
-            <h3 >Select type to create account</h3> 
+            <h3>Select type to create account</h3>
             <br>
             <div class="col-md-13">
                 Account Type <label for="type">*</label>
@@ -104,7 +104,8 @@
                     <div>
                         <select class="form-control form-control-lg" name="branch" formControlName="branch">
                             <option> </option>
-                            <option [ngValue]="b" *ngFor="let b of branches">{{b.city}}-{{b.name}}-{{b.ifscCode}}</option>
+                            <option [ngValue]="b" *ngFor="let b of branches">{{b.city}}-{{b.name}}-{{b.ifscCode}}
+                            </option>
                         </select>
 
                     </div>

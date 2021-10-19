@@ -29,23 +29,23 @@ export class AccountOperationsComponent implements OnInit {
   showBalance: boolean;
   transferAmt: boolean;
   shownav: boolean;
- 
+
   senderBalance: number;
   senderId: number;
   senderPIN: number;
 
-  senderDetails:Account;
+  senderDetails: Account;
 
   receiverId: number;
   sendAmount: number;
-  receiverDetails:Account;
+  receiverDetails: Account;
   transaction: Transaction;
   showDetails: boolean;
   date = new Date();
   invoice: boolean;
-  hide:boolean;
+  hide: boolean;
 
-  constructor(public activatedRoute: ActivatedRoute,public toasterService:ToasterserviceService, public formBuilder: FormBuilder, public transactionService: TransactionService, public router: Router, public customerService: CustomerService, public accountService: AccountService) { }
+  constructor(public activatedRoute: ActivatedRoute, public toasterService: ToasterserviceService, public formBuilder: FormBuilder, public transactionService: TransactionService, public router: Router, public customerService: CustomerService, public accountService: AccountService) { }
 
   ngOnInit(): void {
 
@@ -69,7 +69,7 @@ export class AccountOperationsComponent implements OnInit {
       pin: ['', [Validators.required, Validators.minLength(6)]],
     })
 
-    
+
     this.getAccountDetails();
   }
 
@@ -146,41 +146,41 @@ export class AccountOperationsComponent implements OnInit {
   transferAmountByAccount() {
     this.sendAmount = this.bankTransferForm.get('amount').value;
     //to get account id of reciever account 
-    if(this.senderDetails.accountType.accountNo==this.bankTransferForm.get('recieverAccount').value){
+    if (this.senderDetails.accountType.accountNo == this.bankTransferForm.get('recieverAccount').value) {
       this.toasterService.error("Please check Account No")
     }
-    else{
-    this.accountService.getAccountByaccountNo(this.bankTransferForm.get('recieverAccount').value)
-      .subscribe(data => {
-        this.receiverDetails = data.data;
+    else {
+      this.accountService.getAccountByaccountNo(this.bankTransferForm.get('recieverAccount').value)
+        .subscribe(data => {
+          this.receiverDetails = data.data;
 
-        if (this.receiverDetails != null) {
+          if (this.receiverDetails != null) {
 
-          this.receiverId = this.receiverDetails.id;
-          if (this.sendAmount > this.senderBalance)
-            this.availInfo("Available Balance: " + this.senderBalance);
+            this.receiverId = this.receiverDetails.id;
+            if (this.sendAmount > this.senderBalance)
+              this.availInfo("Available Balance: " + this.senderBalance);
 
-          //if savings account--->per transaction limit 20000 
-          else if (this.type == "Savings" && this.sendAmount > 20000)
-            this.wrongInfo("Payment Failed, Send money less than 20000")
+            //if savings account--->per transaction limit 20000 
+            else if (this.type == "Savings" && this.sendAmount > 20000)
+              this.wrongInfo("Payment Failed, Send money less than 20000")
 
-          else {
-            if (this.senderPIN == this.bankTransferForm.get('pin').value) {
-              this.accountService.bankTransfer(this.senderId, this.receiverId, this.sendAmount)
-                .subscribe(data => {
-                  this.transferAmt = false;
-                  this.invoice = true;
-                  this.success();
-                  this.addTransaction(this.sendAmount, this.senderDetails, this.receiverDetails)
-                  this.getAccountDetails();
-                })
+            else {
+              if (this.senderPIN == this.bankTransferForm.get('pin').value) {
+                this.accountService.bankTransfer(this.senderId, this.receiverId, this.sendAmount)
+                  .subscribe(data => {
+                    this.transferAmt = false;
+                    this.invoice = true;
+                    this.success();
+                    this.addTransaction(this.sendAmount, this.senderDetails, this.receiverDetails)
+                    this.getAccountDetails();
+                  })
+              }
+              else
+                this.wrongInfo("Wrong Transacation PIN!");
             }
-            else
-              this.wrongInfo("Wrong Transacation PIN!");
           }
-        }
 
-      }, err => { this.toasterService.error( "Please enter Correct Account No" )})
+        }, err => { this.toasterService.error("Please enter Correct Account No") })
     }
   }
 

@@ -32,7 +32,7 @@ export class ViewemployeesComponent implements OnInit {
         console.log(data);
         this.employee = data.data;
         this.config = { itemsPerPage: 5, currentPage: 1 }
- 
+
       }, err => {
         this.errorMessage = "NO DATA FOUND!!"
         console.log(err.error)
@@ -55,7 +55,7 @@ export class ViewemployeesComponent implements OnInit {
 
   //for pop up for deletion of Employee
   alertConfirmation(employeeId: number
-    ) {
+  ) {
     Swal.fire({
       title: 'Are you sure?',
       text: 'This process is irreversible.',

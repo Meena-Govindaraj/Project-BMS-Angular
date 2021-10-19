@@ -17,7 +17,7 @@ export class ChangepinComponent implements OnInit {
   type: string;
   signupForm?: FormGroup
   senderDetails: Observable<Account[]> | any;;
-  hide:boolean;
+  hide: boolean;
 
   constructor(public activatedRoute: ActivatedRoute, public formBuilder: FormBuilder, public router: Router, public accountService: AccountService) { }
 
@@ -45,19 +45,18 @@ export class ChangepinComponent implements OnInit {
   updatePassword() {
 
     console.log("updating password!!")
-    if(this.senderDetails.transactionPIN==this.signupForm.get('password').value){
-    this.accountService.updatePassword(this.senderDetails.id, this.signupForm.get('password').value, this.signupForm.get('newPassword').value)
-      .subscribe(data => {
-        console.log(data)
-        this.successNotification();
-      }
-      , err => {
-        console.log(err.error.message)
-        this.wrongInfo("Please Check your current Transaction PIN")
-      })
+    if (this.senderDetails.transactionPIN == this.signupForm.get('password').value) {
+      this.accountService.updatePassword(this.senderDetails.id, this.signupForm.get('password').value, this.signupForm.get('newPassword').value)
+        .subscribe(data => {
+          console.log(data)
+          this.successNotification();
+        }
+          , err => {
+            console.log(err.error.message)
+            this.wrongInfo("Please Check your current Transaction PIN")
+          })
     }
-    else
-    {
+    else {
       this.wrongInfo("Please Check your current Transaction PIN")
     }
 

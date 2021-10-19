@@ -18,14 +18,14 @@ export class CustomerloginComponent implements OnInit {
   getEmailForm: FormGroup
   resetPassword: boolean
   login: boolean
-  hide:boolean
+  hide: boolean
   constructor(public activatedRoute: ActivatedRoute, public customerService: CustomerService, public formBuilder: FormBuilder, public router: Router) { }
 
   ngOnInit(): void {
 
     this.login = true;
     this.customerLoginForm = this.formBuilder.group({
-      email: ['',[Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     })
     this.getEmailForm = this.formBuilder.group({

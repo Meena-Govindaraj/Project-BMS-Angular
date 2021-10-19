@@ -26,7 +26,7 @@ export class AddbranchComponent implements OnInit {
 
   //TO ADD BRANCH
   addBranch() {
- 
+
     this.branchService.addBranch(this.addBranchForm.value)
       .subscribe(
         res => {

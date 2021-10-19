@@ -17,8 +17,8 @@ import Swal from 'sweetalert2';
 export class EditEmployeeComponent implements OnInit {
 
   editEmployeeForm: FormGroup
-  branches:Branch[];
-  employee:Employee;
+  branches: Branch[];
+  employee: Employee;
   editBranch: boolean;
 
   constructor(public activatedRoute: ActivatedRoute, public toasterService: ToasterserviceService, public formBuilder: FormBuilder, public router: Router, public employeeService: EmployeeService, public branchService: BranchService) { }
@@ -31,7 +31,7 @@ export class EditEmployeeComponent implements OnInit {
 
     this.employeeService.getEmployeeById(employeeId)
       .subscribe(res => {
-        this.employee=res.data;
+        this.employee = res.data;
         this.editEmployeeForm = this.formBuilder.group({
           id: [this.employee.id, [Validators.required]],
           name: [this.employee.name, [Validators.required, Validators.minLength(3)]],
@@ -41,7 +41,7 @@ export class EditEmployeeComponent implements OnInit {
           address: [this.employee.address, [Validators.required]],
           salary: [this.employee.salary, [Validators.required, Validators.min(0)]],
           branch: [this.employee.branch, Validators.required],
-          createdDate:[this.employee.createdDate]
+          createdDate: [this.employee.createdDate]
         })
       })
 
@@ -60,8 +60,8 @@ export class EditEmployeeComponent implements OnInit {
 
   updateEmployee() {
     console.log(this.editEmployeeForm.value)
-    var emp:Employee;
-    emp=this.editEmployeeForm.value
+    var emp: Employee;
+    emp = this.editEmployeeForm.value
     this.employeeService.updateEmployee(emp)
       .subscribe(
         response => {

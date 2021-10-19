@@ -1,18 +1,18 @@
 
 
-.pointer 
-{cursor: pointer;
+.pointer {
+    cursor: pointer;
     color:maroon;}
  
-        h3{
-            margin-left: 3px;
-            width: 600px;
-            color:darkslategrey
-        }
+ h3{
+    margin-left: 3px;
+    width: 600px;
+    color:darkslategrey     
+ }
 
-        label{
-            color:red;
-        }
-        body form{
-            background-color:honeydew;
-        }
+label{
+    color:red;   
+}
+body form{
+    background-color:honeydew;
+}

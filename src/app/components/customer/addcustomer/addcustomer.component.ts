@@ -75,7 +75,7 @@ export class AddcustomerComponent implements OnInit {
 
   addAccountType() {
     var accountType: Accountype;
-    var cust:Customer;
+    var cust: Customer;
     accountType = this.typeForm.value;
     this.customerService.getCustomerByMobileNo(this.signupForm.get('mobileNo').value)
       .subscribe(

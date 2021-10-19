@@ -15,7 +15,7 @@ export class EditbranchComponent implements OnInit {
 
   editBranchForm: FormGroup
   errorMessage: string
- 
+
   constructor(public activatedRoute: ActivatedRoute, public toasterService: ToasterserviceService, public formBuilder: FormBuilder, public branchService: BranchService, public router: Router) { }
 
   ngOnInit(): void {
@@ -23,7 +23,7 @@ export class EditbranchComponent implements OnInit {
     var branch: Branch;
     var branchId: number;
     branchId = this.activatedRoute.snapshot.params['branchId'];
-    console.log("####branchId: ",branchId)
+    console.log("####branchId: ", branchId)
 
     //to retrive branch data
     this.branchService.getBranchById(branchId)

@@ -29,8 +29,8 @@ export class ViewcustomersComponent implements OnInit {
   viewTrans: boolean;
   viewCus: boolean;
   searchCus: any;
-  employee:Employee;
-  
+  employee: Employee;
+
   constructor(public activatedRoute: ActivatedRoute, public toasterService: ToasterserviceService, public formBuilder: FormBuilder, public router: Router, public employeeService: EmployeeService, public accountService: AccountService, public customerService: CustomerService, public transactionService: TransactionService) { }
 
   ngOnInit(): void {
@@ -39,9 +39,9 @@ export class ViewcustomersComponent implements OnInit {
     console.log(this.employeeId)
 
     this.employeeService.getEmployeeById(this.employeeId)
-    .subscribe(res => {
-      this.employee=res.data;
-    });
+      .subscribe(res => {
+        this.employee = res.data;
+      });
 
     this.employeeIfsc = this.activatedRoute.snapshot.params['employeeIfsc'];
     console.log(this.employeeIfsc)
@@ -175,9 +175,9 @@ export class ViewcustomersComponent implements OnInit {
     this.router.navigate(['employeeop', this.employeeId])
   }
   back() {
-    this.router.navigate(['viewcustomers',this.employeeIfsc,this.employeeId])
-    this.viewTrans=false;
-    this.viewCus=true;
-  
+    this.router.navigate(['viewcustomers', this.employeeIfsc, this.employeeId])
+    this.viewTrans = false;
+    this.viewCus = true;
+
   }
 }
